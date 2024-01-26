@@ -167,7 +167,7 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum
     var contf = 1
-    var pares = [3.1,3.2,3.3,3.4,3.5,4.1,4.2,4.3]
+    var pares = [3.1,3.2,3.3,3.4,3.5,4.1,4.2,4.3,4.4]
     var polis=[4,6,8,10,12,16,18,20,32]
     var pary=[...pares]
     var poly=[...polis]
@@ -342,7 +342,7 @@ table {
 
 
     function reini(iimg, w, h) {
-        img=loadImage(iimg)
+        //img=loadImage(iimg)
         cfoto = [{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "p0a2OHWO1TXUnHfq4zQVDG5lPa1AReHkVwjj39yKGlQ7Ot6QO1", "img": "" }]
         slices = cfoto[0].n
         cfoto[0].img = iimg
@@ -401,7 +401,9 @@ table {
 
         });
         $(".usy").click(function(e) {
-            reini(imgN, cfoto[0].W, cfoto[0].W)
+            img=loadImage(imgN,()=>{
+                reini(imgN, cfoto[0].W, cfoto[0].W)
+             });
 
         });
         $(".vary").click(function(e) {
@@ -774,7 +776,41 @@ shapes.set(4.2, (n, d, tr, an, x, y) => {
     pop();
   });
   
+    shapes.set(4.4, (n, d, tr, an, x, y) => {
+    var title = "grid on square";
+    var l = min(width, height);
+    shape2 = createGraphics(l, l, WEBGL);
+    tr.rtt += -HALF_PI;
+    //random(height);
+    push();
+    shape2.scale(tr.scl, tr.scl);
+    shape2.rotate(tr.rtt);
+    translate(width / 2 + tr.trx, height / 2 + tr.try);
+    var ang = HALF_PI;
+    push();
+    cutTriangle(x, y,8, l, d, ang);
+    shape2.scale(-1, 1);
+    cutTriangle(x, y, 8, l, d, ang);
+      shape2.scale(-1, -1);
+    cutTriangle(x, y, 8, l, d, ang);
+    shape2.scale(-1, 1);
+    cutTriangle(x, y, 8, l, d, ang);
+    pop();
   
+    push();
+    cutTriangle(x, y, 6, l, d, ang);
+    shape2.scale(-1, 1);
+    cutTriangle(x, y, 6, l, d, ang);
+    //shape2.rotate(ang*2);
+    shape2.scale(-1, -1);
+    cutTriangle(x, y, 6, l, d, ang);
+    shape2.scale(-1, 1);
+    cutTriangle(x, y, 6, l, d, ang);
+    pop();
+  
+    image(shape2, 0, 0);
+    pop();
+  });
 }
 
 function cutTriangle(x, y, n, r, d, an = 1) {
@@ -922,8 +958,15 @@ function cutTriangle(x, y, n, r, d, an = 1) {
       x + d * cos(0),
       y + d * sin(0)
     );
-   
-    
+    shape2.endShape(CLOSE);
+  }
+   if (n == 8) {
+    shape2.beginShape(TRIANGLE_STRIP);
+    shape2.texture(img);
+    shape2.noStroke();
+    shape2.vertex(0, r, 0, x, y + d);
+    shape2.vertex(r, r, 0, x + d, y + d);
+    shape2.vertex(r, 0, 0, x + d, y);
     shape2.endShape(CLOSE);
   }
 }
