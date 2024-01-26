@@ -168,7 +168,7 @@ table {
     var showr, showl, reloadi, savef, inum
     var contf = 1
     var pares = [3.1, 3.2, 3.3, 3.4, 3.5, 4.1, 4.2, 4.3, 4.4, 4.5]
-    var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32]
+    var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
     var pary = [...pares]
     var poly = [...polis]
     //pares = [3.1, 3.2, 2.4, 3.3, 2.2, 3.2, 3.3, 3]
@@ -699,25 +699,30 @@ table {
         shapes.set(3.5, (n, d, tr, an, x, y) => {
             var title = "sector circle and repeat n times with symm";
             var l = min(width, height);
-            shape2 = createGraphics(l, l, WEBGL);
-            tr.rtt += -HALF_PI
+            shape2 = createGraphics(l * 1, l * 1, WEBGL);
+            tr.rtt += -HALF_PI;
             //random(height);
-            push();
-            shape2.scale(tr.scl, tr.scl);
+            shape2.push();
+           
+            //shape2.scale(tr.scl, tr.scl);
+            shape2.scale(0.5, 0.5); 
             shape2.rotate(tr.rtt);
-            translate(width / 2 + tr.trx, height / 2 + tr.try);
+            shape2.translate(tr.trx, tr.try);
+
+            
+            //shape2.translate(450,450)
             var ang = TWO_PI / n;
-            for (var a = 0; a < n; a++) {
-                push();
+            for (var a = 0; a < floor(n / 2); a++) {
+                shape2.rotate(ang * 2);
+                shape2.push();
                 cutTriangle(x, y, 6, l, d, ang);
                 shape2.scale(-1, 1);
                 shape2.rotate(PI - ang * 2);
                 cutTriangle(x, y, 6, l, d, ang);
-                pop();
-                shape2.rotate(ang * 2 * a);
+                shape2.pop();
             }
             image(shape2, 0, 0);
-            pop();
+            shape2.pop();
         });
 
         shapes.set(4.1, (n, d, tr, an, x, y) => {
@@ -800,51 +805,51 @@ table {
             pop();
         });
 
-          shapes.set(4.5, (n, d, tr, an, x, y) => {
+        shapes.set(4.5, (n, d, tr, an, x, y) => {
             var title = "2 triangles in quart square";
             var l = min(width, height);
             shape2 = createGraphics(l, l, WEBGL);
-             shape2.textureWrap(MIRROR);
+            shape2.textureWrap(MIRROR);
             shape2.push();
             shape2.scale(tr.scl, tr.scl);
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
-            var ang = HALF_PI; 
-            var td=l/2
-            
+            var ang = HALF_PI;
+            var td = l / 2
+
             shape2.push()
-            shape2.translate(-td,-td)
+            shape2.translate(-td, -td)
             cutTriangle(x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
             cutTriangle(x, y, 9, l, d, ang);
             shape2.pop()
-             
-             //shape2.rotate(-ang * 1);
-             //shape2.scale(-1, -1);0
-            
-          shape2.push() 
-             shape2.translate(td*1,td*1)
-             shape2.scale(-1, -1);
+
+            //shape2.rotate(-ang * 1);
+            //shape2.scale(-1, -1);0
+
+            shape2.push()
+            shape2.translate(td * 1, td * 1)
+            shape2.scale(-1, -1);
             cutTriangle(x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
             cutTriangle(x, y, 9, l, d, ang);
             shape2.pop()
-     
-      shape2.push() 
-           
-             shape2.translate(-td,td)
-             shape2.scale(1,-1)
+
+            shape2.push()
+
+            shape2.translate(-td, td)
+            shape2.scale(1, -1)
             cutTriangle(x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
             cutTriangle(x, y, 9, l, d, ang);
             shape2.pop()
-     
-      shape2.push() 
-             shape2.translate(td,-td)
-             shape2.scale(-1,1)
+
+            shape2.push()
+            shape2.translate(td, -td)
+            shape2.scale(-1, 1)
             cutTriangle(x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
