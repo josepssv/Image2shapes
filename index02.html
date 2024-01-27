@@ -172,10 +172,10 @@ table {
     var pary = [...pares]
     var poly = [...polis]
     //pares = [3.1, 3.2, 2.4, 3.3, 2.2, 3.2, 3.3, 3]
-    var cfoto = [{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "", "img": "" }]
+    var cfoto = [{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "p0a2OHWO1TXUnHfq4zQVDG5lPa1AReHkVwjj39yKGlQ7Ot6QO1", "img": "" }]
     var caddy = [...cfoto]
     var slices = 24;
-    var img=[];
+    var img;
     var started = false
     var imgsize = { w: 10, h: 10, propor: 1, cursor: 40 }
     var dallimgs
@@ -185,8 +185,6 @@ table {
     var nfoto = []
     var nShape = 1;
     var savedSucure;
-    let org=1
-    var lastfoto=0
     const shapes = new Map();
     //const upscaler = new Upscaler({ model: DefaultUpscalerJSModel,  })
     //const upscaler = new Upscaler({ model: UpscalerJSMaximDeblurring, })
@@ -218,7 +216,7 @@ table {
         });
         $(".showSelected").click(function(e) {
             savedSecure = [...cfoto]
-            cfoto[lastfoto] = [...caddy]
+            cfoto = [...caddy]
             contf = 1
             codehtml = ''
             dallimgs.html('')
@@ -236,7 +234,7 @@ table {
             $(".capadibujo").show();
             //img2 = loadImage(file.data)
 
-            img[1] = loadImage(
+            img = loadImage(
                 file.data,
                 () => {
                     //alert('Selected file: ' + file.value);
@@ -253,7 +251,7 @@ table {
                     imageMode(CENTER);
                     dmy = select('#myShape')
                     $('.shape').show()
-                    reini(file.data, img[1].width, img[1].height)
+                    reini(file.data, img.width, img.height)
                 },
                 () => print('Image Failed to Load.'),
             );
@@ -267,24 +265,24 @@ table {
     }
 
     function draw() {
-        var tt = '<div style="color:#888;margin-top:100px;font-size:33px;">' + (contf) + ' ' + (cfoto[lastfoto].length - 1) + ' shapes</div>'
+        var tt = '<div style="color:#888;margin-top:100px;font-size:33px;">' + (contf) + ' ' + (cfoto.length - 1) + ' shapes</div>'
         $('#myShape').html(tt)
         //console.log('FOTO ',contf,cfoto.length)
         if (started) {
             if (contmore == 1) { select('#footer').show() }
             //dallimgs.html('<span style="margin-top:100px;font-size:33px;">'+contf+' '+cfoto.length-1+'</span>')
-            slices = cfoto[lastfoto][contf].n
-            var d = cfoto[lastfoto][contf].d
+            slices = cfoto[contf].n
+            var d = cfoto[contf].d
             var modo = 'triRegular'
             if (slices < 3) {
                 modo = 'quad'
             }
             drawbill(contf, W, H, slices, d, modo)
             contf++
-            if (contf >= cfoto[lastfoto].length) {
+            if (contf >= cfoto.length) {
                 noLoop()
                 //$('.capadibujo').show()
-                contf = cfoto[lastfoto].length
+                contf = cfoto.length
                 poly = [...polis]
                 pary = [...pares]
                 codehtml += '<center><button type="button" class="convert more" id="m' + contmore + '" style="display:block;">More</button></center>'
@@ -305,7 +303,7 @@ table {
                 $(".more").on("click", function() {
                     $('.shape').show()
                     contmore++
-                    newRandco(cfoto[lastfoto][0].w, cfoto[lastfoto][0].h, 4, 4, 0)
+                    newRandco(cfoto[0].w, cfoto[0].h, 4, 4, 0)
                     console.log()
                     $("button").remove(".more");
                     //$("button").remove(".saveImages");
@@ -322,10 +320,9 @@ table {
         background(0, 0)
         clear()
         factor = 0.5
-        var x = cfoto[lastfoto][conti].x;
-        var y = cfoto[lastfoto][conti].y;
-        var p = cfoto[lastfoto][conti].p;
-        org=cfoto[lastfoto][conti].org
+        var x = cfoto[conti].x;
+        var y = cfoto[conti].y;
+        var p = cfoto[conti].p;
         var ang = 1 * random(1)
         var ns = floor(random(0, polis.length))
         var nsides = polis[ns]
@@ -343,27 +340,26 @@ table {
 
     }
 
- 
+
     function reini(iimg, w, h) {
         //img=loadImage(iimg)
-        cfoto.push([{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "p0a2OHWO1TXUnHfq4zQVDG5lPa1AReHkVwjj39yKGlQ7Ot6QO1", "img": "" }])
-        lastfoto=cfoto.length-1
-        slices = cfoto[lastfoto][0].n
-        cfoto[lastfoto][0].img = iimg
+        cfoto = [{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "p0a2OHWO1TXUnHfq4zQVDG5lPa1AReHkVwjj39yKGlQ7Ot6QO1", "img": "" }]
+        slices = cfoto[0].n
+        cfoto[0].img = iimg
         started = true
         codehtml = ''
         nfoto = []
-        cfoto[lastfoto][0].W = W
-        cfoto[lastfoto][0].w = w
-        cfoto[lastfoto][0].h = h
-        cfoto[lastfoto][0].id = makeid(50)
-        caddy = [...cfoto[lastfoto]]
+        cfoto[0].W = W
+        cfoto[0].w = w
+        cfoto[0].h = h
+        cfoto[0].id = makeid(50)
+        caddy = [...cfoto]
         nfoto = []
         contf = 1
         nShape = 1;
         dallimgs.html(codehtml)
         $('.shape').show()
-        newRandco(cfoto[lastfoto][0].w, cfoto[lastfoto][0].h, 4, 4, 0)
+        newRandco(cfoto[0].w, cfoto[0].h, 4, 4, 0)
         loop();
     }
 
@@ -393,9 +389,9 @@ table {
         dla.show()
         var dmy = select('#myShape')
         imgN = select('#' + n + '').attribute('src');
-        //var code = '<img class=".selectef" src="' + imgN + '" width="' + cfoto[lastfoto][0].W + 'px">';
+        //var code = '<img class=".selectef" src="' + imgN + '" width="' + cfoto[0].W + 'px">';
         var code = '<img class=".selectef" src="' + imgN + '" width="' + 400 + 'px">';
-        code += '<br><span style="color:#ddd;font-size:12px;">' + JSON.stringify(cfoto[lastfoto][nShape]) + '</span>';
+        code += '<br><span style="color:#ddd;font-size:12px;">' + JSON.stringify(cfoto[nShape]) + '</span>';
         code += '<br><button class="convert addy">Add</button>'
         code += '<button class="convert simy" style="background-color:#a66;">Similary</button>'
         code += '<button class="convert usy" style="background-color:#a6a;">Use</button>'
@@ -404,37 +400,34 @@ table {
         dmy.html(code)
 
         $(".addy").click(function(e) {
-            console.log(JSON.stringify(cfoto[lastfoto][nShape]))
-            caddy.push(cfoto[lastfoto][nShape])
+            console.log(JSON.stringify(cfoto[nShape]))
+            caddy.push(cfoto[nShape])
 
         });
         $(".usy").click(function(e) {
-            caddy.push(cfoto[lastfoto][nShape])
-            img[(lastfoto+1)] = loadImage(imgN, () => {
-                //reini(imgN, cfoto[lastfoto][0].W, cfoto[lastfoto][0].W)
-                var rry = [cfoto[lastfoto][nShape].n, cfoto[lastfoto][nShape].n]
-                var lly = [cfoto[lastfoto][nShape].p, cfoto[lastfoto][nShape].p]
-                cfoto.push([...cfoto[lastfoto]])
-                lastfoto=cfoto.length-1
-                cfoto[lastfoto][0].img = imgN
+            caddy.push(cfoto[nShape])
+            img = loadImage(imgN, () => {
+                //reini(imgN, cfoto[0].W, cfoto[0].W)
+                var rry = [cfoto[nShape].n, cfoto[nShape].n]
+                var lly = [cfoto[nShape].p, cfoto[nShape].p]
                 pary = fillRandom(rry, 10)
                 poly = fillRandom(lly, 10)
                 $('.shape').show()
                 contmore++
-                newRandco(cfoto[lastfoto][0].w, cfoto[lastfoto][0].h, 4, 4, 0)
+                newRandco(cfoto[0].w, cfoto[0].h, 4, 4, 0)
                 $("button").remove(".more");
                 loop()
                 });
 
         });
         $(".simy").click(function(e) {
-            var rry = [cfoto[lastfoto][nShape].n, cfoto[lastfoto][nShape].n]
-            var lly = [cfoto[lastfoto][nShape].p, cfoto[lastfoto][nShape].p]
+            var rry = [cfoto[nShape].n, cfoto[nShape].n]
+            var lly = [cfoto[nShape].p, cfoto[nShape].p]
             pary = fillRandom(rry, 10)
             poly = fillRandom(lly, 10)
             $('.shape').show()
             contmore++
-            newRandco(cfoto[lastfoto][0].w, cfoto[lastfoto][0].h, 4, 4, 0)
+            newRandco(cfoto[0].w, cfoto[0].h, 4, 4, 0)
             $("button").remove(".more");
             loop()
         });
@@ -495,13 +488,13 @@ table {
                 let x = column * width / columns - margin;
                 let y = row * height / rows - margin;
                 if (x <= 0) {
-                    x = parseInt(Math.random() * (cfoto[lastfoto][0].w - diagonal2))
+                    x = parseInt(Math.random() * (cfoto[0].w - diagonal2))
                 }
                 if (y <= 0) {
-                    y = parseInt(Math.random() * (cfoto[lastfoto][0].h - diagonal2))
+                    y = parseInt(Math.random() * (cfoto[0].h - diagonal2))
                 }
 
-                cfoto[lastfoto].push({
+                cfoto.push({
                     x: x,
                     y: y,
                     n: pary[npair]
@@ -526,17 +519,16 @@ table {
                 //let x = column * width / columns - margin;
                 //let y = row * height / rows - margin;
                 //if (x <= 0) {
-                x = parseInt(Math.random() * (cfoto[lastfoto][0].w - margin))
+                x = parseInt(Math.random() * (cfoto[0].w - margin))
                 //}
                 //if (y <= 0) {
-                y = parseInt(Math.random() * (cfoto[lastfoto][0].h - margin))
+                y = parseInt(Math.random() * (cfoto[0].h - margin))
                 //}
                 pxy = min(w - x, h - y)
                 dr = random(margin, w - pxy)
                 pr = pary[floor(random(0, pary.length))]
                 pl = poly[floor(random(0, poly.length))]
-                cfoto[lastfoto].push({
-                    org:lastfoto,
+                cfoto.push({
                     x: x,
                     y: y,
                     n: pr,
@@ -562,7 +554,7 @@ table {
         }
         margin = random(10, 50)
         var cont = 1
-        cfoto[lastfoto].splice(1, cfoto[lastfoto].length);
+        cfoto.splice(1, cfoto.length);
         var pr = pary[floor(random(0, pary.length))]
         var npair = 0
         for (let row = 0; row < rows; row++) {
@@ -570,13 +562,13 @@ table {
                 let x = column * width / columns - margin;
                 let y = row * height / rows - margin;
                 if (x <= 0) {
-                    x = parseInt(Math.random() * (cfoto[lastfoto][0].w - diagonal2))
+                    x = parseInt(Math.random() * (cfoto[0].w - diagonal2))
                 }
                 if (y <= 0) {
-                    y = parseInt(Math.random() * (cfoto[lastfoto][0].h - diagonal2))
+                    y = parseInt(Math.random() * (cfoto[0].h - diagonal2))
                 }
 
-                cfoto[lastfoto].push({
+                cfoto.push({
                     x: x,
                     y: y,
                     n: pary[npair]
@@ -629,9 +621,9 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             push();
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(x, y, cutname, l, d);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(x, y, cutname, l, d);
             pop();
 
             image(shape2, 0, 0);
@@ -650,21 +642,21 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             push();
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(x, y, cutname, l, d);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(x, y, cutname, l, d);
             pop();
             push();
             shape2.rotate(HALF_PI + HALF_PI / 3);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(x, y, cutname, l, d);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(x, y, cutname, l, d);
             pop();
             push();
             shape2.rotate(-HALF_PI - HALF_PI / 3);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(x, y, cutname, l, d);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(x, y, cutname, l, d);
             pop();
 
             image(shape2, 0, 0);
@@ -683,9 +675,9 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             push();
-            cutTriangle(org,x, y, 4, l, d, an);
+            cutTriangle(x, y, 4, l, d, an);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, 4, l, d, an);
+            cutTriangle(x, y, 4, l, d, an);
 
             pop();
 
@@ -705,9 +697,9 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             push();
-            cutTriangle(org,x, y, 5, l, d, an);
+            cutTriangle(x, y, 5, l, d, an);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, 5, l, d, an);
+            cutTriangle(x, y, 5, l, d, an);
 
             pop();
 
@@ -734,10 +726,10 @@ table {
             for (var a = 0; a < floor(n / 2); a++) {
                 shape2.rotate(ang * 2);
                 shape2.push();
-                cutTriangle(org,x, y, 6, l, d, ang);
+                cutTriangle(x, y, 6, l, d, ang);
                 shape2.scale(-1, 1);
                 shape2.rotate(PI - ang * 2);
-                cutTriangle(org,x, y, 6, l, d, ang);
+                cutTriangle(x, y, 6, l, d, ang);
                 shape2.pop();
             }
             image(shape2, 0, 0);
@@ -754,9 +746,9 @@ table {
             shape2.scale(tr.scl, tr.scl);
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
-            cutSquare(org,x, y, 1, l, d, null)
+            cutSquare(x, y, 1, l, d, null)
             shape2.scale(-1, 1);
-            cutSquare(org,x, y, 1, l, d, null)
+            cutSquare(x, y, 1, l, d, null)
             image(shape2, 0, 0);
             pop();
         });
@@ -771,9 +763,9 @@ table {
             shape2.scale(tr.scl, tr.scl);
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
-            cutSquare(org,x, y, 2, l, d, d2)
+            cutSquare(x, y, 2, l, d, d2)
             shape2.scale(-1, 1);
-            cutSquare(org,x, y, 2, l, d, d2)
+            cutSquare(x, y, 2, l, d, d2)
             image(shape2, 0, 0);
             pop();
         });
@@ -791,10 +783,10 @@ table {
             var ang = TWO_PI / n;
             for (var a = 0; a < n; a++) {
                 push();
-                cutTriangle(org,x, y, 7, l, d, ang + (ang * 0));
+                cutTriangle(x, y, 7, l, d, ang + (ang * 0));
                 shape2.scale(-1, 1);
                 shape2.rotate(PI - (ang * 2) * 2);
-                cutTriangle(org,x, y, 7, l, d, ang + (ang * 0));
+                cutTriangle(x, y, 7, l, d, ang + (ang * 0));
                 pop();
                 shape2.rotate(ang * 2 * a);
             }
@@ -813,13 +805,13 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             var ang = HALF_PI;
-            cutSquare(org,x, y, 3, l, d, ang);
+            cutSquare(x, y, 3, l, d, ang);
             shape2.scale(-1, 1);
-            cutSquare(org,x, y, 3, l, d, ang);
+            cutSquare(x, y, 3, l, d, ang);
             shape2.scale(-1, -1);
-            cutSquare(org,x, y, 3, l, d, ang);
+            cutSquare(x, y, 3, l, d, ang);
             shape2.scale(-1, 1);
-            cutSquare(org,x, y, 3, l, d, ang);
+            cutSquare(x, y, 3, l, d, ang);
             image(shape2, 0, 0);
             pop();
         });
@@ -838,10 +830,10 @@ table {
 
             shape2.push()
             shape2.translate(-td, -td)
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(x, y, 9, l, d, ang);
             shape2.pop()
 
             //shape2.rotate(-ang * 1);
@@ -850,29 +842,29 @@ table {
             shape2.push()
             shape2.translate(td * 1, td * 1)
             shape2.scale(-1, -1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(x, y, 9, l, d, ang);
             shape2.pop()
 
             shape2.push()
 
             shape2.translate(-td, td)
             shape2.scale(1, -1)
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(x, y, 9, l, d, ang);
             shape2.pop()
 
             shape2.push()
             shape2.translate(td, -td)
             shape2.scale(-1, 1)
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(x, y, 9, l, d, ang);
             shape2.pop()
             image(shape2, 0, 0);
             shape2.pop();
@@ -880,10 +872,10 @@ table {
 
     }
 
-    function cutTriangle(org,x, y, n, r, d, an = 1) {
+    function cutTriangle(x, y, n, r, d, an = 1) {
         if (n == 1) {
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.vertex(0, r, 0, x, y + d);
             shape2.vertex(r, r, 0, x + d, y + d);
@@ -892,7 +884,7 @@ table {
         }
         if (n == 2) {
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             shape2.vertex(0, 0 + r * sin(HALF_PI / 3), 0, x, y + d * sin(HALF_PI / 3));
@@ -910,7 +902,7 @@ table {
         if (n == 3) {
             //Cut arrow 1/3 from regular triangle
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             shape2.vertex(0, 0, 0, x, y);
@@ -934,7 +926,7 @@ table {
         if (n == 4) {
             //Cut arrow aperture from regular triangle
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             shape2.vertex(0, 0, 0, x, y);
@@ -958,7 +950,7 @@ table {
         if (n == 5) {
             //Cut isosceles aperture from regular triangle
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             shape2.vertex(0, r * sin(an), 0, x, y + d * sin(an));
@@ -982,7 +974,7 @@ table {
         if (n == 6) {
             //Cut section from circle
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             shape2.vertex(0, 0, 0, x, y);
@@ -1006,7 +998,7 @@ table {
         if (n == 7) {
             //Cut semi section deltoid from circle
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             shape2.vertex(0, 0, 0, x, y);
@@ -1029,7 +1021,7 @@ table {
         }
         if (n == 8) {
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.vertex(0, r, 0, x, y + d);
             shape2.vertex(r, r, 0, x + d, y + d);
@@ -1039,7 +1031,7 @@ table {
         if (n == 9) {
             //Cut semi section quart squrae centered
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             shape2.vertex(
@@ -1067,11 +1059,11 @@ table {
         }
     }
 
-    function cutSquare(org,x, y, n, r, d, an = 1) {
+    function cutSquare(x, y, n, r, d, an = 1) {
         if (n == 1) {
             //cut half square
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             d = d / 4;
@@ -1084,7 +1076,7 @@ table {
         if (n == 2) {
             // cut half rectangle
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             d = d / 2;
@@ -1097,7 +1089,7 @@ table {
         if (n == 3) {
             // cut quarter rectangle
             shape2.beginShape(TRIANGLE_STRIP);
-            shape2.texture(img[org]);
+            shape2.texture(img);
             shape2.noStroke();
             shape2.imageMode(CENTER);
             d = d / 2;
