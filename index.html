@@ -134,7 +134,7 @@ table {
             </center>
         </div>
         <div id="footer" style="position: fixed; bottom: 0; margin-top: 0; padding-top: 0; vertical-align: top; width: 100%;  height: 40px; display:none;background-color:rgba(0,0,0,0.8); align-items: flex-start;">
-            <button type="button" class="butty saveImages" style="background-color:#444;margin-left:44px;">Save Images</button>
+            <button type="button" class="butty saveImages" style="display:none;background-color:#444;margin-left:44px;">Save Images</button>
             <button class="butty showSelected" style="background-color:#888;margin-left:33px;">Show selected</button>
             <button type="button" class="butty saveCode" style="background-color:#444;margin-left:44px;">Save code</button>
         </div>
@@ -177,7 +177,7 @@ table {
     //var caddy = [...cfoto]
     var caddy = []
     var slices = 24;
-    var img=[];
+    var img = [];
     var started = false
     var imgsize = { w: 10, h: 10, propor: 1, cursor: 40 }
     var dallimgs
@@ -187,9 +187,9 @@ table {
     var nfoto = []
     var nShape = 1;
     var savedSucure;
-    let org=0
-    var lastfoto=-1
-    var idSession=''
+    let org = 0
+    var lastfoto = -1
+    var idSession = ''
     const shapes = new Map();
     //const upscaler = new Upscaler({ model: DefaultUpscalerJSModel,  })
     //const upscaler = new Upscaler({ model: UpscalerJSMaximDeblurring, })
@@ -221,7 +221,7 @@ table {
         });
         $(".showSelected").click(function(e) {
             savedSecure = [...cfoto]
-            caddy=[]
+            caddy = []
             /*cfoto.forEach(array => {
               if (Array.isArray(array)) {
                 const objeto = { ...array[0] }; // Copiamos el elemento 0 de cada subarray
@@ -235,37 +235,43 @@ table {
             });
             */
 
-          
-              //caddy = []
-              caddy.push({...cfoto[lastfoto][0]});
 
-              cfoto.forEach(array => {
+            //caddy = []
+            caddy.push({ ...cfoto[lastfoto][0] });
+
+            cfoto.forEach(array => {
                 if (Array.isArray(array)) {
-                  array.forEach(objeto => {
-                    if (objeto.select === true) {
-                      caddy.push(objeto);
-                      //-->objeto.select=false
-                      }
-                  });
+                    array.forEach(objeto => {
+                        if (objeto.select === true) {
+                            const duplicado = caddy.some(obj => JSON.stringify(obj) === JSON.stringify(objeto));
+                            if (duplicado) {
+                                duplicado.select = false;
+                            } else {
+                                caddy.push(objeto);
+                            }
+                            //caddy.push(objeto);
+                            //-->objeto.select=false
+                        }
+                    });
                 }
-              });
+            });
             //cfoto[lastfoto] = [...caddy]
-            
-            
-           //cfoto[lastfoto] = [...caddy
+
+
+            //cfoto[lastfoto] = [...caddy
             cfoto.push(caddy)
-            lastfoto=cfoto.length-1
-            console.log('lastfoto: '+lastfoto)
+            lastfoto = cfoto.length - 1
+            console.log('lastfoto: ' + lastfoto)
             contf = 1
             codehtml = ''
             dallimgs.html('')
             //img.push(cfoto[lastfoto][0].img)
-            img[img.length]=loadImage(
+            img[img.length] = loadImage(
                 cfoto[lastfoto][0].img,
-                 () => {
-                 slices = cfoto[lastfoto][0].n
-                 loop()
-            },
+                () => {
+                    slices = cfoto[lastfoto][0].n
+                    loop()
+                },
                 () => print('Image Failed to Load.'),
             );
 
@@ -285,7 +291,7 @@ table {
                 () => {
                     //alert('Selected file: ' + file.value);
                     //$(".preload").show();
-                    idSession= makeid(50)
+                    idSession = makeid(50)
                     canvasbill = createCanvas(W, H);
                     iniShapes()
                     canvasbill.parent('#bill')
@@ -311,9 +317,9 @@ table {
     }
 
     function draw() {
-        if(lastfoto>=0){
-        var tt = '<div style="color:#888;margin-top:100px;font-size:33px;">' + (contf) + ' ' + (cfoto[lastfoto].length - 1) + ' shapes</div>'
-        $('#myShape').html(tt)
+        if (lastfoto >= 0) {
+            var tt = '<div style="color:#888;margin-top:100px;font-size:33px;">' + (contf) + ' ' + (cfoto[lastfoto].length - 1) + ' shapes</div>'
+            $('#myShape').html(tt)
         }
         //console.log('FOTO ',contf,cfoto.length)
         if (started) {
@@ -367,7 +373,7 @@ table {
         var x = cfoto[lastfoto][conti].x;
         var y = cfoto[lastfoto][conti].y;
         var p = cfoto[lastfoto][conti].p;
-        org= cfoto[lastfoto][conti].org;
+        org = cfoto[lastfoto][conti].org;
         var ang = 1 * random(1)
         var ns = floor(random(0, polis.length))
         var nsides = polis[ns]
@@ -385,17 +391,17 @@ table {
 
     }
 
- 
+
     function reini(iimg, w, h) {
         //img=loadImage(iimg) 
 
         cfoto.push([{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "p0a2OHWO1TXUnHfq4zQVDG5lPa1AReHkVwjj39yKGlQ7Ot6QO1", "img": "" }])
-        lastfoto=cfoto.length-1
+        lastfoto = cfoto.length - 1
 
         //console.log('lastfoto: '+lastfoto)
         slices = cfoto[lastfoto][0].n
         cfoto[lastfoto][0].img = iimg
-        started = true 
+        started = true
         codehtml = ''
         nfoto = []
         cfoto[lastfoto][0].W = W
@@ -441,16 +447,17 @@ table {
         //var code = '<img class=".selectef" src="' + imgN + '" width="' + cfoto[lastfoto][0].W + 'px">';
         var code = '<img class=".selectef" src="' + imgN + '" width="' + 400 + 'px">';
         code += '<br><span style="color:#ddd;font-size:12px;">' + JSON.stringify(cfoto[lastfoto][nShape]) + '</span>';
-        code += '<br><button class="convert addy">Add</button>'
-        code += '<button class="convert simy" style="background-color:#a66;">Similar</button>'
+        code += '<br><button class="convert downy" style="background-color:#666;">Download</button>'
         code += '<button class="convert usy" style="background-color:#a6a;">Use</button>'
-
-
+        code += '<button class="convert simy" style="background-color:#a66;">Similar</button>'
+        code += '<button class="convert addy" style="background-color:#aaa;">Add</button>'
         dmy.html(code)
-
+        $(".downy").click(function(e) {
+            saveImage()
+        });
         $(".addy").click(function(e) {
             //console.log(JSON.stringify(cfoto[lastfoto][nShape]))
-            cfoto[lastfoto][nShape].select=true
+            cfoto[lastfoto][nShape].select = true
             caddy.push(cfoto[lastfoto][nShape])
 
 
@@ -461,9 +468,9 @@ table {
                 //reini(imgN, cfoto[lastfoto][0].W, cfoto[lastfoto][0].W)
                 var rry = [cfoto[lastfoto][nShape].n, cfoto[lastfoto][nShape].n]
                 var lly = [cfoto[lastfoto][nShape].p, cfoto[lastfoto][nShape].p]
-                cfoto[lastfoto][nShape].select=true
+                cfoto[lastfoto][nShape].select = true
                 cfoto.push([...cfoto[lastfoto]])
-                lastfoto=cfoto.length-1
+                lastfoto = cfoto.length - 1
                 cfoto[lastfoto][0].img = imgN
                 pary = fillRandom(rry, 10)
                 poly = fillRandom(lly, 10)
@@ -472,7 +479,7 @@ table {
                 $("button").remove(".more");
                 //$('.shape').show()
                 loop()
-                });
+            });
 
         });
         $(".simy").click(function(e) {
@@ -480,7 +487,7 @@ table {
             var lly = [cfoto[lastfoto][nShape].p, cfoto[lastfoto][nShape].p]
             pary = fillRandom(rry, 10)
             poly = fillRandom(lly, 10)
-            cfoto[lastfoto][nShape].select=true
+            cfoto[lastfoto][nShape].select = true
             //lastfoto=cfoto.length-1
             //$('.shape').show()
             contmore++
@@ -488,6 +495,15 @@ table {
             $("button").remove(".more");
             loop()
         });
+    }
+
+    function saveImage() {
+
+        var link = document.createElement("a");
+        link.id = 'thisi';
+        link.download = makeid(8) + '.png'
+        link.href = imgN;
+        link.click();
     }
 
     var savi = null
@@ -586,13 +602,13 @@ table {
                 pr = pary[floor(random(0, pary.length))]
                 pl = poly[floor(random(0, poly.length))]
                 cfoto[lastfoto].push({
-                    org:lastfoto,
+                    org: lastfoto,
                     x: x,
                     y: y,
                     n: pr,
                     d: dr,
                     p: pl,
-                    select:false
+                    select: false
                 });
                 cont++
                 //if(cont===floor(rows*columns/2)){npair++}
@@ -680,9 +696,9 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             push();
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(org, x, y, cutname, l, d);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(org, x, y, cutname, l, d);
             pop();
 
             image(shape2, 0, 0);
@@ -701,21 +717,21 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             push();
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(org, x, y, cutname, l, d);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(org, x, y, cutname, l, d);
             pop();
             push();
             shape2.rotate(HALF_PI + HALF_PI / 3);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(org, x, y, cutname, l, d);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(org, x, y, cutname, l, d);
             pop();
             push();
             shape2.rotate(-HALF_PI - HALF_PI / 3);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(org, x, y, cutname, l, d);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, cutname, l, d);
+            cutTriangle(org, x, y, cutname, l, d);
             pop();
 
             image(shape2, 0, 0);
@@ -734,9 +750,9 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             push();
-            cutTriangle(org,x, y, 4, l, d, an);
+            cutTriangle(org, x, y, 4, l, d, an);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, 4, l, d, an);
+            cutTriangle(org, x, y, 4, l, d, an);
 
             pop();
 
@@ -756,9 +772,9 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             push();
-            cutTriangle(org,x, y, 5, l, d, an);
+            cutTriangle(org, x, y, 5, l, d, an);
             shape2.scale(-1, 1);
-            cutTriangle(org,x, y, 5, l, d, an);
+            cutTriangle(org, x, y, 5, l, d, an);
 
             pop();
 
@@ -773,22 +789,22 @@ table {
             tr.rtt += -HALF_PI;
             //random(height);
             shape2.push();
-           
+
             //shape2.scale(tr.scl, tr.scl);
-            shape2.scale(0.5, 0.5); 
+            shape2.scale(0.5, 0.5);
             shape2.rotate(tr.rtt);
             shape2.translate(tr.trx, tr.try);
 
-            
+
             //shape2.translate(450,450)
             var ang = TWO_PI / n;
             for (var a = 0; a < floor(n / 2); a++) {
                 shape2.rotate(ang * 2);
                 shape2.push();
-                cutTriangle(org,x, y, 6, l, d, ang);
+                cutTriangle(org, x, y, 6, l, d, ang);
                 shape2.scale(-1, 1);
                 shape2.rotate(PI - ang * 2);
-                cutTriangle(org,x, y, 6, l, d, ang);
+                cutTriangle(org, x, y, 6, l, d, ang);
                 shape2.pop();
             }
             image(shape2, 0, 0);
@@ -805,9 +821,9 @@ table {
             shape2.scale(tr.scl, tr.scl);
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
-            cutSquare(org,x, y, 1, l, d, null)
+            cutSquare(org, x, y, 1, l, d, null)
             shape2.scale(-1, 1);
-            cutSquare(org,x, y, 1, l, d, null)
+            cutSquare(org, x, y, 1, l, d, null)
             image(shape2, 0, 0);
             pop();
         });
@@ -822,9 +838,9 @@ table {
             shape2.scale(tr.scl, tr.scl);
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
-            cutSquare(org,x, y, 2, l, d, d2)
+            cutSquare(org, x, y, 2, l, d, d2)
             shape2.scale(-1, 1);
-            cutSquare(org,x, y, 2, l, d, d2)
+            cutSquare(org, x, y, 2, l, d, d2)
             image(shape2, 0, 0);
             pop();
         });
@@ -842,10 +858,10 @@ table {
             var ang = TWO_PI / n;
             for (var a = 0; a < n; a++) {
                 push();
-                cutTriangle(org,x, y, 7, l, d, ang + (ang * 0));
+                cutTriangle(org, x, y, 7, l, d, ang + (ang * 0));
                 shape2.scale(-1, 1);
                 shape2.rotate(PI - (ang * 2) * 2);
-                cutTriangle(org,x, y, 7, l, d, ang + (ang * 0));
+                cutTriangle(org, x, y, 7, l, d, ang + (ang * 0));
                 pop();
                 shape2.rotate(ang * 2 * a);
             }
@@ -864,13 +880,13 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             var ang = HALF_PI;
-            cutSquare(org,x, y, 3, l, d, ang);
+            cutSquare(org, x, y, 3, l, d, ang);
             shape2.scale(-1, 1);
-            cutSquare(org,x, y, 3, l, d, ang);
+            cutSquare(org, x, y, 3, l, d, ang);
             shape2.scale(-1, -1);
-            cutSquare(org,x, y, 3, l, d, ang);
+            cutSquare(org, x, y, 3, l, d, ang);
             shape2.scale(-1, 1);
-            cutSquare(org,x, y, 3, l, d, ang);
+            cutSquare(org, x, y, 3, l, d, ang);
             image(shape2, 0, 0);
             pop();
         });
@@ -889,10 +905,10 @@ table {
 
             shape2.push()
             shape2.translate(-td, -td)
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(org, x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(org, x, y, 9, l, d, ang);
             shape2.pop()
 
             //shape2.rotate(-ang * 1);
@@ -901,29 +917,29 @@ table {
             shape2.push()
             shape2.translate(td * 1, td * 1)
             shape2.scale(-1, -1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(org, x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(org, x, y, 9, l, d, ang);
             shape2.pop()
 
             shape2.push()
 
             shape2.translate(-td, td)
             shape2.scale(1, -1)
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(org, x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(org, x, y, 9, l, d, ang);
             shape2.pop()
 
             shape2.push()
             shape2.translate(td, -td)
             shape2.scale(-1, 1)
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(org, x, y, 9, l, d, ang);
             shape2.scale(-1, 1);
             shape2.rotate(-ang * 1);
-            cutTriangle(org,x, y, 9, l, d, ang);
+            cutTriangle(org, x, y, 9, l, d, ang);
             shape2.pop()
             image(shape2, 0, 0);
             shape2.pop();
@@ -931,7 +947,7 @@ table {
 
     }
 
-    function cutTriangle(org,x, y, n, r, d, an = 1) {
+    function cutTriangle(org, x, y, n, r, d, an = 1) {
         if (n == 1) {
             shape2.beginShape(TRIANGLE_STRIP);
             shape2.texture(img[org]);
@@ -1118,7 +1134,7 @@ table {
         }
     }
 
-    function cutSquare(org,x, y, n, r, d, an = 1) {
+    function cutSquare(org, x, y, n, r, d, an = 1) {
         if (n == 1) {
             //cut half square
             shape2.beginShape(TRIANGLE_STRIP);
