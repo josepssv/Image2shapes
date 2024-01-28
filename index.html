@@ -157,8 +157,8 @@ table {
     var centerx = 0;
     var centery = 0;
     var diagonal2 = 100;
-    var W = 800;
-    var H = 800;
+    var W = 600;
+    var H = 600;
     var contmore = 1
     var clickCount = 1;
     var contSaved = 0;
@@ -172,8 +172,10 @@ table {
     var pary = [...pares]
     var poly = [...polis]
     //pares = [3.1, 3.2, 2.4, 3.3, 2.2, 3.2, 3.3, 3]
-    var cfoto = [{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "", "img": "" }]
-    var caddy = [...cfoto]
+    //var cfoto = [{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "", "img": "" }]
+    var cfoto = []
+    //var caddy = [...cfoto]
+    var caddy = []
     var slices = 24;
     var img=[];
     var started = false
@@ -185,8 +187,9 @@ table {
     var nfoto = []
     var nShape = 1;
     var savedSucure;
-    let org=1
-    var lastfoto=0
+    let org=0
+    var lastfoto=-1
+    var idSession=''
     const shapes = new Map();
     //const upscaler = new Upscaler({ model: DefaultUpscalerJSModel,  })
     //const upscaler = new Upscaler({ model: UpscalerJSMaximDeblurring, })
@@ -202,7 +205,7 @@ table {
         });
 
         $(".shape").click(function(e) {
-            console.log(',' + e.target.className + ', ' + caddy.length)
+            //console.log(',' + e.target.className + ', ' + caddy.length)
             if (e.target.className != ".selectef" || e.target.className != "convert addy") {
                 $(".shape").hide();
                 //$(".capadibujo").show();
@@ -218,12 +221,53 @@ table {
         });
         $(".showSelected").click(function(e) {
             savedSecure = [...cfoto]
-            cfoto[lastfoto] = [...caddy]
+            caddy=[]
+            /*cfoto.forEach(array => {
+              if (Array.isArray(array)) {
+                const objeto = { ...array[0] }; // Copiamos el elemento 0 de cada subarray
+                caddy.push(objeto); // Agregamos el objeto copiado a objetosSeleccionados
+                array.forEach(subobjeto => {
+                  if (subobjeto.select === true) {
+                    caddy.push(subobjeto);
+                  }
+                });
+              }
+            });
+            */
+
+          
+              //caddy = []
+              caddy.push({...cfoto[lastfoto][0]});
+
+              cfoto.forEach(array => {
+                if (Array.isArray(array)) {
+                  array.forEach(objeto => {
+                    if (objeto.select === true) {
+                      caddy.push(objeto);
+                      //-->objeto.select=false
+                      }
+                  });
+                }
+              });
+            //cfoto[lastfoto] = [...caddy]
+            
+            
+           //cfoto[lastfoto] = [...caddy
+            cfoto.push(caddy)
+            lastfoto=cfoto.length-1
+            console.log('lastfoto: '+lastfoto)
             contf = 1
             codehtml = ''
             dallimgs.html('')
-
-            loop()
+            //img.push(cfoto[lastfoto][0].img)
+            img[img.length]=loadImage(
+                cfoto[lastfoto][0].img,
+                 () => {
+                 slices = cfoto[lastfoto][0].n
+                 loop()
+            },
+                () => print('Image Failed to Load.'),
+            );
 
         });
     });
@@ -236,13 +280,13 @@ table {
             $(".capadibujo").show();
             //img2 = loadImage(file.data)
 
-            img[1] = loadImage(
+            img[0] = loadImage(
                 file.data,
                 () => {
                     //alert('Selected file: ' + file.value);
                     //$(".preload").show();
+                    idSession= makeid(50)
                     canvasbill = createCanvas(W, H);
-
                     iniShapes()
                     canvasbill.parent('#bill')
                     dallimgs = select('#allimgs')
@@ -253,7 +297,7 @@ table {
                     imageMode(CENTER);
                     dmy = select('#myShape')
                     $('.shape').show()
-                    reini(file.data, img[1].width, img[1].height)
+                    reini(file.data, img[0].width, img[0].height)
                 },
                 () => print('Image Failed to Load.'),
             );
@@ -267,19 +311,18 @@ table {
     }
 
     function draw() {
+        if(lastfoto>=0){
         var tt = '<div style="color:#888;margin-top:100px;font-size:33px;">' + (contf) + ' ' + (cfoto[lastfoto].length - 1) + ' shapes</div>'
         $('#myShape').html(tt)
+        }
         //console.log('FOTO ',contf,cfoto.length)
         if (started) {
             if (contmore == 1) { select('#footer').show() }
             //dallimgs.html('<span style="margin-top:100px;font-size:33px;">'+contf+' '+cfoto.length-1+'</span>')
             slices = cfoto[lastfoto][contf].n
             var d = cfoto[lastfoto][contf].d
-            var modo = 'triRegular'
-            if (slices < 3) {
-                modo = 'quad'
-            }
-            drawbill(contf, W, H, slices, d, modo)
+            $('.shape').show()
+            drawbill(contf, W, H, slices, d)
             contf++
             if (contf >= cfoto[lastfoto].length) {
                 noLoop()
@@ -306,7 +349,6 @@ table {
                     $('.shape').show()
                     contmore++
                     newRandco(cfoto[lastfoto][0].w, cfoto[lastfoto][0].h, 4, 4, 0)
-                    console.log()
                     $("button").remove(".more");
                     //$("button").remove(".saveImages");
                     //$("button").remove(".saveCode");
@@ -318,14 +360,14 @@ table {
         }
     }
 
-    function drawbill(conti, w, h, slices, diagonal, modo) {
+    function drawbill(conti, w, h, slices, diagonal) {
         background(0, 0)
         clear()
         factor = 0.5
         var x = cfoto[lastfoto][conti].x;
         var y = cfoto[lastfoto][conti].y;
         var p = cfoto[lastfoto][conti].p;
-        org=cfoto[lastfoto][conti].org
+        org= cfoto[lastfoto][conti].org;
         var ang = 1 * random(1)
         var ns = floor(random(0, polis.length))
         var nsides = polis[ns]
@@ -345,18 +387,21 @@ table {
 
  
     function reini(iimg, w, h) {
-        //img=loadImage(iimg)
+        //img=loadImage(iimg) 
+
         cfoto.push([{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "p0a2OHWO1TXUnHfq4zQVDG5lPa1AReHkVwjj39yKGlQ7Ot6QO1", "img": "" }])
         lastfoto=cfoto.length-1
+
+        //console.log('lastfoto: '+lastfoto)
         slices = cfoto[lastfoto][0].n
         cfoto[lastfoto][0].img = iimg
-        started = true
+        started = true 
         codehtml = ''
         nfoto = []
         cfoto[lastfoto][0].W = W
         cfoto[lastfoto][0].w = w
         cfoto[lastfoto][0].h = h
-        cfoto[lastfoto][0].id = makeid(50)
+        cfoto[lastfoto][0].id = idSession
         caddy = [...cfoto[lastfoto]]
         nfoto = []
         contf = 1
@@ -397,32 +442,35 @@ table {
         var code = '<img class=".selectef" src="' + imgN + '" width="' + 400 + 'px">';
         code += '<br><span style="color:#ddd;font-size:12px;">' + JSON.stringify(cfoto[lastfoto][nShape]) + '</span>';
         code += '<br><button class="convert addy">Add</button>'
-        code += '<button class="convert simy" style="background-color:#a66;">Similary</button>'
+        code += '<button class="convert simy" style="background-color:#a66;">Similar</button>'
         code += '<button class="convert usy" style="background-color:#a6a;">Use</button>'
 
 
         dmy.html(code)
 
         $(".addy").click(function(e) {
-            console.log(JSON.stringify(cfoto[lastfoto][nShape]))
+            //console.log(JSON.stringify(cfoto[lastfoto][nShape]))
+            cfoto[lastfoto][nShape].select=true
             caddy.push(cfoto[lastfoto][nShape])
+
 
         });
         $(".usy").click(function(e) {
             caddy.push(cfoto[lastfoto][nShape])
-            img[(lastfoto+1)] = loadImage(imgN, () => {
+            img[img.length] = loadImage(imgN, () => {
                 //reini(imgN, cfoto[lastfoto][0].W, cfoto[lastfoto][0].W)
                 var rry = [cfoto[lastfoto][nShape].n, cfoto[lastfoto][nShape].n]
                 var lly = [cfoto[lastfoto][nShape].p, cfoto[lastfoto][nShape].p]
+                cfoto[lastfoto][nShape].select=true
                 cfoto.push([...cfoto[lastfoto]])
                 lastfoto=cfoto.length-1
                 cfoto[lastfoto][0].img = imgN
                 pary = fillRandom(rry, 10)
                 poly = fillRandom(lly, 10)
-                $('.shape').show()
                 contmore++
                 newRandco(cfoto[lastfoto][0].w, cfoto[lastfoto][0].h, 4, 4, 0)
                 $("button").remove(".more");
+                //$('.shape').show()
                 loop()
                 });
 
@@ -432,7 +480,9 @@ table {
             var lly = [cfoto[lastfoto][nShape].p, cfoto[lastfoto][nShape].p]
             pary = fillRandom(rry, 10)
             poly = fillRandom(lly, 10)
-            $('.shape').show()
+            cfoto[lastfoto][nShape].select=true
+            //lastfoto=cfoto.length-1
+            //$('.shape').show()
             contmore++
             newRandco(cfoto[lastfoto][0].w, cfoto[lastfoto][0].h, 4, 4, 0)
             $("button").remove(".more");
@@ -541,7 +591,8 @@ table {
                     y: y,
                     n: pr,
                     d: dr,
-                    p: pl
+                    p: pl,
+                    select:false
                 });
                 cont++
                 //if(cont===floor(rows*columns/2)){npair++}
