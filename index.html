@@ -692,10 +692,10 @@ table {
             var numVertices = 1800;
             var angle = 0.30;
             var offset = width * 1;
-            var scalar = 150/d;
-            var speed = 150/d;
+            var scalar = 180/d;
+            var speed = 180/d;
             var direction=1
-            if(d%2==0){direction=-1}
+            if(int(d%2)==0){direction=-1}
             shape2.noStroke();
             shape2.imageMode(CENTER);
             var coli
@@ -716,7 +716,7 @@ table {
                 if(direction==-1){angle -= speed;}else{
                     angle += speed;
                 }
-                angle += speed;
+                //angle += speed;
                 scalar += speed;
                 contx += 1
                 conty += 1
