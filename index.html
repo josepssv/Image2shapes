@@ -167,7 +167,7 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum
     var contf = 1
-    var pares = [3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5]
+    var pares = [1.1,1.1,3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
     var pary = [...pares]
     var poly = [...polis]
@@ -683,6 +683,51 @@ table {
     //iniShapes()
 
     function iniShapes() {
+        shapes.set(1.1, (n, d, tr, an, x, y) => {
+            var title = "spiral";
+            var l = min(width, height);
+            shape2 = createGraphics(l * 2, l * 2);
+            shape2.push();
+            //shape2.translate(width / 2, width / 2);
+            var numVertices = 1800;
+            var angle = 0.30;
+            var offset = width * 1;
+            var scalar = 150/d;
+            var speed = 150/d;
+            var direction=1
+            if(d%2==0){direction=-1}
+            shape2.noStroke();
+            shape2.imageMode(CENTER);
+            var coli
+            var contx = x,
+                conty = y
+            var dcenter = 0
+            for (let i = 0; i < numVertices; i++) {
+                coli = img[org].get(contx, conty)
+                var dx = offset + cos(angle) * scalar;
+                var dy = offset + sin(angle) * scalar;
+                dcenter = dist(dx, dy, offset, offset)
+                var rade = map(dcenter, 0, width, 8, 55)
+                //shape2.fill(col.r, col.g, col.b);
+                shape2.fill(coli)
+                shape2.noStroke();
+
+                shape2.ellipse(dx, dy, rade, rade);
+                if(direction==-1){angle -= speed;}else{
+                    angle += speed;
+                }
+                angle += speed;
+                scalar += speed;
+                contx += 1
+                conty += 1
+                if (contx > img[org].width) { contx = x }
+                if (conty > img[org].height) { conty = y }
+
+            }
+           
+            image(shape2, 0, 0);
+            shape2.pop();
+        });
         shapes.set(3.1, (n, d, tr, an, x, y) => {
             var title = "symmetry triangle in square";
             var l = min(width, height);
