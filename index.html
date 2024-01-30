@@ -741,45 +741,26 @@ table {
             var title = "symmetry triangle in square";
             var l = min(width, height);
             shape2 = createGraphics(l, l, WEBGL);
-            
             push();
-            shape2.scale(tr.scl, tr.scl);
-            shape2.rotate(tr.rtt-HALF_PI);
-            translate(width / 2 + tr.trx, height / 2 + tr.try);
-            var ang = TWO_PI / n;
-            var dx,dy
-            var ofsset=49
-            var scalar=l/4
-            var angi=ang*2
-            var extrang=0
-            if(floor(d)%2==0){
-           for (var a = 0; a < n; a++) {
-                    push()
-                    cutTriangle(org, x, y, 7, l, d, ang + (ang * 0));
-                    shape2.scale(-1, 1);
-                    shape2.rotate(PI - (ang * 2) * 2);
-                    cutTriangle(org, x, y, 7, l, d, ang + (ang * 0));
-                    pop();
-                    shape2.rotate(ang * 2 * a);
-                }
-            pop();
-              extrang=ang;
-           }
-            push();
-            shape2.scale(tr.scl, tr.scl);
-            shape2.rotate(tr.rtt-HALF_PI-extrang);
-            translate(width / 2 + tr.trx, height / 2 + tr.try);
+                shape2.scale(tr.scl, tr.scl);
+                shape2.rotate(tr.rtt-HALF_PI);
+                translate(width / 2 + tr.trx, height / 2 + tr.try);
+                var ang = TWO_PI / n;
+                var dx,dy
+                var ofsset=49
+                var scalar=l/4
+                var angi=ang*2
+                var extrang=0
+                if(floor(d)%2==0){}
                 for (var a = 0; a < n; a++) {
                     push()
-                    cutTriangle(org, x, y, 10, scalar, d, angi );
-                    
-                    shape2.scale(-1, 1);
-                    shape2.rotate(PI - (ang * 2) * 2);
-                    cutTriangle(org, x, y, 10, scalar, d, angi );
+                        cutTriangle(org, x, y, 10, scalar, d, angi );
+                        shape2.scale(-1, 1);
+                        shape2.rotate(PI - (ang * 2) * 2);
+                        cutTriangle(org, x, y, 10, scalar, d, angi );
                     pop();
                     shape2.rotate(ang * 2 * a);
                 }
-             
             
             pop();
             image(shape2, 0, 0);
