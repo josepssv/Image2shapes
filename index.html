@@ -157,8 +157,8 @@ table {
     var centerx = 0;
     var centery = 0;
     var diagonal2 = 100;
-    var W = 600;
-    var H = 600;
+    var W = 400;
+    var H = 400;
     var contmore = 1
     var clickCount = 1;
     var contSaved = 0;
@@ -167,7 +167,7 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum
     var contf = 1
-    var pares = [1.1,1.1,3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5]
+    var pares = [1.1,1.1,1.2,1.2,3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
     var pary = [...pares]
     var poly = [...polis]
@@ -373,10 +373,15 @@ table {
         var x = cfoto[lastfoto][conti].x;
         var y = cfoto[lastfoto][conti].y;
         var p = cfoto[lastfoto][conti].p;
+        var ang=cfoto[lastfoto][conti].a;
         org = cfoto[lastfoto][conti].org;
-        var ang = 1 * random(1)
-        var ns = floor(random(0, polis.length))
-        var nsides = polis[ns]
+        
+        //var ang = 1 * random(1)
+        var ns = nsides = polis[p]
+        //var ns = floor(random(0, polis.length))
+        //var nsides = polis[ns]
+        //var nsides = polis[p]
+
         var rotation = 0
         //////////////////////////////////
         //var rns=floor(random(0,pares.length))
@@ -585,7 +590,7 @@ table {
         //cfoto.splice(1, cfoto.length);
         let pr
         let dr
-        let x, y, pxy
+        let x, y, pxy,ang
         //var npair=0
         for (let row = 0; row < rows; row++) {
             for (let column = 0; column < columns; column++) {
@@ -601,6 +606,7 @@ table {
                 dr = random(margin, w - pxy)
                 pr = pary[floor(random(0, pary.length))]
                 pl = poly[floor(random(0, poly.length))]
+                ang=random(0.00001,1)
                 cfoto[lastfoto].push({
                     org: lastfoto,
                     x: x,
@@ -608,6 +614,7 @@ table {
                     n: pr,
                     d: dr,
                     p: pl,
+                    a: ang,
                     select: false
                 });
                 cont++
@@ -687,46 +694,95 @@ table {
             var title = "spiral";
             var l = min(width, height);
             shape2 = createGraphics(l * 2, l * 2);
+            shape2.noStroke();
+            shape2.imageMode(CENTER);
             shape2.push();
-            //shape2.translate(width / 2, width / 2);
             var numVertices = 1800;
             var angle = 0.30;
             var offset = width * 1;
-            var scalar = 180/d;
-            var speed = 180/d;
+            var scalar = 6;
+            var speed = 0.3;
+            if(d>0.01){
+                scalar=an*n*2
+                speed = 180/d;
+            }
             var direction=1
             if(int(d%2)==0){direction=-1}
-            shape2.noStroke();
-            shape2.imageMode(CENTER);
-            var coli
-            var contx = x,
-                conty = y
-            var dcenter = 0
-            for (let i = 0; i < numVertices; i++) {
+            var coli;
+            var contx = x;
+            var conty = y;
+            var dcenter = 0;
+            var dx =0;
+            var dy =0;
+            while(dx<l*2*sqrt(2) && dy<l*2*sqrt(2)){
                 coli = img[org].get(contx, conty)
-                var dx = offset + cos(angle) * scalar;
-                var dy = offset + sin(angle) * scalar;
+                dx = offset + cos(angle) * scalar;
+                dy = offset + sin(angle) * scalar;
                 dcenter = dist(dx, dy, offset, offset)
                 var rade = map(dcenter, 0, width, 8, 55)
-                //shape2.fill(col.r, col.g, col.b);
                 shape2.fill(coli)
-                shape2.noStroke();
-
+                shape2.stroke(coli)
+                //cutShape(org, dx, dy, 1, rade, d, an = 1)
                 shape2.ellipse(dx, dy, rade, rade);
                 if(direction==-1){angle -= speed;}else{
                     angle += speed;
                 }
-                //angle += speed;
                 scalar += speed;
                 contx += 1
                 conty += 1
                 if (contx > img[org].width) { contx = x }
                 if (conty > img[org].height) { conty = y }
-
             }
            
             image(shape2, 0, 0);
             shape2.pop();
+        });
+          shapes.set(1.2, (n, d, tr, an, x, y) => {
+            var title = "symmetry triangle in square";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            
+            push();
+            shape2.scale(tr.scl, tr.scl);
+            shape2.rotate(tr.rtt-HALF_PI);
+            translate(width / 2 + tr.trx, height / 2 + tr.try);
+            var ang = TWO_PI / n;
+            var dx,dy
+            var ofsset=49
+            var scalar=l/4
+            var angi=ang*2
+            var extrang=0
+            if(floor(d)%2==0){
+           for (var a = 0; a < n; a++) {
+                    push()
+                    cutTriangle(org, x, y, 7, l, d, ang + (ang * 0));
+                    shape2.scale(-1, 1);
+                    shape2.rotate(PI - (ang * 2) * 2);
+                    cutTriangle(org, x, y, 7, l, d, ang + (ang * 0));
+                    pop();
+                    shape2.rotate(ang * 2 * a);
+                }
+            pop();
+              extrang=ang;
+           }
+            push();
+            shape2.scale(tr.scl, tr.scl);
+            shape2.rotate(tr.rtt-HALF_PI-extrang);
+            translate(width / 2 + tr.trx, height / 2 + tr.try);
+                for (var a = 0; a < n; a++) {
+                    push()
+                    cutTriangle(org, x, y, 10, scalar, d, angi );
+                    
+                    shape2.scale(-1, 1);
+                    shape2.rotate(PI - (ang * 2) * 2);
+                    cutTriangle(org, x, y, 10, scalar, d, angi );
+                    pop();
+                    shape2.rotate(ang * 2 * a);
+                }
+             
+            
+            pop();
+            image(shape2, 0, 0);
         });
         shapes.set(3.1, (n, d, tr, an, x, y) => {
             var title = "symmetry triangle in square";
@@ -1116,7 +1172,7 @@ table {
             shape2.endShape(CLOSE);
         }
         if (n == 7) {
-            //Cut semi section deltoid from circle
+            //Cut semi section deltoid (diamond) from circle
             shape2.beginShape(TRIANGLE_STRIP);
             shape2.texture(img[org]);
             shape2.noStroke();
@@ -1177,6 +1233,38 @@ table {
             );
             shape2.endShape(CLOSE);
         }
+        if (n == 10) {
+            //Cut semi section deltoid from circle scaled
+            shape2.beginShape(TRIANGLE_STRIP);
+            shape2.texture(img[org]);
+            shape2.noStroke();
+            shape2.imageMode(CENTER);
+            var r1=r
+            var r2=r+d
+            var r3=r
+            var p=[
+                {x:r1,y:0},
+                {x:r1+r3* cos(an),y:0+r3*sin(an)},
+                {x:r2,y:0}
+                ]
+
+            shape2.vertex(p[0].x, p[0].y, 0, x, y);
+            shape2.vertex(
+               p[1].x,
+                p[1].y,
+                0,
+                x + (d / 2) * cos(an*3),
+                y + (d / 2) * sin(an*3)
+            );
+            shape2.vertex(
+                p[2].x,
+                p[2].y,
+                0,
+                x + d * cos(0),
+                y + d * sin(0)
+            );
+            shape2.endShape(CLOSE);
+        }
     }
 
     function cutSquare(org, x, y, n, r, d, an = 1) {
@@ -1220,7 +1308,97 @@ table {
             shape2.endShape(CLOSE);
         }
 
+   
+
+
     }
+
+ function cutShape(org, x, y, n, r, d, an = 1) {
+        if (n == 1) {
+            // olive leaf
+            //r=r*1
+            //shape2.strokeWeight(12)
+            //shape2.beginShape(TRIANGLE_STRIP);
+            shape2.beginShape();
+            //shape2.noStroke();
+            //shape2.stroke(233)
+            //shape2.fill(255)
+           // var arry=[]
+            var v={}
+            for(var a=0;a<oliveLeaf.length;a++){
+               v={x:x+oliveLeaf[a].x*r, y:y+oliveLeaf[a].y*r}
+               //arry.push(v)
+                shape2.vertex(v.x,v.y);
+            }
+           
+            shape2.endShape(CLOSE);
+            //console.log(JSON.stringify(arry))
+    } 
+}
+
+///////////////
+  // VERTEX SHAPES
+//////////////
+
+function genOlive(radio, ancho,longitud) {
+  // Generar los puntos de la circunferencia.
+  const puntos = [];
+  for (let x = -radio; x <= radio; x++) {
+    const y = Math.sqrt(radio * radio - x * x);
+    puntos.push({
+      x: x + ancho / 2,
+      y: y * longitud / radio
+    });
+  }
+  return puntos;
+}
+
+
+function genPoint(x,A,B,C) {
+  return {
+    x: x,
+    y: A * Math.sin(B * x) + C
+  };
+}
+
+
+
+function genOlive2() {
+  const rect = {
+    x: -1,
+    y: -1,
+    width: 12,
+    height:12
+  };
+
+  const puntos = [];
+
+  // Generar el punto del ápice
+  puntos.push({
+    x: rect.x + rect.width / 2,
+    y: rect.y + rect.height / 2
+  });
+  /*
+    A es la amplitud de la curva
+    B es la frecuencia de la curva
+    C es el desplazamiento vertical de la curva
+    */
+  let A = 1
+  let B = 2
+  let C = 6
+  // Generar los puntos de la hoja
+  var max=rect.x + rect.width
+  var step=max/12
+  for (let x = rect.x; x <= max; x+=step) {
+    puntos.push(genPoint(x,A,B,C));
+  }
+  const json = {
+    point: puntos
+  };
+  return json;
+}
+const oliveLeaf = genOlive(5,5,10);
+console.log('OLIVE: '+JSON.stringify(oliveLeaf));
     </script>
 </body>
 
