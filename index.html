@@ -167,7 +167,7 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum
     var contf = 1
-    var pares = [1.1,1.1,1.2,1.2,3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5]
+    var pares = [1.1,1.1,1.2,1.3,1.3,1.3,3.1,3.2, 3.3, 3.4, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
     var pary = [...pares]
     var poly = [...polis]
@@ -761,7 +761,39 @@ table {
                     pop();
                     shape2.rotate(ang * 2 * a);
                 }
-            
+            pop();
+            image(shape2, 0, 0);
+        });
+        shapes.set(1.3, (n, d, tr, an, x, y) => {
+            var title = "symmetry triangle in square";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            push();
+                shape2.scale(tr.scl, tr.scl);
+                shape2.rotate(tr.rtt-HALF_PI);
+                translate(width / 2 + tr.trx, height / 2 + tr.try);
+                var longr=l
+                var angi= TWO_PI / n;
+                for (var a = 0; a < n; a++) {
+                    shape2.push()
+                        cutSquare(org, x, y, 4, longr, d, angi );
+                        shape2.scale(-1, 1);
+                        shape2.rotate(PI - (angi * 2) );
+                        cutSquare(org, x, y, 4, longr, d, angi );
+                    shape2.pop();
+                    shape2.rotate(angi * 2 );
+
+
+                    /*
+                    shape2.rotate(ang * 2);
+                shape2.push();
+                cutTriangle(org, x, y, 6, l, d, ang);
+                shape2.scale(-1, 1);
+                shape2.rotate(PI - ang * 2);
+                cutTriangle(org, x, y, 6, l, d, ang);
+                shape2.pop();
+                */
+                }
             pop();
             image(shape2, 0, 0);
         });
@@ -1246,6 +1278,7 @@ table {
             );
             shape2.endShape(CLOSE);
         }
+ 
     }
 
     function cutSquare(org, x, y, n, r, d, an = 1) {
@@ -1289,7 +1322,75 @@ table {
             shape2.endShape(CLOSE);
         }
 
-   
+     if (n == 4) {
+            //Cut leaf from circle scaled
+            shape2.beginShape(TRIANGLE_STRIP);
+            shape2.texture(img[org]);
+            shape2.noStroke();
+            shape2.imageMode(CENTER);
+            //var r=200
+            var r1=r/4
+            var rr1=r/2.5
+            var r2=r/2
+            var rr2=(r/3)*2
+            var r3=r
+
+            var d1=d/4
+            var dd1=d/2.5
+            var d2=d/2
+            var dd2=(d*3)*2
+            var d3=d
+       
+            const p=[]
+               p[0] = {x: r1 * cos(an), y: r1 * sin(an)}
+               p[1] = {x: rr1 , y: 0}  
+               p[2] = {x: r2 * cos(an), y:r2 * sin(an)}
+               p[3] = {x: rr2, y:0}
+               p[4] = {x: r3 * cos(an), y: r3 * sin(an)}     
+              // console.log('AN:'+JSON.stringify(p))
+               const s=[]
+               s[0] = {x: x+ d1 * cos(an), y: y + d1 *sin(an)}
+               s[1] = {x: x+ dd2 , y: y}  
+               s[2] = {x: x+ d2 * cos(an), y: y + d2 *sin(an)}
+               s[3] = {x: x+ dd2, y: y}
+               s[4] = {x: x+ d3 * cos(an), y: y + d3 *sin(an)}  
+            shape2.vertex(
+                p[4].x, 
+                p[4].y,
+                 0, 
+                 s[4].x, 
+                 s[4].y
+                );
+            shape2.vertex(
+                p[3].x,
+                p[3].y,
+                0,
+                s[3].x,
+                s[3].y
+            );
+            shape2.vertex(
+                p[2].x,
+                p[2].y,
+                0,
+                s[2].x,
+                s[2].y
+            );
+            shape2.vertex(
+                p[1].x,
+                p[1].y,
+                0,
+                s[1].x,
+                s[1].y
+            );
+             shape2.vertex(
+                p[0].x,
+                p[0].y,
+                0,
+                s[0].x,
+                s[0].y
+            );
+            shape2.endShape(CLOSE);
+        }
 
 
     }
