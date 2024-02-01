@@ -167,7 +167,7 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum
     var contf = 1
-    var pares = [0.4, 1.1, 1.1, 3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.6, 4.61]
+    var pares = [0.4,0.41, 1.1, 1.1, 3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.6, 4.61]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
     var pary = [...pares]
     var poly = [...polis]
@@ -396,11 +396,42 @@ table {
 
     }
 
-
+function getImageData(w, h) {
+  const imgn = {
+    w: w,
+    h: h,
+  };
+  if (w >= h) {
+    imgn.maxDim = w;
+    imgn.minDim = h;
+  } else {
+    imgn.maxDim = h;
+    imgn.minDim = w;
+  }
+  const cx = w / 2;
+  const cy = h / 2;
+  imgn.angle = Math.atan2(cy, cx); // Angle in radians
+  imgn.semidiagonal = Math.sqrt(Math.pow(cx, 2) + Math.pow(cy, 2)); // Length from the center to the bottom right corner
+  const sideLength = imgn.maxDim;
+  const tlx = cx - sideLength / 2;
+  const tly = cy - imgn.minDim / 2;
+  const brx = cx + sideLength / 2;
+  const bry = cy + imgn.minDim / 2;
+  imgn.tl = {
+    x: tlx,
+    y: tly
+  };
+  imgn.br = {
+    x: brx,
+    y: bry
+  };
+  return imgn;
+}
     function reini(iimg, w, h) {
         //img=loadImage(iimg) 
 
         cfoto.push([{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "p0a2OHWO1TXUnHfq4zQVDG5lPa1AReHkVwjj39yKGlQ7Ot6QO1", "img": "" }])
+
         lastfoto = cfoto.length - 1
 
         //console.log('lastfoto: '+lastfoto)
@@ -412,8 +443,14 @@ table {
         cfoto[lastfoto][0].W = W
         cfoto[lastfoto][0].w = w
         cfoto[lastfoto][0].h = h
+
         cfoto[lastfoto][0].id = idSession
+
         caddy = [...cfoto[lastfoto]]
+       
+        //cfoto[0].push({"org":0,"x":(w/2),"y":(h/2),"n":0.4,"d":mvh,"p":64,"a":0.1,"select":true})
+        var imgn=getImageData(w, h)
+        cfoto[0].push({"org":0,"x":(w/2),"y":(h/2),"n":0.41,"d":imgn.semidiagonal,"p":64,"a":imgn.angle,"select":true})
         nfoto = []
         contf = 1
         nShape = 1;
@@ -622,9 +659,48 @@ table {
             x: x,
             y: y,
         };
-
     }
-
+function squareToRect(wh, x, y, l, w) {
+   const s = {};
+  // Verificar si el ancho es mayor que la altura
+  if (wh.w > wh.h) {
+    if (l > wh.h) {
+      l = wh.h; // Ajustar la longitud a la altura máxima
+    }
+    if (w > wh.h) {
+      w = wh.h; // Ajustar el ancho a la altura máxima
+    }
+  } else {
+    if (l > wh.w) {
+      l = wh.w; // Ajustar la longitud al ancho máximo
+    }
+    if (w > wh.w) {
+      w = wh.w; // Ajustar el ancho al ancho máximo
+    }
+  }
+  // Ajustar las coordenadas si exceden los límites del rectángulo
+  if (x < l / 2) {
+    x = l / 2;
+  } else if (x > wh.w - l / 2) {
+    x = wh.w - l / 2;
+  }
+  if (y < w / 2) {
+    y = w / 2;
+  } else if (y > wh.h - w / 2) {
+    y = wh.h - w / 2;
+  }
+  // Calcular los dos puntos del rectángulo
+  s[0] = { x: x - l / 2, y: y - w / 2 };
+  s[1] = { x: x + l / 2, y: y + w / 2 };
+  return {
+    tl: s[0],
+    br: s[1],
+    l: l,
+    w: w,
+    x: x,
+    y: y,
+  };
+}
     function createMetaTag() {
         //https://openprocess4.org/sketch/790331
 
@@ -664,6 +740,19 @@ table {
             shape2.rotate(tr.rtt);
             translate(width / 2 + tr.trx, height / 2 + tr.try);
             cutSquare(org, x, y, cutname, l, d);
+            image(shape2, 0, 0);
+            pop();
+        });
+        shapes.set(0.41, (n, d, tr, an, x, y) => {
+            var title = "simply random cut image in a rectangle";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            var cutname = 0.1;
+            push();
+            shape2.scale(tr.scl, tr.scl);
+            shape2.rotate(tr.rtt);
+            translate(width / 2 + tr.trx, height / 2 + tr.try);
+            cutSquare(org, x, y, cutname, l, d,an);
             image(shape2, 0, 0);
             pop();
         });
@@ -1283,8 +1372,31 @@ table {
 
 
 
+function getSemisides(sqr, w, h) {
+    // Calcula la proporción entre el lado del cuadrado y el lado mayor del rectángulo
+    const propor = sqr / Math.max(w, h);
 
-    function cutSquare(org, x, y, n, r, d, an = 1, extra={}) {
+    // Calcula las nuevas dimensiones del rectángulo
+    const ww = w * propor;
+    const hh = h * propor;
+
+    // Devuelve la mitad de las nuevas dimensiones y la proporción en un array
+    return [ww , hh , propor];
+}
+
+
+function calcRectSides(a, d) {
+  // Calcula la longitud del lado perpendicular al apoyado
+  var w = d * Math.cos(a);
+
+  // Calcula la longitud del lado apoyado
+  var h = d * Math.sin(a);
+
+  // Devuelve los semilados del rectángulo
+  return {w:w, h:h};
+}
+
+function cutSquare(org, x, y, n, r, d, an = 1, extra={}) {
         if (n == 0) {
             const wh = { w: img[org].width, h: img[org].height };
             const t = rectToSquare(wh, x, y, d)
@@ -1297,6 +1409,54 @@ table {
             shape2.vertex(-r, r, 0, t.tl.x, t.tl.y + t.w);
             shape2.vertex(r, -r, 0, t.br.x, t.br.y - t.w);
             shape2.vertex(r, r, 0, t.br.x, t.br.y);
+            shape2.endShape(CLOSE);
+        }
+        if (n == 0.1) {
+            const wh = { w: img[org].width, h: img[org].height };
+            //const t = rectToSquare(wh, x, y, d)
+            //const t= rectToSquare(wh,0,0,wh.w)
+            //var u=getSemisides(r, wh.w, wh.h)
+            ////console.log('getSemisides(',r,wh.w,wh.h,')',JSON.stringify(u))
+
+           /*
+            var w=(d);
+            const r1=(r)
+            var ratio=1 
+            let ls=wh.w;let ss=wh.h
+            if(abs(an-HALF_PI/2) > 0.0000001){
+                const w=d*sin(an)
+        
+                 if(an>HALF_PI/2){
+                    ls = d; // Longer side
+                    ss = d* Math.cos(an); // Shorter side
+                    ratio = ls / ss; // ratio long to short
+
+                }else{
+                    ls = d* Math.cos(an); // Longer side
+                    ss = d; // 
+                    ratio = ss / ls; //ratio shorth to long
+                }
+            
+            
+            //w= 2 * ls * Math.cos(an);
+           }
+           */
+
+            //const t=squareToRect(wh, x, y, ls, ss)
+            var sd=calcRectSides(an,d)
+            const t= {tl:{x:x-sd.w,y:y-sd.h},br:{x:x+sd.w,y:y+sd.h},w:sd.w*2,h:sd.h*2}
+            var u = getSemisides(r, sd.w, sd.h)
+            console.log('w,h:',JSON.stringify(wh))
+            console.log('lados:',JSON.stringify(sd))
+            console.log('vertices:',JSON.stringify(t))
+            shape2.beginShape(TRIANGLE_STRIP);
+            shape2.texture(img[org]);
+            shape2.noStroke();
+            shape2.imageMode(CENTER);
+            shape2.vertex(-u[0], -u[1], 0, t.tl.x, t.tl.y);
+            shape2.vertex(-u[0], u[1], 0, t.tl.x, t.tl.y + t.w);
+            shape2.vertex(u[0], -u[1], 0, t.br.x, t.br.y - t.h);
+            shape2.vertex(u[0], u[1], 0, t.br.x, t.br.y);
             shape2.endShape(CLOSE);
         }
         if (n == 1) {
