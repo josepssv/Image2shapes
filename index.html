@@ -141,7 +141,7 @@ table {
         </div>
         <div class="menu-container" id="menu">
             <div class="menu-content">
-                <p class="nameapp"><i>Image2shapes 0.20</i></p>
+                <p class="nameapp"><i>Image2shapes 0.3</i></p>
                 <p><button type="button" class="butty saveCode" style="background-color:#444;margin-left:44px;">Save code</button></p>
             
             </div>
@@ -204,9 +204,9 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum
     var contf = 1
-    var pares = [0.4, 0.41, 1.1, 1.1, 1.4, 1.4, 1.5, 1.5, 3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.6, 4.61]
+    var pares = [0.4, 0.41, 1.1, 1.1, 1.5, 3.1, 3.2, 3.3, 3.4, 3.5, 3.5, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61,4.7,4.7]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
-    //var pares = [...new Array(10)].map(() => 1.4);
+    //var pares = [...new Array(10)].map(() => 4.51);
     var pary = [...pares]
     var poly = [...polis]
     //pares = [3.1, 3.2, 2.4, 3.3, 2.2, 3.2, 3.3, 3]
@@ -915,141 +915,8 @@ table {
             shape2.pop();
         });
 
-        shapes.set(1.4, (n, d, tr, an, x, y) => {
-            var title = "grid on square";
-            var l = min(width, height);
-            shape2 = createGraphics(l, l, WEBGL);
-            tr.rtt += -HALF_PI;
-            //random(height);
-            shape2.push();
-            shape2.scale(tr.scl, tr.scl);
-            shape2.rotate(tr.rtt);
-            shape2.translate(width * 0 / 2 + tr.trx, height * 0 / 2 + tr.try);
-            var ang = HALF_PI;
-            cutSquare(org, x, y, 3, l, d, ang);
-            shape2.scale(-1, 1);
-            cutSquare(org, x, y, 3, l, d, ang);
-            shape2.scale(-1, -1);
-            cutSquare(org, x, y, 3, l, d, ang);
-            shape2.scale(-1, 1);
-            cutSquare(org, x, y, 3, l, d, ang);
-            image(shape2, 0, 0);
-            shape2.pop();
-            var geta = shape2.get(0, 0, l, l)
-            shape2.clear()
-            ///////////////////
-            var sz = 1
-            sz = floor(d) % 5 + 2
+ 
 
-            shape2.image(geta, -l / 2, -l / 2, l / sz, l / sz)
-            var geti = shape2.get(0, 0, l / sz, l / sz)
-            shape2.clear()
-            var xy = l / sz
-
-            //shape2.image(geti,-l/2,-l/2)
-            ///////////////////////////////
-            shape2.push();
-            shape2.translate(-l / 2, -l / 2)
-            var cx = 0;
-            cy = 0
-            for (var b = 0; b < sz; b++) {
-                for (var a = 0; a < sz; a++) {
-                    //console.log('ab:', xy, a, b)
-                    shape2.push()
-                    shape2.translate(cx, cy)
-                    shape2.image(geti, 0, 0)
-                    shape2.pop()
-                    cx += xy
-                    //shape2.image(geti,a,b)
-                }
-                cx = 0
-                cy += xy
-            }
-
-
-            /*
-              shape2.translate(l/n,0)
-              shape2.image(geti,-l/n,-l/n) 
-              shape2.translate(0,l/n)
-              shape2.image(geti,-l/n,-l/n)
-              /////////////////////
-              shape2.translate(-l/n,0)
-              shape2.image(geti,-l/n,-l/n)
-              */
-            shape2.pop();
-
-        });
-
-        shapes.set(1.42, (n, d, tr, an, x, y) => {
-            var title = "rect pattern from cutted image width symmetry";
-            var l = min(width, height);
-            shape2 = createGraphics(l * 1, l * 1);
-            shape2.noStroke();
-            shape2.imageMode(CENTER);
-            //shape2.push();
-            var cutname = 0.4;
-
-            cutSquare(org, x, y, cutname, l, d);
-            /*shape2 = createGraphics(l, l, WEBGL);
-            
-            push();
-            shape2.scale(tr.scl, tr.scl);
-            shape2.rotate(tr.rtt);
-            translate(width / 2 + tr.trx, height / 2 + tr.try);
-            cutSquare(org, x, y, cutname, l, d);
-            let ig = shape2.get(0, 0, l/2, l/2);
-            for (var a = 0; a < 2; a++) {
-                for (var b = 0; b < 2; b++) {
-                 image(ig, a * (l/2) , b *  (l/2) );
-                    //copy(a * (l/2) * 1, b *  (l/2) * 1,)
-                }
-              }
-           
-            pop();
-            */
-            //image(shape2, 0, 0);
-        });
-
-        shapes.set(1.41, (n, d, tr, an, x, y) => {
-            var title = "rect pattern from cutted image width symmetry";
-            var l = min(width, height);
-
-            shape2 = createGraphics(l * 2, l * 2);
-            shape2.noStroke();
-            shape2.imageMode(CENTER);
-            shape2.push();
-            n = 2
-            var limit = n * 4;
-            var rade = l / n;
-            var rade2 = rade * 2
-            var dx = 0;
-            var dy = 0;
-            //let vy = img[org].get(x, y, rade, rade);
-            let vy = shape2.get(x, y, rade, rade);
-
-            //shape2.image(vy,0,0)
-            //cutShape(org, x, y, 1, rade, d);
-            var shape3 = createGraphics(l * 2, l * 2)
-            var ig = img[org].get(x, y, rade, rade);
-            shape3.image(ig, 0, 0);
-            shape3.push()
-            shape3.scale(-1, 1);
-            shape3.translate(-rade2, 0);
-            shape3.image(ig, 0, 0);
-
-            //shape3.img[org].get(x, y, rade, rade);
-            let ig2 = shape3.get(x, y, rade2, rade2)
-            //var shape4 = createGraphics(l * 2, l * 2)
-            for (var b = 0; b < n; b++) {
-                for (var a = 0; a < n; a++) {
-
-                    shape2.image(ig2, a * rade * 1, b * rade * 1, rade / 2, rade / 2);
-                }
-            }
-
-            image(shape2, 0, 0);
-            shape2.pop();
-        });
         shapes.set(1.5, (n, d, tr, an, x, y) => {
             var title = "rect pattern from cutted image width symmetry";
             var l = min(width, height);
@@ -1376,6 +1243,39 @@ table {
             image(shape2, 0, 0);
             shape2.pop();
         });
+        shapes.set(4.51, (n, d, tr, an, x, y) => {
+            var l = min(width, height);
+             shapes.get(4.5).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]); 
+               var geta = shape2.get(0, 0, l, l)
+                shape2.clear()
+                ///////////////////
+                var sz = 1
+                sz = floor(d) % 5 + 2
+                shape2.image(geta, -l / 2, -l / 2, l / sz, l / sz)
+                var geti = shape2.get(0, 0, l / sz, l / sz)
+                shape2.clear()
+                var xy = l / sz
+                //shape2.image(geti,-l/2,-l/2)
+                ///////////////////////////////
+                shape2.push();
+                shape2.translate(-l / 2, -l / 2)
+                var cx = 0;
+                cy = 0
+                for (var b = 0; b < sz; b++) {
+                    for (var a = 0; a < sz; a++) {
+                        //console.log('ab:', xy, a, b)
+                        shape2.push()
+                        shape2.translate(cx, cy)
+                        shape2.image(geti, 0, 0)
+                        shape2.pop()
+                        cx += xy
+                        //shape2.image(geti,a,b)
+                    }
+                    cx = 0
+                    cy += xy
+                }
+                shape2.pop();
+         });
 
         shapes.set(4.6, (n, d, tr, an, x, y) => {
             var title = "symmetry triangle in square";
@@ -1422,6 +1322,91 @@ table {
             pop();
             image(shape2, 0, 0);
         });
+        shapes.set(4.7, (n, d, tr, an, x, y) => {
+            var title = "grid on square";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            tr.rtt += -HALF_PI;
+            //random(height);
+            shape2.push();
+            shape2.scale(tr.scl, tr.scl);
+            shape2.rotate(tr.rtt);
+            shape2.translate(width * 0 / 2 + tr.trx, height * 0 / 2 + tr.try);
+            var ang = HALF_PI;
+            cutSquare(org, x, y, 3, l, d, ang);
+            shape2.scale(-1, 1);
+            cutSquare(org, x, y, 3, l, d, ang);
+            shape2.scale(-1, -1);
+            cutSquare(org, x, y, 3, l, d, ang);
+            shape2.scale(-1, 1);
+            cutSquare(org, x, y, 3, l, d, ang);
+            image(shape2, 0, 0);
+            shape2.pop();
+            var geta = shape2.get(0, 0, l, l)
+            shape2.clear()
+            ///////////////////
+            var sz = 1
+            sz = floor(d) % 5 + 2
+            shape2.image(geta, -l / 2, -l / 2, l / sz, l / sz)
+            var geti = shape2.get(0, 0, l / sz, l / sz)
+            shape2.clear()
+            var xy = l / sz
+            //shape2.image(geti,-l/2,-l/2)
+            ///////////////////////////////
+            shape2.push();
+            shape2.translate(-l / 2, -l / 2)
+            var cx = 0;
+            cy = 0
+            for (var b = 0; b < sz; b++) {
+                for (var a = 0; a < sz; a++) {
+                    //console.log('ab:', xy, a, b)
+                    shape2.push()
+                    shape2.translate(cx, cy)
+                    shape2.image(geti, 0, 0)
+                    shape2.pop()
+                    cx += xy
+                    //shape2.image(geti,a,b)
+                }
+                cx = 0
+                cy += xy
+            }
+            shape2.pop();
+
+        });
+
+     shapes.set(4.71, (n, d, tr, an, x, y) => {
+        var l = min(width, height);
+         shapes.get(4.7).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]); 
+           var geta = shape2.get(0, 0, l, l)
+            shape2.clear()
+            ///////////////////
+            var sz = 1
+            sz = floor(d) % 5 + 2
+            shape2.image(geta, -l / 2, -l / 2, l / sz, l / sz)
+            var geti = shape2.get(0, 0, l / sz, l / sz)
+            shape2.clear()
+            var xy = l / sz
+            //shape2.image(geti,-l/2,-l/2)
+            ///////////////////////////////
+            shape2.push();
+            shape2.translate(-l / 2, -l / 2)
+            var cx = 0;
+            cy = 0
+            for (var b = 0; b < sz; b++) {
+                for (var a = 0; a < sz; a++) {
+                    //console.log('ab:', xy, a, b)
+                    shape2.push()
+                    shape2.translate(cx, cy)
+                    shape2.image(geti, 0, 0)
+                    shape2.pop()
+                    cx += xy
+                    //shape2.image(geti,a,b)
+                }
+                cx = 0
+                cy += xy
+            }
+            shape2.pop();
+     });
     }
 
     function cutTriangle(org, x, y, n, r, d, an = 1, extra = {}) {
