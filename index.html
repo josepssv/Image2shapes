@@ -141,7 +141,7 @@ table {
         </div>
         <div class="menu-container" id="menu">
             <div class="menu-content">
-                <p class="nameapp"><i>Image2shapes 0.5</i></p>
+                <p class="nameapp"><i>Image2shapes 0.6</i></p>
                 <p><button type="button" class="butty saveCode" style="background-color:#444;margin-left:44px;">Save code</button></p>
             </div>
         </div>
@@ -203,9 +203,9 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum;
     var contf = 1
-    var pares = [0.4, 0.41, 0.5, 0.6,0.7,0.8,1.1, 1.1, 1.2, 1.3, 1.5,1.6,1.6, 3.1, 3.2, 3.21,3.22, 3.3, 3.4, 3.5, 3.5,3.51,3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61,4.62,4.7,4.7,5.0,5.1]
+    var pares = [0.4, 0.41, 0.5, 0.6,0.7,0.8,1.1, 1.1, 1.2, 1.3, 1.5,1.6,1.6, 3.1, 3.2, 3.21,3.22, 3.3, 3.4, 3.5, 3.5,3.51,3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61,4.62,4.7,4.7,5.0,5.1,5.2]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
-  //var pares = [...new Array(10)].map(() => 5.1);
+  //var pares = [...new Array(10)].map(() => 5.2);
     var pary = [...pares]
     var poly = [...polis]
     //pares = [3.1, 3.2, 2.4, 3.3, 2.2, 3.2, 3.3, 3]
@@ -1343,8 +1343,6 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
             var title = "symmetry from isosceles triangle aperture";
             var l = min(width, height);
             shape2 = createGraphics(l, l, WEBGL);
-
-
             var g = HALF_PI;
             shape2.push();
             shape2.scale(tr.scl, tr.scl);
@@ -1799,7 +1797,7 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
             shape2.pop();
         }); 
         shapes.set(5.0, (n, d, tr, an, x, y) => {
-            var title = 'tetrahedrom'
+            var title = 'tetrahedrom spheres color'
             var l = min(width, height); 
             let coln
             let vert=getTetraVert(l*sqrt(2))//2*sqrt(2)
@@ -1841,41 +1839,64 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
 
         }); 
          shapes.set(5.1, (n, d, tr, an, x, y) => {
-            var title = 'tetrahedrom'
+            var title = 'tetrahedrom photo and lines'
             var l = min(width, height);
-            let vert=getTetraVert(l*2*sqrt(2))//2*sqrt(2)
-            shapes.get(0.4).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            let vert=getTetraVert(l*sqrt(2))//2*sqrt(2)
+            //shapes.get(0.4).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            //shapes.get(4.7).apply(null, [4, l, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+           shape2 = createGraphics(l, l, WEBGL);
+           //let sh=shape2.get(0,0,l,l)
+           let sh=img[org]
+           let wh={w:img[org].width,h:img[org].height}
             let imgs=[]
-            imgs[0]=shape2.get(0,0,l,l)
-            /* var colx=x+d*cos(an*1)
-             var coly=y+d*cos(an*1)
-              imgs[1]=shape2.get(0,0,colx,coly)
-             colx=x+d*cos(an*2)
-             coly=y+d*cos(an*2)
-              imgs[2]=shape2.get(0,0,colx,coly)
-              colx=x+d*cos(an*3)
-             coly=y+d*cos(an*3)
-              imgs[3]=shape2.get(0,0,colx,coly)
-*/
-            shape2.clear()
-            //shape2.ambientMaterial(0,150,0)
-           
-             let coln=img[org].get(x,y) 
-             //shape2.directionalLight(155,255,255,0,0,-1)
-             //shape2.ambientLight(60, 60, 60);
-            //shape2.specularMaterial(red(coln)*0.4);
-            //shape2.pointLight(255,255,220, l*18, -l*22, l*118);
+            var dd=d*0.5
+            var xd=x+d*0.5*cos(0)
+            var yd=x+d*0.5*cos(0)
+            let t = rectToSquare(wh, xd, yd, dd)
+            //console.log(JSON.stringify(t))
+             if(int(d)%2==0){
+                vert.sort(compareZ);
+             }
+            for (var j=0;j<vert.length;j++){
+                imgs[j]=sh.get(t.tl.x,t.tl.y,t.w,t.w)
+                xd=x+d*0.5*cos(an*(j+1))
+                yd=y+d*0.5*sin(an*(j+1))
+                t = rectToSquare(wh, xd, yd, dd)
+            }
+             //shape2.clear()
+             let coln=img[org].get(x,y)
+            // shape2.specularMaterial(red(coln)*0.1);
+           // shape2.pointLight(red(coln),green(coln),blue(coln), l*118, -l*122, l*118);
             //shape2.directionalLight(0,green(coln),blue(coln),0,0,-l*100)
-            
             shape2.push()
             shape2.translate(0,0,-l*1)
-            shape2.rotate(an)
+            shape2.rotate(an)  
+            var wei=l*4/n/6
+            var colx=1;//x+d*cos(an*i)
+                var coly=1;//y+d*sin(an*i)
             for(let i = 0 ; i < vert.length; i++){
-                var colx=x+d*cos(an*i)
-                  coln=img[org].get(colx,y+i)
+                
+                  coln=imgs[i].get(colx,coly)
                  
+
+                  shape2.push()
+                     //shape2.ambientMaterial(red(coln),green(coln),blue(coln));
+                //shape2.emissiveMaterial(red(coln)*0.1,green(coln)*0.1,blue(coln)*0.1)
+                 //shape2.shininess(lightness(coln));
+                     shape2.translate(vert[i].x, vert[i].y,vert[i].z+wei)
+                     shape2.texture(imgs[i])
+                     //shape2.rotate(blue(coln))
+                     shape2.ellipse(0,0,l*4/n,l*4/n)
+                     //shape2.sphere(l*1/n)
+
+                     //shape2.ellipse(0,0, l,l)
+                     //shape2.image(img2,0,0)
+                      shape2.pop()
+                   //console.log(i)
+
+
                    if(i<vert.length-1){
-                    shape2.strokeWeight(10)
+                    shape2.strokeWeight(wei)
                     shape2.stroke(coln)
                       shape2.beginShape();
                       shape2.vertex(vert[i].x, vert[i].y,vert[i].z);
@@ -1883,25 +1904,76 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
                       shape2.endShape();
                    
                   }else{ 
-                    shape2.strokeWeight(10)
+                    //shape2.noStroke() 
+                    //shape2.texture(imgs[i])
+                     shape2.strokeWeight(wei)
                     shape2.stroke(coln)
                     shape2.beginShape();
-                      shape2.vertex(vert[i].x, vert[i].y,vert[i].z);
                       shape2.vertex(vert[0].x, vert[0].y,vert[0].z);  
+                      shape2.vertex(vert[2].x, vert[2].y,vert[2].z);  
                       shape2.endShape();
-                  }  
+                  } 
+                 
                   shape2.noStroke() 
-                   shape2.push()
-                    //shape2.shininess(lightness(coln));
-                     shape2.translate(vert[i].x, vert[i].y,vert[i].z)
-                     shape2.texture(imgs[0])
-                     //shape2.rotate(blue(coln))
-                     shape2.ellipse(0,0,l*10/n,l*10/n)
+                  
+                }
+                 for( i = 0 ; i < vert.length; i++){
 
-                     //shape2.ellipse(0,0, l,l)
-                     //shape2.image(img2,0,0)
-                   shape2.pop()
-                   //console.log(i)
+                  //coln=imgs[i].get(colx,coly)
+                  
+                }
+            shape2.pop()
+        }); 
+
+      shapes.set(5.2, (n, d, tr, an, x, y) => {
+            var title = 'Box spiral :-o photo and lines'
+            var l = min(width, height);
+            let vert=getBoxVert(l*0.6,l*6)
+           shape2 = createGraphics(l, l, WEBGL);
+           //let sh=shape2.get(0,0,l,l)
+           let sh=img[org]
+           let wh={w:img[org].width,h:img[org].height}
+            let imgs=[]
+            var dd=d*0.5
+            var xd=x+d*0.5*cos(0)
+            var yd=x+d*0.5*cos(0)
+            let t = rectToSquare(wh, xd, yd, dd)
+            //console.log(JSON.stringify(t))
+             if(int(d)%2==0){
+                vert.sort(compareZ);
+             }
+            for (var j=0;j<vert.length;j++){
+                imgs[j]=sh.get(t.tl.x,t.tl.y,t.w,t.w)
+                xd=x+d*0.5*cos(an*(j+1))
+                yd=y+d*0.5*sin(an*(j+1))
+                t = rectToSquare(wh, xd, yd, dd)
+            }
+             let coln=img[org].get(x,y)
+            shape2.push()
+            shape2.translate(0,0,-l*1)
+            shape2.rotate(an)  
+            var wei=l*4/n/6
+            var colx=1;//x+d*cos(an*i)
+                var coly=1;//y+d*sin(an*i)
+            for(let i = 0 ; i < vert.length; i++){
+                  coln=imgs[i].get(colx,coly)
+                  shape2.push()
+                     shape2.translate(vert[i].x, vert[i].y,vert[i].z+wei)
+                     shape2.texture(imgs[i])
+                     shape2.ellipse(0,0,l*4/n,l*4/n)
+                      shape2.pop()
+                   if(i<vert.length-1){
+                    shape2.strokeWeight(wei)
+                    shape2.stroke(coln)
+                      shape2.beginShape();
+                      shape2.vertex(vert[i].x, vert[i].y,vert[i].z);
+                      shape2.vertex(vert[i+1].x, vert[i+1].y,vert[i+1].z);  
+                      shape2.endShape();
+                   
+                  }
+                  if(i%3==0 && i>2){
+                  }                  
+                  shape2.noStroke() 
                 }
             shape2.pop()
         }); 
@@ -2482,6 +2554,11 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
     }
 ///////////////////////////////////
 
+
+function compareZ(a, b) {
+  return b.z - a.z;
+}
+
 function getTetraVert(sideLength) {
    const type= 'tetrahedron_regular_centered'
   const center = [0, 0, 0];
@@ -2497,6 +2574,43 @@ function getTetraVert(sideLength) {
       vert[i][j] *= scalingFactor;
     }
   }
+ return vert.map((p) => {
+    return {
+      x: p[0],
+      y: p[1],
+      z: p[2],
+    };
+  });
+
+ 
+}
+
+function getBoxVert(scalingFactor,prof) {
+   const type= 'tetrahedron_regular_centered'
+  const center = [0, 0, 0];
+const vert = [
+  [-0.5, 0.5, 0.5], // Vértice 1
+  [0.5, 0.5, 0.5], // Vértice 2
+  [0.5, -0.5, 0.5], // Vértice 3
+  [-0.5, -0.5, 0.5], // Vértice 4
+  [-0.5, 0.5, -0.5], // Vértice 5
+  [0.5, 0.5, -0.5], // Vértice 6
+  [0.5, -0.5, -0.5], // Vértice 7
+  [-0.5, -0.5, -0.5], // Vértice 8
+];
+
+  for (let i = 0; i < vert.length; i++) {
+    for (let j = 0; j < 3; j++) {
+
+      vert[i][j] *= scalingFactor; 
+      if(i>3 && j==2){
+            vert[i][j] -=prof
+      }
+    }
+    if(i==vert.length-1){
+        vert[i][2] -=prof
+    }
+  }
   return vert.map((p) => {
     return {
       x: p[0],
@@ -2504,9 +2618,7 @@ function getTetraVert(sideLength) {
       z: p[2],
     };
   });
-  
 }
-
 /////////////////////    
     function cut3D(org, x, y, n, r, d, an = 1,extra={}) {
 
