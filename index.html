@@ -4,7 +4,6 @@
 <head>
     <title>Turns an image into hundreds of them. Discover the shapes</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js" integrity="sha512-uaz5GpnQoE6t5echKlX8P52czvsIGgLPcvlzfvRubLZ1Hp8JemUDnbUiAahbVtPb+jUVrNETuXvAhDDF/N3M4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta charset="utf-8">
     <script>
@@ -131,6 +130,7 @@ table {
             z-index: 3001; /* Asegura que el botón esté encima del menú */
         }
 
+
 </style>
 </head>
 
@@ -140,17 +140,18 @@ table {
             <div class="toggle-button" onclick="toggleMenu()" style="position:absolute; top:0px;left:0px;font-size:32px;color:#aaa;">☰</div>
         </div>
         <div class="menu-container" id="menu">
-            <div class="menu-content" style="font-size:12px;">
-               <p class="selectShapesTypes" style="text-align: right;">
-                   Clips and  colors <input type="checkbox" id="s0" value="0" class="selectType" checked><br>
-                   Lines and points <input type="checkbox" id="s1" value="1" class="selectType" checked><br>
-                   Mix and random <input type="checkbox" id="s2" value="2" class="selectType" checked><br>
-                   Triangles and radials <input type="checkbox" id="s3" value="3" class="selectType" checked><br>
-                   Squares ad rins <input type="checkbox" id="s4" value="4" class="selectType" checked><br>
-                   3D<input type="checkbox" id="s5" value="5" class="selectType" checked><br>
-               </p>
+            <div class="menu-content" style="font-size:16px;">
+                <p class="selectShapesTypes" style="text-align: right;">
+                    Colors <input type="checkbox" id="s-0" value="-0" class="selectType" checked><br>
+                    Clips<input type="checkbox" id="s0" value="0" class="selectType" checked><br>
+                    Lines and points <input type="checkbox" id="s1" value="1" class="selectType" checked><br>
+                    Mix and random <input type="checkbox" id="s2" value="2" class="selectType" checked><br>
+                    Triangles and radials <input type="checkbox" id="s3" value="3" class="selectType" checked><br>
+                    Squares ad rins <input type="checkbox" id="s4" value="4" class="selectType" checked><br>
+                    3D<input type="checkbox" id="s5" value="5" class="selectType" checked><br>
+                </p>
                 <p><button type="button" class="butty saveCode" style="background-color:#444;margin-left:44px;">Save code</button></p>
-                 <p class="nameapp"><i>Image2shapes 0.7</i></p>
+                <p class="nameapp"><i>Image2shapes 0.8</i></p>
             </div>
         </div>
         <div class="layer">
@@ -211,10 +212,10 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum;
     var contf = 1
-    var paresBase = [0.1,0.11,0.12,0.13,0.14,0.4, 0.41, 0.5, 0.6,0.7,0.8,1.1, 1.1, 1.2, 1.3, 1.5,1.6,1.6, 2.1, 3.1, 3.2, 3.21,3.22, 3.3, 3.4, 3.5, 3.5,3.51,3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61,4.62,4.7,4.7,5.0,5.1,5.2,5.3,5.31]
+    var paresBase = [-0.11, -0.12, -0.13, -0.14, -0.15, -0.16, -0.17, 0.1, 0.4, 0.41, 0.5, 0.6, 0.7, 0.8, 0.9, 1.1, 1.1, 1.2, 1.3, 1.5, 1.6, 1.6, 2.1, 2.2, 3.1, 3.2, 3.21, 3.22, 3.3, 3.4, 3.5, 3.5, 3.51, 3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61, 4.62, 4.7, 4.7, 5.0, 5.1, 5.2, 5.3, 5.31, 5.4]
     var pares = [...paresBase]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
-  //var pares = [...new Array(10)].map(() => 0.12);
+   // var pares = [...new Array(10)].map(() => -0.11);
     var pary = [...pares]
     var poly = [...polis]
     //pares = [3.1, 3.2, 2.4, 3.3, 2.2, 3.2, 3.3, 3]
@@ -238,12 +239,10 @@ table {
     var idSession = ''
     let checkedTypes = [];
     const shapes = new Map();
-    //const upscaler = new Upscaler({ model: DefaultUpscalerJSModel,  })
-    //const upscaler = new Upscaler({ model: UpscalerJSMaximDeblurring, })
-    //const upscaler = new Upscaler({   model: ESRGANLegacyGANS, })
+
     function selectShapes(checkedTypes, pares) {
-       const selectedShapes = pares.filter(
-        (par) => checkedTypes.some((type) => par.toString().startsWith(type))
+        const selectedShapes = pares.filter(
+            (par) => checkedTypes.some((type) => par.toString().startsWith(type))
         );
         return selectedShapes;
     }
@@ -270,7 +269,7 @@ table {
             }
         });
 
-        
+
 
 
         $(".selectType").on('change', function(e) {
@@ -280,9 +279,9 @@ table {
             checkedBoxes.each(function() {
                 checkedTypes.push($(this).val());
             });
-            pares=[]
-            pares=selectShapes(checkedTypes, paresBase)
-            pary=[...pares]
+            pares = []
+            pares = selectShapes(checkedTypes, paresBase)
+            pary = [...pares]
         });
 
         toggleMenu()
@@ -817,101 +816,230 @@ table {
     //iniShapes()
 
     function iniShapes() {
+        shapes.set(-0.11, (n, d, tr, an, x, y) => {
+            var title = "simply gradient V rect to down black";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l);
+            if(floor(d)%2==0){
+                shape2.strokeWeight(4)
+            }else{
+                shape2.strokeWeight(1)
+            }
+            var modi = l / n
+            var gt = img[org].get(x, y)
+            var geto = color(red(gt), green(gt), blue(gt))
+            var geta = color(0, 0, 0)
+            var geti;
+            cmod = 0
+            var mod = 1 / n
+
+            for (let a = 0; a < n; a++) {
+                geti = lerpColor(geto, geta, cmod);
+                if(floor(d)%2==0){
+                    shape2.stroke(0)
+                }else{
+                    shape2.stroke(geti)
+                }
+                shape2.fill(geti)
+                shape2.rect(0, a * modi, l, modi)
+                cmod += mod
+
+            }
+        });
+        shapes.set(-0.12, (n, d, tr, an, x, y) => {
+            var title = "simply gradient V rect to colorA to colorB";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l);
+             if(floor(d)%2==0){
+                shape2.strokeWeight(4)
+            }else{
+                shape2.strokeWeight(1)
+            }
+            var modi = l / n
+            var gt1 = img[org].get(x, y)
+            var gt2 = img[org].get(x + d, y + d)
+            var geto = color(red(gt1), green(gt1), blue(gt1))
+            var geta = color(red(gt2), green(gt2), blue(gt2))
+            var geti;
+
+            cmod = 0
+            var mod = 1 / n
+
+            for (let a = 0; a < n; a++) {
+                geti = lerpColor(geto, geta, cmod);
+                 if(floor(d)%2==0){
+                    shape2.stroke(0)
+                }else{
+                    shape2.stroke(geti)
+                }
+                shape2.fill(geti)
+                shape2.rect(0, a * modi, l, modi)
+                cmod += mod
+
+            }
+        });
+        shapes.set(-0.13, (n, d, tr, an, x, y) => {
+            var title = "simply V color list";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l);
+            if(floor(d)%2==0){
+                shape2.strokeWeight(4)
+            }else{
+                shape2.strokeWeight(1)
+            }
+            var mod = l / n
+            var geti
+            for (let a = 0; a < n; a++) {
+                geti = img[org].get(x, y + 1 * a)
+                  if(floor(d)%2==0){
+                    shape2.stroke(0)
+                }else{
+                    shape2.stroke(geti)
+                }
+                shape2.fill(geti)
+                shape2.rect(0, a * mod, l, mod)
+            }
+        });
+        shapes.set(-0.14, (n, d, tr, an, x, y) => {
+            var title = "palette random color table in square";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l);
+            var geti
+            shape2.strokeWeight(1)
+            var mod = l / n
+            for (let b = 0; b < n; b++) {
+                for (let a = 0; a < n; a++) {
+                    geti = img[org].get(x + 4 * a, y + 4 * b)
+                    if(floor(d)%2==0){
+                        shape2.stroke(0)
+                    }else{
+                        shape2.stroke(geti)
+                    }
+                    shape2.fill(geti)
+                    shape2.rect(a * mod, b * mod, mod, mod)
+                }
+            }
+
+        });
+        shapes.set(-0.15, (n, d, tr, an, x, y) => {
+            var title = "simply gradient H rect to colorA to colorB";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l);
+            if(floor(d)%2==0){
+                shape2.strokeWeight(4)
+            }else{
+                shape2.strokeWeight(1)
+            }
+            var modi = l / n
+            var gt1 = img[org].get(x, y)
+            var gt2 = img[org].get(x + d, y + d)
+            var geto = color(red(gt1), green(gt1), blue(gt1))
+            var geta = color(red(gt2), green(gt2), blue(gt2))
+            var geti;
+            cmod = 0
+            var mod = 1 / n
+            for (let a = 0; a < n; a++) {
+                geti = lerpColor(geto, geta, cmod);
+                if(floor(d)%2==0){
+                        shape2.stroke(0)
+                    }else{
+                        shape2.stroke(geti)
+                    }
+                shape2.fill(geti)
+                shape2.rect(a * modi, 0, modi, l)
+                cmod += mod
+            }
+        });
+        shapes.set(-0.16, (n, d, tr, an, x, y) => {
+            var title = "simply gradient H rect to colorA to black";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l);
+           if(floor(d)%2==0){
+                shape2.strokeWeight(4)
+            }else{
+                shape2.strokeWeight(1)
+            }
+            var modi = l / n
+            var gt1 = img[org].get(x, y)
+            var geta = color(red(gt1), green(gt1), blue(gt1))
+            var gete = color(0, 0, 0)
+            var getu;
+            cmod = 0
+            var mod = 1 / n
+            for (let a = 0; a < n; a++) {
+                getu = lerpColor(geta, gete, cmod);
+                 if(floor(d)%2==0){
+                    shape2.stroke(0)
+                }else{
+                    shape2.stroke(getu)
+                }
+                shape2.fill(getu)
+                shape2.rect(a * modi, 0, modi, l)
+                cmod += mod
+            }
+        });
+        shapes.set(-0.17, (n, d, tr, an, x, y) => {
+            var title = "simply gradient H rect black to colorA to white";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l);
+             if(floor(d)%2==0){
+                shape2.strokeWeight(4)
+            }else{
+                shape2.strokeWeight(1)
+            }
+            var gt1 = img[org].get(x, y)
+            var cmod = 0
+            var geta = color(0, 0, 0)
+            var gete = color(red(gt1), green(gt1), blue(gt1))
+            var geti = color(255, 255, 255)
+            var getu = lerpColor(geta, gete, cmod);
+            var modi = l / (n * 2 + 1)
+            var mod = 1 / n
+            for (let a = 0; a < n; a++) {
+
+                if(floor(d)%2==0){
+                    shape2.stroke(0)
+                }else{
+                    shape2.stroke(getu)
+                }
+                shape2.fill(getu)
+                shape2.rect(a * modi, 0, modi, l)
+                cmod += mod
+                getu = lerpColor(geta, gete, cmod);
+            }
+            a = n
+             if(floor(d)%2==0){
+                    shape2.stroke(0)
+                }else{
+                    shape2.stroke(getu)
+                }
+            shape2.fill(gete)
+            shape2.rect(a * modi, 0, modi, l)
+            cmod = mod
+            a += 1
+            for (let b = a; b < (n * 2 + 1); b++) {
+                getu = lerpColor(gete, geti, cmod);
+                 if(floor(d)%2==0){
+                    shape2.stroke(0)
+                }else{
+                    shape2.stroke(getu)
+                }
+                shape2.fill(getu)
+                shape2.rect(b * modi, 0, modi, l)
+                cmod += mod
+            }
+
+        });
         shapes.set(0.1, (n, d, tr, an, x, y) => {
             var title = "simply random cut image in a square";
             var l = min(width, height);
             shape2 = createGraphics(l, l);
-            var geti=img[org].get(x,y)
+            var geti = img[org].get(x, y)
             shape2.noStroke()
             shape2.fill(geti)
-            shape2.rect(0,0,l,l)
-           
-        });
-        shapes.set(0.11, (n, d, tr, an, x, y) => {
-            var title = "simply gradient to black";
-            var l = min(width, height);
-            shape2 = createGraphics(l, l);
-            shape2.strokeWeight(1)
-            var modi=l/n
-            var gt=img[org].get(x,y) 
-            var geto=color(red(gt),green(gt),blue(gt))
-            var geta=color(0,0,0)
-            var geti;
-            
-            cmod=0
-            //pro[0]=map(red(geto),0,255,0,1)
-            //pro[1]=map(green(geto),0,255,0,1)
-            //pro[2]=map(blue(geto),0,255,0,1)
-            //var mod=[pro[0]/n,pro[1]/n,pro[2]/n]
-            //console.log('mod',mod)
-            //var lepi=[0,0,0]
-            var mod=1/n
-            
-           for(let a=0;a<n;a++){  
-                geti = lerpColor(geto, geta, cmod);
-                shape2.stroke(geti)
-                shape2.fill(geti)
-                shape2.rect(0,a*modi,l,modi)
-                cmod+=mod
+            shape2.rect(0, 0, l, l)
 
-            }
         });
-          shapes.set(0.12, (n, d, tr, an, x, y) => {
-            var title = "simply gradient to colorA to colorB";
-            var l = min(width, height);
-            shape2 = createGraphics(l, l);
-            shape2.strokeWeight(1)
-            var modi=l/n
-            var gt1=img[org].get(x,y) 
-            var gt2=img[org].get(x+d,y+d) 
-            var geto=color(red(gt1),green(gt1),blue(gt1))
-            var geta=color(red(gt2),green(gt2),blue(gt2))
-            var geti;
-            
-            cmod=0
-            var mod=1/n
-            
-           for(let a=0;a<n;a++){  
-                geti = lerpColor(geto, geta, cmod);
-                shape2.stroke(geti)
-                shape2.fill(geti)
-                shape2.rect(0,a*modi,l,modi)
-                cmod+=mod
-
-            }
-        });
-        shapes.set(0.13, (n, d, tr, an, x, y) => {
-            var title = "simply V color list";
-            var l = min(width, height);
-            shape2 = createGraphics(l, l);
-            shape2.strokeWeight(1)
-            var mod=l/n
-            var geti
-           for(let a=0;a<n;a++){
-                geti=img[org].get(x,y+1*a) 
-                shape2.stroke(geti)
-                shape2.fill(geti)
-                shape2.rect(0,a*mod,l,mod)
-            }
-        });
-        shapes.set(0.14, (n, d, tr, an, x, y) => {
-            var title = "color table in square";
-            var l = min(width, height);
-            shape2 = createGraphics(l, l);
-            var geti
-            shape2.strokeWeight(1)
-            var mod=l/n
-            for(let b=0;b<n;b++){
-                for(let a=0;a<n;a++){
-                    geti=img[org].get(x+4*a,y+4*b)
-                    shape2.stroke(geti)
-                    shape2.fill(geti)
-                    shape2.rect(a*mod,b*mod,mod,mod)
-                }
-            }
-           
-        });
-
         shapes.set(0.4, (n, d, tr, an, x, y) => {
             var title = "simply random cut image in a square";
             var l = min(width, height);
@@ -963,10 +1091,10 @@ table {
         shapes.set(0.6, (n, d, tr, an, x, y) => {
             var title = "mask image with circle";
             var l = min(width, height);
-            shape2 = createGraphics(width, height, WEBGL); 
+            shape2 = createGraphics(width, height, WEBGL);
             shape2.push();
-             shape2.smooth();
-             shape2.clip(() => {
+            shape2.smooth();
+            shape2.clip(() => {
                 shape2.push();
                 shape2.ellipse(0, 0, l, l)
                 shape2.pop();
@@ -979,19 +1107,19 @@ table {
             shape2.pop();
             shape2.pop();
         });
-          shapes.set(0.61, (n, d, tr, an, x, y) => {
+        shapes.set(0.61, (n, d, tr, an, x, y) => {
             var title = "mask image with circle radius";
             var l = min(width, height);
             //shape2.background(200, 50, 100);
             shape2 = createGraphics(width, height, WEBGL);
-             shape2.smooth();
-             var dx=l*2/n
-             var cx=map(x,0,img[0].width,0,l-dx)
-             var cy=map(y,0,img[0].height,0,l-dx)
-             shape2.push()
-             shape2.clip(() => {
+            shape2.smooth();
+            var dx = l * 2 / n
+            var cx = map(x, 0, img[0].width, 0, l - dx)
+            var cy = map(y, 0, img[0].height, 0, l - dx)
+            shape2.push()
+            shape2.clip(() => {
                 shape2.push();
-                shape2.ellipse(-l/2+dx/2, -l/2+dx/2, dx, dx)
+                shape2.ellipse(-l / 2 + dx / 2, -l / 2 + dx / 2, dx, dx)
                 shape2.pop();
             });
             shape2.push();
@@ -1003,53 +1131,53 @@ table {
             shape2.pop()
             //shape2
         });
-   shapes.set(0.7, (n, d, tr, an, x, y) => {
-      var title = "Vgradient 2 random colors from image";
-      var c1=img[org].get(x,y)
-      var c2=img[org].get(x+d,y+d)
-        shape2 = createGraphics(width, height, WEBGL);
-          shape2.beginShape(QUAD_STRIP);
-          shape2.fill(c1);
-          shape2.vertex(-width/2, -height/2);
-          shape2.vertex(width/2, -height/2);
-         shape2.fill(c2);
-          shape2.vertex(-width/2, height/2);
-          shape2.vertex(width/2, height/2);
-          shape2.endShape();
- });
-     shapes.set(0.71, (n, d, tr, an, x, y) => {
-      var title = "Vgradient 2 random colors from image in circle";
-      var l = min(width, height);
-      var c1=img[org].get(x,y)
-      var c2=img[org].get(x+d,y+d)
-        shape2 = createGraphics(width, height, WEBGL);
-        shape2.smooth();
-        shape2.clip(() => {
+        shapes.set(0.7, (n, d, tr, an, x, y) => {
+            var title = "Vgradient 2 random colors from image";
+            var c1 = img[org].get(x, y)
+            var c2 = img[org].get(x + d, y + d)
+            shape2 = createGraphics(width, height, WEBGL);
+            shape2.beginShape(QUAD_STRIP);
+            shape2.fill(c1);
+            shape2.vertex(-width / 2, -height / 2);
+            shape2.vertex(width / 2, -height / 2);
+            shape2.fill(c2);
+            shape2.vertex(-width / 2, height / 2);
+            shape2.vertex(width / 2, height / 2);
+            shape2.endShape();
+        });
+        shapes.set(0.71, (n, d, tr, an, x, y) => {
+            var title = "Vgradient 2 random colors from image in circle";
+            var l = min(width, height);
+            var c1 = img[org].get(x, y)
+            var c2 = img[org].get(x + d, y + d)
+            shape2 = createGraphics(width, height, WEBGL);
+            shape2.smooth();
+            shape2.clip(() => {
                 shape2.push();
                 shape2.ellipse(0, 0, l, l)
                 shape2.pop();
             });
-          shape2.beginShape(QUAD_STRIP);
-          shape2.fill(c1);
-          shape2.vertex(-width/2, -height/2);
-          shape2.vertex(width/2, -height/2);
-         shape2.fill(c2);
-          shape2.vertex(-width/2, height/2);
-          shape2.vertex(width/2, height/2);
-          shape2.endShape();
- });
-shapes.set(0.8, (n, d, tr, an, x, y) => {
+            shape2.beginShape(QUAD_STRIP);
+            shape2.fill(c1);
+            shape2.vertex(-width / 2, -height / 2);
+            shape2.vertex(width / 2, -height / 2);
+            shape2.fill(c2);
+            shape2.vertex(-width / 2, height / 2);
+            shape2.vertex(width / 2, height / 2);
+            shape2.endShape();
+        });
+        shapes.set(0.8, (n, d, tr, an, x, y) => {
             var title = "mask image with disk";
             var l = min(width, height);
-            shape2 = createGraphics(width, height, WEBGL); 
+            shape2 = createGraphics(width, height, WEBGL);
             shape2.push();
-             shape2.smooth();
-             shape2.clip(() => {
+            shape2.smooth();
+            shape2.clip(() => {
                 shape2.push();
                 shape2.noFill()
-                shape2.strokeWeight(l/4)
+                shape2.strokeWeight(l / 4)
                 shape2.stroke(0)
-                shape2.ellipse(0, 0, l-l/4, l-l/4)
+                shape2.ellipse(0, 0, l - l / 4, l - l / 4)
                 shape2.pop();
             });
             shape2.push();
@@ -1060,6 +1188,34 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
             shape2.pop();
             shape2.pop();
         });
+        shapes.set(0.9, (n, d, tr, an, x, y) => {
+            var title = "mask image with star";
+            var l = min(width, height);
+            shape2 = createGraphics(width, height, WEBGL);
+            let vert = getStarN(n, l * 0.5, -4, -30)
+
+            shape2.push();
+            shape2.smooth();
+            shape2.clip(() => {
+                shape2.beginShape();
+                shape2.fill(255);
+                for (let a = 0; a < vert.length; a++) {
+                    shape2.vertex(vert[a].x, vert[a].y, vert[a].z);
+                }
+                shape2.endShape();
+            });
+
+            shape2.push();
+            shape2.scale(tr.scl, tr.scl);
+            shape2.rotate(tr.rtt);
+            shape2.translate(tr.trx, tr.try);
+            cutSquare(org, x, y, 0, l, d);
+            shape2.pop();
+            shape2.pop();
+        });
+
+
+
         shapes.set(1.1, (n, d, tr, an, x, y) => {
             var title = "spiral points";
             var l = min(width, height);
@@ -1236,81 +1392,119 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
             image(shape2, 0, 0);
         });
 
-   shapes.set(1.6, (n, d, tr, an, x, y) => {
-     var title = "shape along curve";
-      var l = min(width, height);
-     shapes.get(0.61).apply(null, [n*2, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
-     let img2=shape2.get(0,0,l,l)
-     pr={x:0,y:0}
-    shape2.clear()
-    var wx=map(x,0,img[org].width,0,l)
-    var wy=map(y,0,img[org].height,0,l)
-    let p1 = { x: -l/2, y: -l/2 }
-    let p2 = { x: wx, y: -wy}
-    let p3 = { x: -wx, y: wy}
-    let p4 = { x: l/2, y: l/2}
-      for(let i = 0 ; i < 100; i++){
-        let pt = bez(i/100, p1, p2, p3, p4);
-        let dx = pt.x - pr.x;
-        let dy = pt.y - pr.y ;
-        if(i % 2 === 0 && i !== 0){
-          let th = atan2(pt.y + dx*50 - pt.y, pt.x - dy*50 - pt.x)
-           shape2.noStroke()
-           shape2.push()
-             shape2.translate(pt.x, pt.y)
-             shape2.rotate(th)
-             shape2.translate(0, 0)
-             shape2.fill(255, 200, 0)
-             shape2.texture(img2)
-             shape2.rect(0,0, l,l)
-             //shape2.image(img2,0,0)
-           shape2.pop()
-           //console.log(i)
-        }
-         pr.x = pt.x;
-        pr.y = pt.y;
-       }
-      }); 
-      shapes.set(2.1, (n, d, tr, an, x, y) => {
+        shapes.set(1.6, (n, d, tr, an, x, y) => {
+            var title = "shape along curve";
+            var l = min(width, height);
+            shapes.get(0.61).apply(null, [n * 2, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            let img2 = shape2.get(0, 0, l, l)
+            pr = { x: 0, y: 0 }
+            shape2.clear()
+            var wx = map(x, 0, img[org].width, 0, l)
+            var wy = map(y, 0, img[org].height, 0, l)
+            let p1 = { x: -l / 2, y: -l / 2 }
+            let p2 = { x: wx, y: -wy }
+            let p3 = { x: -wx, y: wy }
+            let p4 = { x: l / 2, y: l / 2 }
+            for (let i = 0; i < 100; i++) {
+                let pt = bez(i / 100, p1, p2, p3, p4);
+                let dx = pt.x - pr.x;
+                let dy = pt.y - pr.y;
+                if (i % 2 === 0 && i !== 0) {
+                    let th = atan2(pt.y + dx * 50 - pt.y, pt.x - dy * 50 - pt.x)
+                    shape2.noStroke()
+                    shape2.push()
+                    shape2.translate(pt.x, pt.y)
+                    shape2.rotate(th)
+                    shape2.translate(0, 0)
+                    shape2.fill(255, 200, 0)
+                    shape2.texture(img2)
+                    shape2.rect(0, 0, l, l)
+                    //shape2.image(img2,0,0)
+                    shape2.pop()
+                    //console.log(i)
+                }
+                pr.x = pt.x;
+                pr.y = pt.y;
+            }
+        });
+        shapes.set(2.1, (n, d, tr, an, x, y) => {
             var title = "Sun and floor";
             var l = min(width, height);
-       shapes.get(3.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            shapes.get(3.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             var geta = shape2.get(0, 0, l, l)
-            shape2.clear()     
-   shapes.get(4.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            shape2.clear()
+            shapes.get(4.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             var gete = shape2.get(0, 0, l, l)
             shape2.clear()
-            shape2 = createGraphics(l, l, WEBGL);  
-            shape2.image(geta,-l/2,-l/2)
+            shape2 = createGraphics(l, l, WEBGL);
+            shape2.image(geta, -l / 2, -l / 2)
             shape2.push()
-            shape2.translate(0,l/2)
-            shape2.image(gete,-l/2,-l/2)
+            shape2.translate(0, l / 2)
+            shape2.image(gete, -l / 2, -l / 2)
             shape2.pop()
-         });
+        });
 
-   shapes.set(2.11, (n, d, tr, an, x, y) => {
+        shapes.set(2.11, (n, d, tr, an, x, y) => {
             var title = "Sun and floor -  sketch";
             var l = min(width, height);
-       shapes.get(3.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            shapes.get(3.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             var geta = shape2.get(0, 0, l, l)
-            shape2.clear()     
-   shapes.get(4.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            shape2.clear()
+            shapes.get(4.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             var gete = shape2.get(0, 0, l, l)
             shape2.clear()
 
-            const vert=getPlaneMidSide(l*2,l*8)
-            shape2 = createGraphics(l, l, WEBGL);  
-            shape2.image(geta,-l/2,-l/2)
+            const vert = getPlaneMidSide(l * 2, l * 8)
+            shape2 = createGraphics(l, l, WEBGL);
+            shape2.image(geta, -l / 2, -l / 2)
             shape2.push()
-            shape2.translate(0,l/2,0)
-            cut3D(gete, x, y, 1, 100, d, an ,vert)
+            shape2.translate(0, l / 2, 0)
+            cut3D(gete, x, y, 1, 100, d, an, vert)
             //shape2.texture(gete)
             //pe2.translate(0,l/2)
             //shape2.image(gete,-l/2,-l/2)
 
             shape2.pop()
-         });
+        });
 
+        shapes.set(2.2, (n, d, tr, an, x, y) => {
+            var title = "mask image with noise";
+            var l = min(width, height);
+            shape2 = createGraphics(width, height, WEBGL);
+
+            if (floor(d) % 2 == 0) {
+                cutSquare(org, x, y, 0, l, d / 2);
+                shape2.tint(100, 150)
+            } else {
+                let giti = img[org].get(x, y)
+                fill(giti)
+                rect(-l / 2, -l / 2, l, l)
+            }
+            shape2.push();
+            shape2.smooth();
+            shape2.clip(() => {
+                shape2.stroke(0);
+                shape2.fill(0);
+                shape2.beginShape()
+                shape2.vertex(-l / 2, l / 2)
+
+                for (let xi = -l / 2; xi < l / 2; xi++) {
+                    let noiseOffset = n / 100;
+                    let noiseVal = noise(noiseOffset + xi / 100);
+                    shape2.vertex(xi, noiseVal * 100 - 100);
+                }
+                shape2.vertex(l / 2, l / 2)
+                shape2.endShape()
+            });
+
+            shape2.push();
+            shape2.scale(tr.scl, tr.scl);
+            shape2.rotate(tr.rtt);
+            shape2.translate(tr.trx, tr.try);
+            cutSquare(org, x, y, 0, l, d);
+            shape2.pop();
+            shape2.pop();
+        });
         shapes.set(3.1, (n, d, tr, an, x, y) => {
             var title = "symmetry triangle in square";
             var l = min(width, height);
@@ -1373,35 +1567,6 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
             shape2.clear()
             shape2.image(geta, -l / 2, -l / 2, l, l)
 
-            shape2.push()
-            ax = sidet * 2 //-l/2 //
-            ay = 0;
-            shape2.translate(ax, ay)
-            shape2.image(geta, -l / 2, -l / 2, l, l)
-            shape2.pop()
-
-
-            shape2.push()
-            ax = -sidet * 2 //-l/2 //
-            ay = 0;
-            shape2.translate(ax, ay)
-            shape2.image(geta, -l / 2, -l / 2, l, l)
-            shape2.pop()
-
-
-            shape2.push()
-            ax = sidet //-l/2 //
-            ay = (l / 4) * 3 //h = √3 * a / 2
-            shape2.translate(ax, ay)
-            shape2.image(geta, -l / 2, -l / 2, l, l)
-            shape2.pop()
-
-            shape2.push()
-            ax = -sidet //-l/2 //
-            ay = (l / 4) * 3 //h = √3 * a / 2
-            shape2.translate(ax, ay)
-            shape2.image(geta, -l / 2, -l / 2, l, l)
-            shape2.pop()
 
             shape2.push()
             shape2.rotate(PI)
@@ -1419,48 +1584,36 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
             shape2.image(geta, -l / 2, -l / 2, l, l)
             shape2.pop()
 
-            shape2.push()
-            shape2.rotate(PI)
-            ax = 0
-            ay = -l / 2
-            shape2.translate(ax, ay)
-            shape2.image(geta, -l / 2, -l / 2, l, l)
-            shape2.pop()
 
-            shape2.push()
-            shape2.rotate(PI)
-            ax = sidet * 2
-            ay = -l / 2
-            shape2.translate(ax, ay)
-            shape2.image(geta, -l / 2, -l / 2, l, l)
-            shape2.pop()
-
-            shape2.push()
-            shape2.rotate(PI)
-            ax = -sidet * 2
-            ay = -l / 2
-            shape2.translate(ax, ay)
-            shape2.image(geta, -l / 2, -l / 2, l, l)
-            shape2.pop()
+            var ssidet = l / 2 - sidet
+            var icu = shape2.get(0, 0, l, l)
+            shape2.clear()
+            shape2.beginClip()
+            //shape2.rect(-(l/2)+l/16,-l/2,(l)-l/8,l)
+            shape2.rect(-(l / 2) + ssidet, -l / 2, sidet * 2, l)
+            shape2.endClip()
+            shape2.image(icu, -l / 2, -l / 2)
 
         });
+
 
         shapes.set(3.22, (n, d, tr, an, x, y) => {
             var title = "vertical symmetry from triangle pattern";
             var l = min(width, height);
             var ax = 0
             var ay = 0
+            var sidet = (((l / 4) * 3) * 2 / sqrt(3)) / 2
             shapes.get(3.21).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             var geta = shape2.get(0, 0, l, l)
-            var sidet = (((l / 4) * 3) * 2 / sqrt(3)) / 2
             shape2.clear()
             shape2.push()
             shape2.image(geta, -l / 4, 0, l / 2, l / 2)
-            ax = l / 2;
+            ax = sidet;
             ay = 0;
             shape2.translate(ax, ay)
             shape2.image(geta, -l / 4, 0, l / 2, l / 2)
-            ax = -l;
+
+            ax = -sidet * 2;
             ay = 0;
             shape2.translate(ax, ay)
             shape2.image(geta, -l / 4, 0, l / 2, l / 2)
@@ -1469,17 +1622,51 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
             shape2.push()
             shape2.scale(1, -1)
             shape2.image(geta, -l / 4, 0, l / 2, l / 2)
-            ax = l / 2;
+            ax = sidet;
             ay = 0;
             shape2.translate(ax, ay)
             shape2.image(geta, -l / 4, 0, l / 2, l / 2)
-            ax = -l;
+            ax = -sidet * 2;
             ay = 0;
             shape2.translate(ax, ay)
             shape2.image(geta, -l / 4, 0, l / 2, l / 2)
             shape2.pop()
+            if (floor(d) % 2 == 0) {
+                var gete = shape2.get(0, 0, l, l)
+                shape2.clear()
+                shape2.image(gete, -l / 2, -l / 2)
+                shape2.push()
+                ax = 0;
+                ay = l - (l / 4)
+                shape2.translate(ax, ay)
+                shape2.image(gete, -l / 2, -l / 2)
+                shape2.pop()
+                shape2.push()
+                ax = 0;
+                ay = -l + (l / 4)
+                shape2.translate(ax, ay)
+                shape2.image(gete, -l / 2, -l / 2)
+                shape2.pop()
+            }
+        });
 
-
+    shapes.set(3.23, (n, d, tr, an, x, y) => {
+            var title = "vertical symmetry from triangle pattern";
+            var l = min(width, height);
+            var ax = 0
+            var ay = 0
+            var sidet = (((l / 4) * 3) * 2 / sqrt(3)) / 2
+            shapes.get(3.22).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            var geta = shape2.get(0, 0, l, l)
+            shape2.clear()
+            shape2.push()
+           
+             if(floor(d)%2==0){
+                shape2.image(geta, -l / 2, -l/2)
+            }else{
+                shape2.image(geta, -l / 2, -l/2, l, l)
+            }
+         
         });
 
 
@@ -1961,224 +2148,281 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
                 cy += xy
             }
             shape2.pop();
-        }); 
+        });
         shapes.set(5.0, (n, d, tr, an, x, y) => {
             var title = 'tetrahedrom spheres color'
-            var l = min(width, height); 
+            var l = min(width, height);
             let coln
-            let vert=getTetraVert(l*sqrt(2))//2*sqrt(2)
+            let vert = getTetraVert(l * sqrt(2)) //2*sqrt(2)
             shape2 = createGraphics(l, l, WEBGL);
-           
-             coln=img[org].get(x,y)
-             //shape2.ambientLight(60, 60, 60);
-             
-            shape2.specularMaterial(red(coln)*0.1);
-            
-            shape2.pointLight(red(coln),green(coln),blue(coln), l*118, -l*122, l*118);
-            shape2.directionalLight(0,green(coln),blue(coln),0,0,-l*100)
+
+            coln = img[org].get(x, y)
+            //shape2.ambientLight(60, 60, 60);
+
+            shape2.specularMaterial(red(coln) * 0.1);
+
+            shape2.pointLight(red(coln), green(coln), blue(coln), l * 118, -l * 122, l * 118);
+            shape2.directionalLight(0, green(coln), blue(coln), 0, 0, -l * 100)
 
 
-            for(var a=0;a<12;a++){
-            shape2.push()
-            shape2.translate(0,0,-l*2*a+1)
-            shape2.rotate(an+a)
-            
-            for(let i = 0 ; i < vert.length; i++){
-                var colx=x+d*cos(an*i)
-                  coln=img[org].get(colx,y+i+a)
-                   shape2.noStroke()
-                   shape2.push()
-               shape2.ambientMaterial(red(coln),green(coln),blue(coln));
-                shape2.emissiveMaterial(red(coln)*0.1,green(coln)*0.1,blue(coln)*0.1)
-                 shape2.shininess(lightness(coln));
-                     shape2.translate(vert[i].x, vert[i].y,vert[i].z)
-                     shape2.fill(coln)
-                     shape2.rotate(an*n+i)
-                     shape2.sphere(l*2/n)
-                     //shape2.ellipse(0,0, l,l)
-                     //shape2.image(img2,0,0)
-                   shape2.pop()
-                   //console.log(i)
+            for (var a = 0; a < 12; a++) {
+                shape2.push()
+                shape2.translate(0, 0, -l * 2 * a + 1)
+                shape2.rotate(an + a)
+
+                for (let i = 0; i < vert.length; i++) {
+                    var colx = x + d * cos(an * i)
+                    coln = img[org].get(colx, y + i + a)
+                    shape2.noStroke()
+                    shape2.push()
+                    shape2.ambientMaterial(red(coln), green(coln), blue(coln));
+                    shape2.emissiveMaterial(red(coln) * 0.1, green(coln) * 0.1, blue(coln) * 0.1)
+                    shape2.shininess(lightness(coln));
+                    shape2.translate(vert[i].x, vert[i].y, vert[i].z)
+                    shape2.fill(coln)
+                    shape2.rotate(an * n + i)
+                    shape2.sphere(l * 2 / n)
+                    //shape2.ellipse(0,0, l,l)
+                    //shape2.image(img2,0,0)
+                    shape2.pop()
+                    //console.log(i)
                 }
-            shape2.pop()
-        }
+                shape2.pop()
+            }
 
-        }); 
-         shapes.set(5.1, (n, d, tr, an, x, y) => {
+        });
+        shapes.set(5.1, (n, d, tr, an, x, y) => {
             var title = 'tetrahedrom photo and lines'
             var l = min(width, height);
-            let vert=getTetraVert(l*sqrt(2))//2*sqrt(2)
+            let vert = getTetraVert(l * sqrt(2)) //2*sqrt(2)
             //shapes.get(0.4).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             //shapes.get(4.7).apply(null, [4, l, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
-           shape2 = createGraphics(l, l, WEBGL);
-           //let sh=shape2.get(0,0,l,l)
-           let sh=img[org]
-           let wh={w:img[org].width,h:img[org].height}
-            let imgs=[]
-            var dd=d*0.5
-            var xd=x+d*0.5*cos(0)
-            var yd=x+d*0.5*cos(0)
+            shape2 = createGraphics(l, l, WEBGL);
+            //let sh=shape2.get(0,0,l,l)
+            let sh = img[org]
+            let wh = { w: img[org].width, h: img[org].height }
+            let imgs = []
+            var dd = d * 0.5
+            var xd = x + d * 0.5 * cos(0)
+            var yd = x + d * 0.5 * cos(0)
             let t = rectToSquare(wh, xd, yd, dd)
             //console.log(JSON.stringify(t))
-             if(int(d)%2==0){
+            if (int(d) % 2 == 0) {
                 vert.sort(compareZ);
-             }
-            for (var j=0;j<vert.length;j++){
-                imgs[j]=sh.get(t.tl.x,t.tl.y,t.w,t.w)
-                xd=x+d*0.5*cos(an*(j+1))
-                yd=y+d*0.5*sin(an*(j+1))
+            }
+            for (var j = 0; j < vert.length; j++) {
+                imgs[j] = sh.get(t.tl.x, t.tl.y, t.w, t.w)
+                xd = x + d * 0.5 * cos(an * (j + 1))
+                yd = y + d * 0.5 * sin(an * (j + 1))
                 t = rectToSquare(wh, xd, yd, dd)
             }
-             //shape2.clear()
-             let coln=img[org].get(x,y)
+            //shape2.clear()
+            let coln = img[org].get(x, y)
             // shape2.specularMaterial(red(coln)*0.1);
-           // shape2.pointLight(red(coln),green(coln),blue(coln), l*118, -l*122, l*118);
+            // shape2.pointLight(red(coln),green(coln),blue(coln), l*118, -l*122, l*118);
             //shape2.directionalLight(0,green(coln),blue(coln),0,0,-l*100)
             shape2.push()
-            shape2.translate(0,0,-l*1)
-            shape2.rotate(an)  
-            var wei=l*4/n/6
-            var colx=1;//x+d*cos(an*i)
-                var coly=1;//y+d*sin(an*i)
-            for(let i = 0 ; i < vert.length; i++){
-                
-                  coln=imgs[i].get(colx,coly)
-                 
+            shape2.translate(0, 0, -l * 1)
+            shape2.rotate(an)
+            var wei = l * 4 / n / 6
+            var colx = 1; //x+d*cos(an*i)
+            var coly = 1; //y+d*sin(an*i)
+            for (let i = 0; i < vert.length; i++) {
 
-                  shape2.push()
-                     //shape2.ambientMaterial(red(coln),green(coln),blue(coln));
+                coln = imgs[i].get(colx, coly)
+
+
+                shape2.push()
+                //shape2.ambientMaterial(red(coln),green(coln),blue(coln));
                 //shape2.emissiveMaterial(red(coln)*0.1,green(coln)*0.1,blue(coln)*0.1)
-                 //shape2.shininess(lightness(coln));
-                     shape2.translate(vert[i].x, vert[i].y,vert[i].z+wei)
-                     shape2.texture(imgs[i])
-                     //shape2.rotate(blue(coln))
-                     shape2.ellipse(0,0,l*4/n,l*4/n)
-                     //shape2.sphere(l*1/n)
+                //shape2.shininess(lightness(coln));
+                shape2.translate(vert[i].x, vert[i].y, vert[i].z + wei)
+                shape2.texture(imgs[i])
+                //shape2.rotate(blue(coln))
+                shape2.ellipse(0, 0, l * 4 / n, l * 4 / n)
+                //shape2.sphere(l*1/n)
 
-                     //shape2.ellipse(0,0, l,l)
-                     //shape2.image(img2,0,0)
-                      shape2.pop()
-                   //console.log(i)
+                //shape2.ellipse(0,0, l,l)
+                //shape2.image(img2,0,0)
+                shape2.pop()
+                //console.log(i)
 
 
-                   if(i<vert.length-1){
+                if (i < vert.length - 1) {
                     shape2.strokeWeight(wei)
-                    shape2.stroke(coln)
-                      shape2.beginShape();
-                      shape2.vertex(vert[i].x, vert[i].y,vert[i].z);
-                      shape2.vertex(vert[i+1].x, vert[i+1].y,vert[i+1].z);  
-                      shape2.endShape();
-                   
-                  }else{ 
-                    //shape2.noStroke() 
-                    //shape2.texture(imgs[i])
-                     shape2.strokeWeight(wei)
                     shape2.stroke(coln)
                     shape2.beginShape();
-                      shape2.vertex(vert[0].x, vert[0].y,vert[0].z);  
-                      shape2.vertex(vert[2].x, vert[2].y,vert[2].z);  
-                      shape2.endShape();
-                  } 
-                 
-                  shape2.noStroke() 
-                  
-                }
-                 for( i = 0 ; i < vert.length; i++){
+                    shape2.vertex(vert[i].x, vert[i].y, vert[i].z);
+                    shape2.vertex(vert[i + 1].x, vert[i + 1].y, vert[i + 1].z);
+                    shape2.endShape();
 
-                  //coln=imgs[i].get(colx,coly)
-                  
-                }
-            shape2.pop()
-        }); 
-
-      shapes.set(5.2, (n, d, tr, an, x, y) => {
-            var title = 'Box spiral :-o photo and lines'
-            var l = min(width, height);
-            let vert=getBoxVert(l*0.6,l*6)
-           shape2 = createGraphics(l, l, WEBGL);
-           //let sh=shape2.get(0,0,l,l)
-           let sh=img[org]
-           let wh={w:img[org].width,h:img[org].height}
-            let imgs=[]
-            var dd=d*0.5
-            var xd=x+d*0.5*cos(0)
-            var yd=x+d*0.5*cos(0)
-            let t = rectToSquare(wh, xd, yd, dd)
-            //console.log(JSON.stringify(t))
-             if(int(d)%2==0){
-                vert.sort(compareZ);
-             }
-            for (var j=0;j<vert.length;j++){
-                imgs[j]=sh.get(t.tl.x,t.tl.y,t.w,t.w)
-                xd=x+d*0.5*cos(an*(j+1))
-                yd=y+d*0.5*sin(an*(j+1))
-                t = rectToSquare(wh, xd, yd, dd)
-            }
-             let coln=img[org].get(x,y)
-            shape2.push()
-            shape2.translate(0,0,-l*1)
-            shape2.rotate(an)  
-            var wei=l*4/n/6
-            var colx=1;//x+d*cos(an*i)
-                var coly=1;//y+d*sin(an*i)
-            for(let i = 0 ; i < vert.length; i++){
-                  coln=imgs[i].get(colx,coly)
-                  shape2.push()
-                     shape2.translate(vert[i].x, vert[i].y,vert[i].z+wei)
-                     shape2.texture(imgs[i])
-                     shape2.ellipse(0,0,l*4/n,l*4/n)
-                      shape2.pop()
-                   if(i<vert.length-1){
+                } else {
+                    //shape2.noStroke() 
+                    //shape2.texture(imgs[i])
                     shape2.strokeWeight(wei)
                     shape2.stroke(coln)
-                      shape2.beginShape();
-                      shape2.vertex(vert[i].x, vert[i].y,vert[i].z);
-                      shape2.vertex(vert[i+1].x, vert[i+1].y,vert[i+1].z);  
-                      shape2.endShape();
-                   
-                  }
-                  if(i%3==0 && i>2){
-                  }                  
-                  shape2.noStroke() 
+                    shape2.beginShape();
+                    shape2.vertex(vert[0].x, vert[0].y, vert[0].z);
+                    shape2.vertex(vert[2].x, vert[2].y, vert[2].z);
+                    shape2.endShape();
                 }
+
+                shape2.noStroke()
+
+            }
+            for (i = 0; i < vert.length; i++) {
+
+                //coln=imgs[i].get(colx,coly)
+
+            }
             shape2.pop()
-        }); 
+        });
+
+        shapes.set(5.2, (n, d, tr, an, x, y) => {
+            var title = 'Box spiral :-o photo and lines'
+            var l = min(width, height);
+            let vert = getBoxVert(l * 0.6, l * 6)
+            shape2 = createGraphics(l, l, WEBGL);
+            //let sh=shape2.get(0,0,l,l)
+            let sh = img[org]
+            let wh = { w: img[org].width, h: img[org].height }
+            let imgs = []
+            var dd = d * 0.5
+            var xd = x + d * 0.5 * cos(0)
+            var yd = x + d * 0.5 * cos(0)
+            let t = rectToSquare(wh, xd, yd, dd)
+            //console.log(JSON.stringify(t))
+            if (int(d) % 2 == 0) {
+                vert.sort(compareZ);
+            }
+            for (var j = 0; j < vert.length; j++) {
+                imgs[j] = sh.get(t.tl.x, t.tl.y, t.w, t.w)
+                xd = x + d * 0.5 * cos(an * (j + 1))
+                yd = y + d * 0.5 * sin(an * (j + 1))
+                t = rectToSquare(wh, xd, yd, dd)
+            }
+            let coln = img[org].get(x, y)
+            shape2.push()
+            shape2.translate(0, 0, -l * 1)
+            shape2.rotate(an)
+            var wei = l * 4 / n / 6
+            var colx = 1; //x+d*cos(an*i)
+            var coly = 1; //y+d*sin(an*i)
+            for (let i = 0; i < vert.length; i++) {
+                coln = imgs[i].get(colx, coly)
+                shape2.push()
+                shape2.translate(vert[i].x, vert[i].y, vert[i].z + wei)
+                shape2.texture(imgs[i])
+                shape2.ellipse(0, 0, l * 4 / n, l * 4 / n)
+                shape2.pop()
+                if (i < vert.length - 1) {
+                    shape2.strokeWeight(wei)
+                    shape2.stroke(coln)
+                    shape2.beginShape();
+                    shape2.vertex(vert[i].x, vert[i].y, vert[i].z);
+                    shape2.vertex(vert[i + 1].x, vert[i + 1].y, vert[i + 1].z);
+                    shape2.endShape();
+
+                }
+                if (i % 3 == 0 && i > 2) {}
+                shape2.noStroke()
+            }
+            shape2.pop()
+        });
         shapes.set(5.3, (n, d, tr, an, x, y) => {
             var title = "Sun and floor";
             var l = min(width, height);
             shapes.get(4.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             var gete = shape2.get(0, 0, l, l)
             shape2.clear()
-            shape2 = createGraphics(l, l, WEBGL);   
-            const vert=getPlaneMidSide(l,l*10,l*3.48)
+            shape2 = createGraphics(l, l, WEBGL);
+            const vert = getPlaneMidSide(l, l * 10, l * 3.48)
             shape2.push()
-          
-            shape2.translate(-l*2,l/2,0)
-            cut3D(gete, x, y, 1, 100, d, an ,vert)
-            shape2.translate(l*2,0,0)
-            cut3D(gete, x, y, 1, 100, d, an ,vert)
-            shape2.translate(l*2,0,0)
-            cut3D(gete, x, y, 1, 100, d, an ,vert)
+
+            shape2.translate(-l * 2, l / 2, 0)
+            cut3D(gete, x, y, 1, 100, d, an, vert)
+            shape2.translate(l * 2, 0, 0)
+            cut3D(gete, x, y, 1, 100, d, an, vert)
+            shape2.translate(l * 2, 0, 0)
+            cut3D(gete, x, y, 1, 100, d, an, vert)
             shape2.pop()
-         });
-        shapes.set(5.31, (n, d, tr, an, x, y, gete=img[org]) => {
+        });
+        shapes.set(5.31, (n, d, tr, an, x, y, gete = img[org]) => {
             var title = "Sun and floor";
             var l = min(width, height);
             //shapes.get(4.51).apply(null, [n, d, { scl: l, rtt: 0, trx: 0, try: 0 }, an, x, y]);
-            
+
             shape2.clear()
-            shape2 = createGraphics(l, l, WEBGL);   
-            const vert=getPlaneMidSide(l,l*10,l*2*an)
+            shape2 = createGraphics(l, l, WEBGL);
+            const vert = getPlaneMidSide(l, l * 10, l * 2 * an)
             shape2.push()
-          
-            shape2.translate(-l*2,l/2,0)
-            cut3D(gete, x, y, 1, 100, d, an ,vert)
-            shape2.translate(l*2,0,0)
-            cut3D(gete, x, y, 1, 100, d, an ,vert)
-            shape2.translate(l*2,0,0)
-            cut3D(gete, x, y, 1, 100, d, an ,vert)
+
+            shape2.translate(-l * 2, l / 2, 0)
+            cut3D(gete, x, y, 1, 100, d, an, vert)
+            shape2.translate(l * 2, 0, 0)
+            cut3D(gete, x, y, 1, 100, d, an, vert)
+            shape2.translate(l * 2, 0, 0)
+            cut3D(gete, x, y, 1, 100, d, an, vert)
             shape2.pop()
-         });
+        });
+        shapes.set(5.4, (n, d, tr, an, x, y, gete = img[org]) => {
+            var title = 'Star photo and lines'
+            var l = min(width, height);
+            let vert = getStarN(n, l * 0.5, -4, -4)
+            shape2 = createGraphics(l, l, WEBGL);
+            //let sh=shape2.get(0,0,l,l)
+            let sh = img[org]
+            let wh = { w: img[org].width, h: img[org].height }
+            let imgs = []
+            var dd = d * 0.5
+            var xd = x + d * 0.5 * cos(0)
+            var yd = x + d * 0.5 * cos(0)
+            let t = rectToSquare(wh, xd, yd, dd)
+            //console.log(JSON.stringify(t))
+            //if(int(d)%2==0){
+            //vert.sort(compareZ);
+            //}
+            for (var j = 0; j < vert.length; j++) {
+                imgs[j] = sh.get(t.tl.x, t.tl.y, t.w, t.w)
+                xd = x + d * 0.5 * cos(an * (j + 1))
+                yd = y + d * 0.5 * sin(an * (j + 1))
+                t = rectToSquare(wh, xd, yd, dd)
+            }
+            let coln = img[org].get(x, y)
+            shape2.push()
+            shape2.translate(0, 0, -l * 1)
+            shape2.rotate(an)
+            var wei = l * 4 / n / 6
+            var colx = 1; //x+d*cos(an*i)
+            var coly = 1; //y+d*sin(an*i)
+            for (let i = 0; i < vert.length; i++) {
+                coln = imgs[i].get(colx, coly)
+                shape2.push()
+                shape2.translate(vert[i].x, vert[i].y, vert[i].z + wei)
+                shape2.texture(imgs[i])
+                shape2.ellipse(0, 0, wei * 2.5, wei * 2.5)
+                shape2.pop()
+                if (i < vert.length - 1) {
+                    shape2.strokeWeight(wei)
+                    shape2.stroke(coln)
+                    shape2.beginShape();
+                    shape2.vertex(vert[i].x, vert[i].y, vert[i].z);
+                    shape2.vertex(vert[i + 1].x, vert[i + 1].y, vert[i + 1].z);
+                    shape2.endShape();
+
+                }
+                if (i % 3 == 0 && i > 2) {}
+                shape2.noStroke()
+            }
+            shape2.strokeWeight(wei)
+            shape2.stroke(coln)
+            shape2.beginShape();
+            shape2.vertex(vert[vert.length - 1].x, vert[vert.length - 1].y, vert[vert.length - 1].z);
+            shape2.vertex(vert[0].x, vert[0].y, vert[0].z);
+            shape2.endShape();
+            shape2.pop()
+
+        });
     }
 
 
@@ -2537,7 +2781,7 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
             let r2 = r * 2
             let r4 = r * 4
             //const t= rectToSquare(wh,0,0,wh.w)
-            let pa = createGraphics(r2, r2,WEBGL);
+            let pa = createGraphics(r2, r2, WEBGL);
             //let geri=img[org].get(t.tl.x,t.tl.y,t.w,t.h)
             let geri = img[org].get(x, y, d, d)
             pa.push();
@@ -2755,147 +2999,192 @@ shapes.set(0.8, (n, d, tr, an, x, y) => {
         }
 
     }
-///////////////////////////////////
+    ///////////////////////////////////
 
 
-function compareZ(a, b) {
-  return b.z - a.z;
-}
-
-function getTetraVert(sideLength) {
-   const type= 'tetrahedron_regular_centered'
-  const center = [0, 0, 0];
-  const vert = [
-    [0.25, 0.25, 0.25],
-    [-0.25, 0.5, 0.25],
-    [0.25, -0.25, 0.25],
-    [-0.25, -0.25, -0.25],
-  ];
-  const scalingFactor = sideLength / Math.sqrt(2);
-  for (let i = 0; i < vert.length; i++) {
-    for (let j = 0; j < 3; j++) {
-      vert[i][j] *= scalingFactor;
+    function compareZ(a, b) {
+        return b.z - a.z;
     }
-  }
- return vert.map((p) => {
-    return {
-      x: p[0],
-      y: p[1],
-      z: p[2],
-    };
-  });
-}
 
-function getPlaneMidSide(sside,prof=1,app=0) {
-   const type= 'tetrahedron_regular_centered'
-  const center = [0, 0, 0];
-  const vert = [
-    [-sside, 0, 0],
-    [sside, 0, 0],
-    [-sside, -app, -prof],
-    [sside, -app, -prof],
-  ];
- return vert.map((p) => {
-    return {
-      x: p[0],
-      y: p[1],
-      z: p[2],
-    };
-  });
-}
-
-function getBoxVert(scalingFactor,prof) {
-   const type= 'tetrahedron_regular_centered'
-  const center = [0, 0, 0];
-const vert = [
-  [-0.5, 0.5, 0.5], // Vértice 1
-  [0.5, 0.5, 0.5], // Vértice 2
-  [0.5, -0.5, 0.5], // Vértice 3
-  [-0.5, -0.5, 0.5], // Vértice 4
-  [-0.5, 0.5, -0.5], // Vértice 5
-  [0.5, 0.5, -0.5], // Vértice 6
-  [0.5, -0.5, -0.5], // Vértice 7
-  [-0.5, -0.5, -0.5], // Vértice 8
-];
-
-  for (let i = 0; i < vert.length; i++) {
-    for (let j = 0; j < 3; j++) {
-
-      vert[i][j] *= scalingFactor; 
-      if(i>3 && j==2){
-            vert[i][j] -=prof
-      }
+    function getTetraVert(sideLength) {
+        const type = 'tetrahedron_regular_centered'
+        const center = [0, 0, 0];
+        const vert = [
+            [0.25, 0.25, 0.25],
+            [-0.25, 0.5, 0.25],
+            [0.25, -0.25, 0.25],
+            [-0.25, -0.25, -0.25],
+        ];
+        const scalingFactor = sideLength / Math.sqrt(2);
+        for (let i = 0; i < vert.length; i++) {
+            for (let j = 0; j < 3; j++) {
+                vert[i][j] *= scalingFactor;
+            }
+        }
+        return vert.map((p) => {
+            return {
+                x: p[0],
+                y: p[1],
+                z: p[2],
+            };
+        });
     }
-    if(i==vert.length-1){
-        vert[i][2] -=prof
+
+    function getPlaneMidSide(sside, prof = 1, app = 0) {
+        const type = 'tetrahedron_regular_centered'
+        const center = [0, 0, 0];
+        const vert = [
+            [-sside, 0, 0],
+            [sside, 0, 0],
+            [-sside, -app, -prof],
+            [sside, -app, -prof],
+        ];
+        return vert.map((p) => {
+            return {
+                x: p[0],
+                y: p[1],
+                z: p[2],
+            };
+        });
     }
-  }
-  return vert.map((p) => {
-    return {
-      x: p[0],
-      y: p[1],
-      z: p[2],
-    };
-  });
-}
-/////////////////////    
-    function cut3D(ime, x, y, n, r, d, an = 1,vert=[]) {
- if (n == 1) { 
+
+    function getBoxVert(scalingFactor, prof) {
+        const type = 'tetrahedron_regular_centered'
+        const center = [0, 0, 0];
+        const vert = [
+            [-0.5, 0.5, 0.5], // Vértice 1
+            [0.5, 0.5, 0.5], // Vértice 2
+            [0.5, -0.5, 0.5], // Vértice 3
+            [-0.5, -0.5, 0.5], // Vértice 4
+            [-0.5, 0.5, -0.5], // Vértice 5
+            [0.5, 0.5, -0.5], // Vértice 6
+            [0.5, -0.5, -0.5], // Vértice 7
+            [-0.5, -0.5, -0.5], // Vértice 8
+        ];
+
+        for (let i = 0; i < vert.length; i++) {
+            for (let j = 0; j < 3; j++) {
+
+                vert[i][j] *= scalingFactor;
+                if (i > 3 && j == 2) {
+                    vert[i][j] -= prof
+                }
+            }
+            if (i == vert.length - 1) {
+                vert[i][2] -= prof
+            }
+        }
+        return vert.map((p) => {
+            return {
+                x: p[0],
+                y: p[1],
+                z: p[2],
+            };
+        });
+    }
+
+    function getStar(scale, z1) {
+        const verts = [];
+        let radius;
+        let z = 1
+        for (let i = 0; i < 10; i++) {
+            //radius = i % 2 === 0 ? 1 : 0.5;
+            if (i % 2 === 0) {
+                radius = 1;
+                z = z1
+            } else {
+                radius = 0.5;
+                z = z1 * scale
+            }
+            const angle = i * Math.PI / 5;
+            const x = radius * Math.cos(angle) * scale;
+            const y = radius * Math.sin(angle) * scale;
+            verts.push({ x, y, z });
+        }
+        return verts;
+    }
+
+    function getStarN(numPoints, scale, z1, z2) {
+        const verts = [];
+        let radius;
+        let z = 1
+        for (let i = 0; i < numPoints; i++) {
+            if (i % 2 === 0) {
+                radius = 1;
+                z = z1
+            } else {
+                radius = 0.5;
+                z = z2
+            }
+            //const angle = i * Math.PI / numPoints;
+            const angle = (2 * Math.PI * i) / numPoints;
+            const x = radius * Math.cos(angle) * scale;
+            const y = radius * Math.sin(angle) * scale;
+            verts.push({ x, y, z });
+        }
+        return verts;
+    }
+
+    /////////////////////    
+    function cut3D(ime, x, y, n, r, d, an = 1, vert = []) {
+        if (n == 1) {
             //plane
-            var side=d
+            var side = d
             shape2.beginShape(TRIANGLE_STRIP);
             shape2.texture(ime);
-            var w=ime.width
-            var h=ime.height
+            var w = ime.width
+            var h = ime.height
             //shape2.fill(0, 255, 0);
             shape2.noStroke();
             shape2.imageMode(CENTER);
-          shape2.vertex(vert[0].x, vert[0].y, vert[0].z, 0, 0 );
-          shape2.vertex(vert[1].x, vert[1].y, vert[1].z, w, 0);
-          shape2.vertex(vert[2].x, vert[2].y, vert[2].z, 0, h);
-          shape2.vertex(vert[3].x, vert[3].y, vert[3].z, w, h);
-          shape2.endShape();
-          //console.log(vert)
-    }
-        if (n == 2) { 
+            shape2.vertex(vert[0].x, vert[0].y, vert[0].z, 0, 0);
+            shape2.vertex(vert[1].x, vert[1].y, vert[1].z, w, 0);
+            shape2.vertex(vert[2].x, vert[2].y, vert[2].z, 0, h);
+            shape2.vertex(vert[3].x, vert[3].y, vert[3].z, w, h);
+            shape2.endShape();
+            //console.log(vert)
+        }
+        if (n == 2) {
             //Tetrahedrom faces
-            var side=d
+            var side = d
             //tetrahedrom
-           shape2.fill(0, 255, 0);
-          shape2.beginShape(TRIANGLES);
-          shape2.vertex(side, side, side);
-          shape2.vertex(-side, -side, side);
-          shape2.vertex(side, -side, -side);
-          shape2.endShape();
+            shape2.fill(0, 255, 0);
+            shape2.beginShape(TRIANGLES);
+            shape2.vertex(side, side, side);
+            shape2.vertex(-side, -side, side);
+            shape2.vertex(side, -side, -side);
+            shape2.endShape();
 
-          shape2.beginShape(TRIANGLES);
-          shape2.fill(0, 0, 255);
-          shape2.vertex(-side, -side, side);
-          shape2.vertex(side, -side, -side);
-          shape2.vertex(-side, side, -side);
-          shape2.endShape();
+            shape2.beginShape(TRIANGLES);
+            shape2.fill(0, 0, 255);
+            shape2.vertex(-side, -side, side);
+            shape2.vertex(side, -side, -side);
+            shape2.vertex(-side, side, -side);
+            shape2.endShape();
 
-          shape2.beginShape(TRIANGLES);
-          shape2.fill(255, 0, 0);
-          shape2.vertex(side, side, side);
-          shape2.vertex(-side, side, -side);
-          shape2.vertex(-side, -side, side);
-          shape2.endShape();
-          
-          shape2.beginShape(TRIANGLES);
-          shape2.fill(255, 255, 0);
-          shape2.vertex(side, side, side);
-          shape2.vertex(side, -side, -side);
-          shape2.vertex(-side, side, -side);
-          shape2.endShape();
-}
-}
-function bez(t, a, b, c, d){
-  return {
-    x: ((1-t)**3) * a.x + 3*(1-t)**2 * t * b.x + 3*(1-t)*t**2 * c.x + t**3 * d.x,
-    y: (1-t)**3 * a.y + 3*(1-t)**2 * t * b.y + 3*(1-t)*t**2 * c.y + t**3 * d.y
-  }
-}
+            shape2.beginShape(TRIANGLES);
+            shape2.fill(255, 0, 0);
+            shape2.vertex(side, side, side);
+            shape2.vertex(-side, side, -side);
+            shape2.vertex(-side, -side, side);
+            shape2.endShape();
+
+            shape2.beginShape(TRIANGLES);
+            shape2.fill(255, 255, 0);
+            shape2.vertex(side, side, side);
+            shape2.vertex(side, -side, -side);
+            shape2.vertex(-side, side, -side);
+            shape2.endShape();
+        }
+    }
+
+    function bez(t, a, b, c, d) {
+        return {
+            x: ((1 - t) ** 3) * a.x + 3 * (1 - t) ** 2 * t * b.x + 3 * (1 - t) * t ** 2 * c.x + t ** 3 * d.x,
+            y: (1 - t) ** 3 * a.y + 3 * (1 - t) ** 2 * t * b.y + 3 * (1 - t) * t ** 2 * c.y + t ** 3 * d.y
+        }
+    }
+
     function cutShape(org, x, y, n, r, d, an = 1) {
         if (n == 1) {
             var r2 = r * 2
