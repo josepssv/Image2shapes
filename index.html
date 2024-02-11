@@ -147,11 +147,14 @@ table {
                     Lines and points <input type="checkbox" id="s1" value="1" class="selectType" checked><br>
                     Mix and random <input type="checkbox" id="s2" value="2" class="selectType" checked><br>
                     Triangles and radials <input type="checkbox" id="s3" value="3" class="selectType" checked><br>
-                    Squares ad rins <input type="checkbox" id="s4" value="4" class="selectType" checked><br>
+                    Squares ad rings <input type="checkbox" id="s4" value="4" class="selectType" checked><br>
                     3D<input type="checkbox" id="s5" value="5" class="selectType" checked><br>
                 </p>
-                <p><button type="button" class="butty saveCode" style="background-color:#444;margin-left:44px;">Save code</button></p>
-                <p class="nameapp"><i>Image2shapes 0.8</i></p>
+                <p style="text-align: right;"><button type="button"  onclick="toggleMenu()" class="butty apply" style="">Apply</button></p>
+                <div style="text-align: left;">
+                    <p><a class="saveCode" style="">Save code</a>
+                    <p class="nameapp"><i>Image2shapes 0.9</i></p>
+                </div>
             </div>
         </div>
         <div class="layer">
@@ -215,13 +218,18 @@ table {
     var paresBase = [-0.11, -0.12, -0.13, -0.14, -0.15, -0.16, -0.17, 0.1, 0.4, 0.41, 0.5, 0.6, 0.7, 0.8, 0.9, 1.1, 1.1, 1.2, 1.3, 1.5, 1.6, 1.6, 2.1, 2.2, 3.1, 3.2, 3.21, 3.22, 3.3, 3.4, 3.5, 3.5, 3.51, 3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61, 4.62, 4.7, 4.7, 5.0, 5.1, 5.2, 5.3, 5.31, 5.4]
     var pares = [...paresBase]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
-   // var pares = [...new Array(10)].map(() => -0.11);
+    //pares = [...new Array(10)].map(() => 5.2);
+    if(window.location.hash) {
+        var n=window.location.hash.substring(1,100)
+     pares = [...new Array(10)].map(() => parseFloat(n));
+     console.log(n)
+    } else {
+      // Fragment doesn't exist
+    }
+   
     var pary = [...pares]
     var poly = [...polis]
-    //pares = [3.1, 3.2, 2.4, 3.3, 2.2, 3.2, 3.3, 3]
-    //var cfoto = [{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "", "img": "" }]
     var cfoto = []
-    //var caddy = [...cfoto]
     var caddy = []
     var slices = 24;
     var img = [];
@@ -443,6 +451,8 @@ table {
                     //$("button").remove(".saveImages");
                     //$("button").remove(".saveCode");
                     //$("button").remove(".showSelected");
+                    $("#menu").css('left','-250px')
+                    //toggleMenu()
                     loop()
                 });
 
@@ -2279,9 +2289,12 @@ table {
         });
 
         shapes.set(5.2, (n, d, tr, an, x, y) => {
-            var title = 'Box spiral :-o photo and lines'
+            var title = 'Box photo and edges'
             var l = min(width, height);
-            let vert = getBoxVert(l * 0.6, l * 6)
+            //shapes.get(3.6).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            //var geta=shape2.get(0,0,l,l)
+            //geta.resize(l/4,l/4)
+            shape2.clear()
             shape2 = createGraphics(l, l, WEBGL);
             //let sh=shape2.get(0,0,l,l)
             let sh = img[org]
@@ -2292,38 +2305,67 @@ table {
             var yd = x + d * 0.5 * cos(0)
             let t = rectToSquare(wh, xd, yd, dd)
             //console.log(JSON.stringify(t))
-            if (int(d) % 2 == 0) {
-                vert.sort(compareZ);
+            //if (int(d) % 2 == 0) {
+                //vert.sort(compareZ);
+           // } 
+            let anr=0
+            if(floor(d)%2==0){
+                //anr=HALF_PI*0.5
+                //anr=l*3
             }
+            var wei = l * 4 / n / 6
+            let vert = getBoxVert(l*1.2-wei*0, l * 4)
             for (var j = 0; j < vert.length; j++) {
                 imgs[j] = sh.get(t.tl.x, t.tl.y, t.w, t.w)
                 xd = x + d * 0.5 * cos(an * (j + 1))
                 yd = y + d * 0.5 * sin(an * (j + 1))
                 t = rectToSquare(wh, xd, yd, dd)
             }
+           
             let coln = img[org].get(x, y)
             shape2.push()
             shape2.translate(0, 0, -l * 1)
-            shape2.rotate(an)
-            var wei = l * 4 / n / 6
+            //shape2.rotate(anr)
+            
             var colx = 1; //x+d*cos(an*i)
             var coly = 1; //y+d*sin(an*i)
+             var edgi=vert[0]
+            cut3D(imgs[0], x, y, 1, 100, d, an, [vert[0],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
+            edgi=vert[1]
+            cut3D(imgs[1], x, y, 1, 100, d, an, [vert[1],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
+             edgi=vert[3]
+            cut3D(imgs[3], x, y, 1, 100, d, an, [vert[3],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
+             edgi=vert[2]
+            cut3D(imgs[2], x, y, 1, 100, d, an, [vert[2],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
+           // shape2.push()
+           // shape2.translate(0,0,-anr)
+            cut3D(imgs[4], x, y, 1, 100, d, an, [vert[4],vert[5],vert[7],vert[6]])
+           // shape2.pop()
+            var colni = imgs[0].get(colx, coly)
             for (let i = 0; i < vert.length; i++) {
                 coln = imgs[i].get(colx, coly)
-                shape2.push()
+                /*shape2.push()
                 shape2.translate(vert[i].x, vert[i].y, vert[i].z + wei)
-                shape2.texture(imgs[i])
-                shape2.ellipse(0, 0, l * 4 / n, l * 4 / n)
+                //shape2.texture(imgs[i])
+                shape2.fill(coln)
+                shape2.ellipse(0, 0, wei,  wei)
+                //shape2.ellipse(0, 0, wei*2,  wei*2)
+                //rect(0,0,30,30)
+                //shape2.image(geta,-l/4,-l*4)
                 shape2.pop()
-                if (i < vert.length - 1) {
+                //if (i < vert.length - 1) {
+                */
+                for(var a=0;a<vert[i].edge.length;a++){
                     shape2.strokeWeight(wei)
-                    shape2.stroke(coln)
+                    shape2.stroke(colni)
                     shape2.beginShape();
                     shape2.vertex(vert[i].x, vert[i].y, vert[i].z);
-                    shape2.vertex(vert[i + 1].x, vert[i + 1].y, vert[i + 1].z);
+                    edgi=vert[i].edge[a]
+                    shape2.vertex(vert[edgi].x, vert[edgi].y, vert[edgi].z);
+                    //shape2.vertex(vert[i + 1].x, vert[i + 1].y, vert[i + 1].z);
                     shape2.endShape();
-
                 }
+                //}
                 if (i % 3 == 0 && i > 2) {}
                 shape2.noStroke()
             }
@@ -3048,7 +3090,40 @@ table {
         });
     }
 
-    function getBoxVert(scalingFactor, prof) {
+ function getBoxVert(scalingFactor, prof) {
+        const type = 'tetrahedron_regular_centered'
+        const center = [0, 0, 0];
+        const vert = [
+            [-0.5, 0.5, 0.5,[1,4],5], // Vér 0
+            [0.5, 0.5, 0.5,[2,5],6], // Vert 1
+            [0.5, -0.5, 0.5,[3,6],7], // Vert 2
+            [-0.5, -0.5, 0.5,[0,7],4], // Vert 3
+            [-0.5, 0.5, -0.5,[5],0], // Vert 4
+            [0.5, 0.5, -0.5,[6],0], // Vert 5
+            [0.5, -0.5, -0.5,[7],0], // Vert 6
+            [-0.5, -0.5, -0.5,[4],0], // Vert 7
+        ];
+
+        for (let i = 0; i < vert.length; i++) {
+            for (let j = 0; j < 3; j++) {
+                vert[i][j] *= scalingFactor;
+                if (i > 3 && j == 2) {
+                    vert[i][j] -= prof
+                }
+            }
+        }
+        return vert.map((p) => {
+            return {
+                x: p[0],
+                y: p[1],
+                z: p[2],
+                edge:p[3],
+                face:p[4],
+            };
+        });
+   }
+
+function getHelixBoxVert(scalingFactor, prof) {
         const type = 'tetrahedron_regular_centered'
         const center = [0, 0, 0];
         const vert = [
