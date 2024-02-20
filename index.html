@@ -153,7 +153,7 @@ table {
                 <p style="text-align: right;"><button type="button"  onclick="toggleMenu()" class="butty apply" style="">Apply</button></p>
                 <div style="text-align: left;">
                     <p><a class="saveCode" style="">Save code</a>
-                    <p class="nameapp"><i>Image2shapes 0.92</i></p>
+                    <p class="nameapp"><i>Image2shapes 0.93</i></p>
                 </div>
             </div>
         </div>
@@ -215,7 +215,7 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum;
     var contf = 1
-    var paresBase = [-0.11, -0.12, -0.13, -0.14,-0.141, -0.15, -0.16, -0.17, 0.1, 0.4, 0.41, 0.5, 0.6, 0.7, 0.8, 0.9, 0.101, 1.1, 1.1, 1.2, 1.3, 1.5, 1.6, 1.6, 1.7, 2.1, 2.2, 3.1, 3.2, 3.21, 3.22, 3.24, 3.25, 3.3, 3.4, 3.5, 3.5, 3.51, 3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61, 4.62, 4.7, 4.7, 5.0, 5.1, 5.2, 5.21, 5.22, 5.3, 5.31, 5.4]
+    var paresBase = [-0.11, -0.12, -0.13, -0.14,-0.141, -0.15, -0.16, -0.17, 0.1, 0.4, 0.41, 0.5, 0.6, 0.7, 0.8, 0.9, 0.101, 1.1, 1.1, 1.2, 1.3, 1.5, 1.6, 1.6, 1.7, 1.8, 2.1, 2.2, 3.1, 3.2, 3.21, 3.22, 3.24, 3.25, 3.3, 3.4, 3.5, 3.5, 3.51, 3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61, 4.62, 4.7, 4.7, 5.0, 5.1, 5.2, 5.21, 5.22, 5.3, 5.31, 5.4]
     var pares = [...paresBase]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
     //pares = [...new Array(10)].map(() => 5.2);
@@ -1513,7 +1513,17 @@ table {
             shape2.pop()
 
         });
-        
+        shapes.set(1.8, (n, d, tr, an, x, y) => {
+            var title = "Flower object";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l,WEBGL);
+            if(n>22){n=2}
+            var r = l / 6;
+            var petal=true;
+            if(floor(d)%2==0){petal=false}
+            var flower=new Flower(0, 0, x, y, d, r, n, petal);
+            flower.init();
+        });
         shapes.set(2.1, (n, d, tr, an, x, y) => {
             var title = "Sun and floor";
             var l = min(width, height);
@@ -1638,7 +1648,6 @@ table {
             shape2.scale(-1, 1);
             cutTriangle(org, x, y, cutname, l, d);
             shape2.pop();
-
             image(shape2, 0, 0);
             shape2.pop();
         });
@@ -1831,7 +1840,83 @@ table {
     //shape2.ellipse(0,0,9,9) 
 
         });
-    
+
+shapes.set(3.241, (n, d, tr, an, x, y) => {
+            var title = "rotated triangle pattern";
+            var l = min(width, height);
+            var ax = 0
+            var ay = 0
+            var sidet = (((l / 4) * 3) * 2.1 / sqrt(3)) / 2
+            //var sideh = sidet * sqrt(3) /2
+            var sideh = (l / 2.5)
+            //shape2.imageMode(CENTER); 
+            var dd=0
+            if(floor(d)%2==0){dd=d+1}else{dd=d}
+            shapes.get(3.2).apply(null, [n, dd, { scl: 0.5, rtt: PI/n, trx: 0, try: 0 }, an, x, y]);
+            var si1=(sqrt(3)/2)
+            var si2=(l/4)*si1
+            var pro1=(2/sqrt(3))*1
+            var pro2=(l/4)*pro1
+            var pro3=pro2*0.5
+            var geta = shape2.get(0, 0, l, l)
+            shape2.clear()
+            geta.resize(l/3,l/3)
+
+          shape2.push()
+
+             shape2.rotate(PI/6)  
+            for(var a=0;a<6;a++){
+            shape2.rotate(PI/3)  
+            shape2.push() 
+             shape2.translate((-l/6),0)
+             shape2.image(geta, 0,0) 
+             shape2.pop() 
+         }
+            shape2.pop() 
+
+             var gete = shape2.get(0, 0, l, l)
+            shape2.clear()
+            shape2.push() 
+            for(var a=0;a<6;a++){ 
+                shape2.push() 
+                if(a%2==0){
+                    shape2.translate(0,pro2)
+                }
+                if(a%2==1){
+                    shape2.translate(0,pro2*2)
+                }  
+                if(a%3==2){
+                    //shape2.translate(0,pro2*4)
+                }   
+            shape2.image(gete, -l/2,-l/2) 
+            shape2.pop() 
+            shape2.rotate(TWO_PI/6)
+            }
+            shape2.pop() 
+
+        
+           shape2.push() 
+           shape2.translate((l/6)*1.5,pro2*2.5)
+            shape2.image(gete, -l/2,-l/2) 
+            shape2.pop() 
+             shape2.push() 
+            shape2.translate(-(l/6)*1.5,pro2*2.5)
+            shape2.image(gete, -l/2,-l/2) 
+            shape2.pop() 
+             shape2.push() 
+            shape2.translate(-(l/6)*3,-pro2*2)
+            shape2.image(gete, -l/2,-l/2) 
+            shape2.pop() 
+            shape2.push() 
+            shape2.translate((l/6)*3,-pro2*2)
+            shape2.image(gete, -l/2,-l/2) 
+            shape2.pop() 
+            
+           
+    //shape2.ellipse(0,0,9,9) 
+
+        });
+
  shapes.set(3.25, (n, d, tr, an, x, y) => {
             var title = "H triangle pattern";
             var l = min(width, height);
@@ -3924,113 +4009,198 @@ function getHelixBoxVert(scalingFactor, prof) {
             y: (1 - t) ** 3 * a.y + 3 * (1 - t) ** 2 * t * b.y + 3 * (1 - t) * t ** 2 * c.y + t ** 3 * d.y
         }
     }
-
-    function cutShape(org, x, y, n, r, d, an = 1) {
-        if (n == 1) {
-            var r2 = r * 2
-            var geri = img[org].get(x, y, r, r, d, d);
-            var n2 = n * 2
-            //var geri = a.get(x, y, n, n);
-            shape2.push();
-            shape2.image(geri, 0, 0);
-            shape2.scale(-1, 1);
-            shape2.translate(-n2, 0);
-            shape2.image(geri, 0, 0);
-            shape2.scale(1, -1);
-            shape2.translate(0, -n2);
-            shape2.image(geri, 0, 0);
-            shape2.scale(-1, 1);
-            shape2.translate(-n2, 0);
-            shape2.image(geri, 0, 0);
-            shape2.pop();
-            //var ig=get(0,0,r2,r2)
-            //shape2.image(ig, 0, 0);
-        }
-        if (n == 2) {
-            // olive leaf
-            //r=r*1
-            //shape2.strokeWeight(12)
-            //shape2.beginShape(TRIANGLE_STRIP);
-            shape2.beginShape();
-            //shape2.noStroke();
-            //shape2.stroke(233)
-            //shape2.fill(255)
-            // var arry=[]
-            var v = {}
-            for (var a = 0; a < oliveLeaf.length; a++) {
-                v = { x: x + oliveLeaf[a].x * r, y: y + oliveLeaf[a].y * r }
-                //arry.push(v)
-                shape2.vertex(v.x, v.y);
-            }
-
-            shape2.endShape(CLOSE);
-            //console.log(JSON.stringify(arry))
-        }
+//////////////////////
+ class Flower {
+    //1.8
+  constructor(cx, cy, x, y, d, r, nn, petal) {
+    this.n = 6;
+    this.r = r;
+    this.nn = nn;
+    this.cx = cx;
+    this.cy = cy;
+    this.aco = this.loadColor(x,y,d);
+    this.petal = petal;
+    //console.log(JSON.stringify(this.aco))
+  }
+  init() {
+    shape2.noStroke()
+    var r=this.r, nn=this.nn, petal=this.petal
+    var colorLayer=0
+    this.polen(this.cx, this.cy, this.n, r, nn, petal,colorLayer);
+    var mod = r * (sqrt(3) / 2);
+    var mad = PI / 3;
+    var imad = PI / 6;
+    var x, y;
+    colorLayer=1
+    for (var a = 0; a < 6; a++) {
+      x = r * 2 * cos(imad + mad * a);
+      y = r * 2 * sin(imad + mad * a);
+      var cola=a%2
+      this.polen(x, y, this.n, r, nn, petal,cola);
     }
 
-    ///////////////
-    // VERTEX SHAPES
-    //////////////
-
-    function genOlive(radio, ancho, longitud) {
-        // Generar los puntos de la circunferencia.
-        const puntos = [];
-        for (let x = -radio; x <= radio; x++) {
-            const y = Math.sqrt(radio * radio - x * x);
-            puntos.push({
-                x: x + ancho / 2,
-                y: y * longitud / radio
-            });
-        }
-        return puntos;
+    var x0, y0, x1, y1, x2, y2;
+    colorLayer=2
+    for (a = 0; a < 6; a++) {
+      x1 = r * cos(a * mad - imad);
+      y1 = r * sin(a * mad - imad);
+      x2 = mod * 2 * cos(a * mad);
+      y2 = mod * 2 * sin(a * mad);
+      x0 = r * cos(a * mad + imad);
+      y0 = r * sin(a * mad + imad);
+      this.trilen(x0, y0, x1, y1, x2, y2, nn, petal,colorLayer);
     }
-
-
-    function genPoint(x, A, B, C) {
-        return {
-            x: x,
-            y: A * Math.sin(B * x) + C
-        };
+    colorLayer=3
+    for (a = 0; a < 8; a++) {
+      x0 = mod * 2 * cos(a * mad);
+      y0 = mod * 2 * sin(a * mad);
+      x1 = x0 + r * cos(a * mad - imad);
+      y1 = y0 + r * sin(a * mad - imad);
+      x2 = x0 + r * cos(a * mad + imad);
+      y2 = y0 + r * sin(a * mad + imad);
+      this.trilen(x0, y0, x1, y1, x2, y2, nn, petal,colorLayer);
     }
+  }
 
-
-
-    function genOlive2() {
-        const rect = {
-            x: -1,
-            y: -1,
-            width: 12,
-            height: 12
-        };
-
-        const puntos = [];
-
-        // Generar el punto del ápice
-        puntos.push({
-            x: rect.x + rect.width / 2,
-            y: rect.y + rect.height / 2
-        });
-        /*
-          A es la amplitud de la curva
-          B es la frecuencia de la curva
-          C es el desplazamiento vertical de la curva
-          */
-        let A = 1
-        let B = 2
-        let C = 6
-        // Generar los puntos de la hoja
-        var max = rect.x + rect.width
-        var step = max / 12
-        for (let x = rect.x; x <= max; x += step) {
-            puntos.push(genPoint(x, A, B, C));
-        }
-        const json = {
-            point: puntos
-        };
-        return json;
+  polen(x0, y0, n, r, vert = 2, mode = false,colorLayer=0) {
+    var xi = x0;
+    var yi = y0;
+    var verti = vert;
+    var mod = TWO_PI / n;
+    var an = -HALF_PI;
+    var x1, y1, x2, y2;
+    
+    for (var v = 0; v < n; v++) {
+      x1 = x0 + r * cos(an);
+      y1 = y0 + r * sin(an);
+      an += mod;
+      x2 = x0 + r * cos(an);
+      y2 = y0 + r * sin(an);
+     var cola=v%3
+      this.trilen(x0, y0, x1, y1, x2, y2, verti, mode,colorLayer);
     }
-    const oliveLeaf = genOlive(5, 5, 10);
-    //console.log('OLIVE: ' + JSON.stringify(oliveLeaf));
+  }
+  trilen(x0, y0, x1, y1, x2, y2, nn, extra = false,colorLayer=0) {
+    var bo1 = [];
+    var bo2 = [];
+    var bo3 = [];
+    var bo = [];
+    shape2.fill(this.aco[0][0]);
+    //shape2.texture(img[org])
+    shape2.beginShape();
+    shape2.vertex(x0, y0);
+    shape2.vertex(x1, y1);
+    shape2.vertex(x2, y2);
+    shape2.endShape();
+    shape2.fill(this.aco[colorLayer][1]);
+    if (extra) {
+      this.equilen(x0, y0, x1, y1, 1, nn);
+    }
+    shape2.fill(this.aco[colorLayer][2]);
+    bo1 = this.equilen(x0, y0, x1, y1, -1, nn);
+    if (extra) {
+      this.equilen(x1, y1, x2, y2, 1, nn);
+    }
+    shape2.fill(this.aco[colorLayer][1]);
+    bo2 = this.equilen(x1, y1, x2, y2, -1, nn);
+    shape2.fill(this.aco[colorLayer][1]);
+    if (extra) {
+      shape2.fill(this.aco[colorLayer][2]);
+      this.equilen(x2, y2, x0, y0, 1, nn);
+    }
+    shape2.fill(this.aco[colorLayer][1]);
+    bo3 = this.equilen(x2, y2, x0, y0, -1, nn);
+    bo = bo1.concat(bo2, bo3);
+    shape2.fill(this.aco[colorLayer][3]);
+    shape2.beginShape();
+    shape2.vertex(bo1[bo1.length - 1].x, bo1[bo1.length - 1].y);
+    shape2.vertex(bo1[bo1.length - 2].x, bo1[bo1.length - 2].y);
+    shape2.vertex(bo3[1].x, bo3[1].y);
+    shape2.endShape(CLOSE);
+    shape2.fill(this.aco[colorLayer][4]);
+    shape2.beginShape();
+    shape2.vertex(bo2[bo2.length - 1].x, bo2[bo2.length - 1].y);
+    shape2.vertex(bo2[bo1.length - 2].x, bo2[bo2.length - 2].y);
+    shape2.vertex(bo1[1].x, bo1[1].y);
+    shape2.endShape(CLOSE);
+    shape2.fill(this.aco[colorLayer][4]);
+    shape2.beginShape();
+    shape2.vertex(bo3[bo3.length - 1].x, bo3[bo3.length - 1].y);
+    shape2.vertex(bo3[bo3.length - 2].x, bo3[bo3.length - 2].y);
+    shape2.vertex(bo2[1].x, bo2[1].y);
+    shape2.endShape(CLOSE);
+  }
+  equilen(x0, y0, x1, y1, emi = 1, n = 12) {
+    let ca = 0;
+    let ce = 0;
+    let x2 = 0;
+    let y2 = 0;
+    var an = atan2(y1 - y0, x1 - x0);
+    var r = dist(x0, y0, x1, y1);
+    ca = an + (PI - PI / 3);
+    ce = an + (PI + PI / 3);
+    let se = 0;
+    if (emi == 1) {
+      x2 = x1 + r * cos(ca);
+      y2 = y1 + r * sin(ca);
+      se = ce;
+    }
+    if (emi == -1) {
+      x2 = x1 + r * cos(ce);
+      y2 = y1 + r * sin(ce);
+      se = ca;
+    }
+    var ani = atan2(y1 - y2, x1 - x2);
+    var mod = PI / 3 / n;
+    var can = ani;
+    var m = [];
+
+    shape2.beginShape();
+    var x, y;
+    for (var a = 0; a < n + 1; a++) {
+      x = x2 + r * cos(can);
+      y = y2 + r * sin(can);
+      shape2.vertex(x, y);
+      //if(a>0 && a<n){
+      m.push({ x: x, y: y });
+      //}
+      if (emi == 1) {
+        can -= mod;
+      }
+      if (emi == -1) {
+        can += mod;
+      }
+    }
+    shape2.endShape(CLOSE);
+    return m;
+  }
+  loadColor(x,y,d) {
+    var aco = [[],[],[],[],[],[],[]];
+    if(floor(d)%2==0){
+        aco[0][0] = [0, 0, 0, 0];
+    }
+    var col = [];
+    var mod=floor(d/6)
+    for (var j = 1; j < 7; j++) {
+      col=img[org].get(x+mod*j,y)
+      aco[0].push(col);
+      col=img[org].get(x,y+mod*j)
+      aco[1].push(col);
+      col=img[org].get(x+mod*3+j,y+j)
+      aco[2].push(col);
+      col=img[org].get(x+j,y+mod*3+j)
+      aco[3].push(col);
+      col=img[org].get(x,y+d/2+j)
+      aco[4].push(col);
+      col=img[org].get(x+d/2+j,y+d/2+j)
+      aco[5].push(col)
+      col=img[org].get(x+mod*4+j,y+mod*4)
+      aco[6].push(col)
+     
+    }
+    return aco;
+  }
+}
     </script>
 </body>
 
