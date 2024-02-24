@@ -150,10 +150,10 @@ table {
                     Squares ad rings <input type="checkbox" id="s4" value="4" class="selectType" checked><br>
                     3D<input type="checkbox" id="s5" value="5" class="selectType" checked><br>
                 </p>
-                <p style="text-align: right;"><button type="button"  onclick="toggleMenu()" class="butty apply" style="">Apply</button></p>
+                <p style="text-align: right;"><button type="button" onclick="toggleMenu()" class="butty apply" style="">Apply</button></p>
                 <div style="text-align: left;">
                     <p><a class="saveCode" style="">Save code</a>
-                    <p class="nameapp"><i>Image2shapes 0.93</i></p>
+                        <p class="nameapp"><i>Image2shapes 0.94</i></p>
                 </div>
             </div>
         </div>
@@ -215,19 +215,18 @@ table {
     var contdiv;
     var showr, showl, reloadi, savef, inum;
     var contf = 1
-    var paresBase = [-0.11, -0.12, -0.13, -0.14,-0.141, -0.15, -0.16, -0.17, 0.1, 0.4, 0.41, 0.5, 0.6, 0.7, 0.8, 0.9, 0.101, 1.1, 1.1, 1.2, 1.3, 1.5, 1.6, 1.6, 1.7, 1.8, 2.1, 2.2, 3.1, 3.2, 3.21, 3.22, 3.24, 3.25, 3.3, 3.4, 3.5, 3.5, 3.51, 3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61, 4.62, 4.7, 4.7, 5.0, 5.1, 5.2, 5.21, 5.22, 5.3, 5.31, 5.4]
+    var paresBase = [-0.11, -0.12, -0.13, -0.14, -0.141, -0.15, -0.16, -0.17, -0.18, 0.1, 0.4, 0.41, 0.5, 0.6, 0.7, 0.8, 0.9, 0.101, 0.102, 0.103, 0.104, 0.105, 0.106, 0.107, 0.108, 0.109, 1.1, 1.1, 1.2, 1.3, 1.5, 1.6, 1.6, 1.7, 1.8, 1.9, 1.11, 1.12, 2.1, 2.2, 3.1, 3.2, 3.21, 3.22, 3.24, 3.25, 3.3, 3.4, 3.5, 3.5, 3.51, 3.51, 3.6, 3.6, 4.1, 4.2, 4.3, 4.3, 4.4, 4.4, 4.5, 4.5, 4.51, 4.51, 4.6, 4.61, 4.62, 4.7, 4.7, 5.0, 5.1, 5.2, 5.21, 5.22, 5.3, 5.31, 5.4]
     var pares = [...paresBase]
     var polis = [4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
     //pares = [...new Array(10)].map(() => 5.2);
-    if(window.location.hash) {
-        var n=window.location.hash.substring(1,100)
+    if (window.location.hash) {
+        var n = window.location.hash.substring(1, 100)
         //alert(n)
-     pares = [...new Array(10)].map(() => parseFloat(n));
-     console.log(n)
+        pares = [...new Array(10)].map(() => parseFloat(n));
     } else {
-      // Fragment doesn't exist
+        // Fragment doesn't exist
     }
-   
+
     var pary = [...pares]
     var poly = [...polis]
     var cfoto = []
@@ -266,7 +265,6 @@ table {
         });
 
         $(".shape").click(function(e) {
-            //console.log(',' + e.target.className + ', ' + caddy.length)
             if (e.target.className != ".selectef" || e.target.className != "convert addy") {
                 $(".shape").hide();
                 var menu = document.getElementById("menu");
@@ -337,13 +335,8 @@ table {
                     });
                 }
             });
-            //cfoto[lastfoto] = [...caddy]
-
-
-            //cfoto[lastfoto] = [...caddy
             cfoto.push(caddy)
             lastfoto = cfoto.length - 1
-            //console.log('lastfoto: ' + lastfoto)
             contf = 1
             codehtml = ''
             dallimgs.html('')
@@ -411,13 +404,11 @@ table {
             var tt = '<div style="color:#888;margin-top:100px;font-size:33px;">' + (contf) + ' ' + (cfoto[lastfoto].length - 1) + ' shapes</div>'
             $('#myShape').html(tt)
         }
-        //console.log('FOTO ',contf,cfoto.length)
         if (started) {
             if (contmore == 1) {
                 select('#header').show();
                 select('#footer').show();
             }
-            //dallimgs.html('<span style="margin-top:100px;font-size:33px;">'+contf+' '+cfoto.length-1+'</span>')
             slices = cfoto[lastfoto][contf].n
             var d = cfoto[lastfoto][contf].d
             $('.shape').show()
@@ -425,7 +416,6 @@ table {
             contf++
             if (contf >= cfoto[lastfoto].length) {
                 noLoop()
-                //$('.capadibujo').show()
                 contf = cfoto[lastfoto].length
                 poly = [...polis]
                 pary = [...pares]
@@ -439,9 +429,7 @@ table {
                 $('.shape').fadeOut(1000)
                 codehtml = ''
                 $(".forma").on("click", function() {
-                    //console.log(JSON.stringify())
                     var n = this.children[0].id
-                    //console.log(n)
                     enhance(n)
                 });
                 $(".more").on("click", function() {
@@ -449,11 +437,7 @@ table {
                     contmore++
                     newRandco(cfoto[lastfoto][0].w, cfoto[lastfoto][0].h, 4, 4, 0)
                     $("button").remove(".more");
-                    //$("button").remove(".saveImages");
-                    //$("button").remove(".saveCode");
-                    //$("button").remove(".showSelected");
-                    $("#menu").css('left','-250px')
-                    //toggleMenu()
+                    $("#menu").css('left', '-250px')
                     loop()
                 });
 
@@ -529,8 +513,6 @@ table {
         cfoto.push([{ "w": 640, "h": 963, "n": 8, "W": 300, "o": 0, "d": 640, "id": "p0a2OHWO1TXUnHfq4zQVDG5lPa1AReHkVwjj39yKGlQ7Ot6QO1", "img": "" }])
 
         lastfoto = cfoto.length - 1
-
-        //console.log('lastfoto: '+lastfoto)
         slices = cfoto[lastfoto][0].n
         cfoto[lastfoto][0].img = iimg
         started = true
@@ -544,7 +526,6 @@ table {
 
         caddy = [...cfoto[lastfoto]]
 
-        //cfoto[0].push({"org":0,"x":(w/2),"y":(h/2),"n":0.4,"d":mvh,"p":64,"a":0.1,"select":true})
         var imgn = getImageData(w, h)
         cfoto[0].push({ "org": 0, "x": (w / 2), "y": (h / 2), "n": 0.41, "d": imgn.semidiagonal, "p": 64, "a": imgn.angle, "select": true })
         nfoto = []
@@ -582,7 +563,6 @@ table {
         dla.show()
         var dmy = select('#myShape')
         imgN = select('#' + n + '').attribute('src');
-        //var code = '<img class=".selectef" src="' + imgN + '" width="' + cfoto[lastfoto][0].W + 'px">';
         var code = '<img class=".selectef" src="' + imgN + '" width="' + 400 + 'px">';
         code += '<br><span style="color:#ddd;font-size:12px;">' + JSON.stringify(cfoto[lastfoto][nShape]) + '</span>';
         code += '<br><button class="convert downy" style="background-color:#666;">Download</button>'
@@ -594,7 +574,6 @@ table {
             saveImage()
         });
         $(".addy").click(function(e) {
-            //console.log(JSON.stringify(cfoto[lastfoto][nShape]))
             cfoto[lastfoto][nShape].select = true
             caddy.push(cfoto[lastfoto][nShape])
 
@@ -603,7 +582,6 @@ table {
         $(".usy").click(function(e) {
             caddy.push(cfoto[lastfoto][nShape])
             img[img.length] = loadImage(imgN, () => {
-                //reini(imgN, cfoto[lastfoto][0].W, cfoto[lastfoto][0].W)
                 var rry = [cfoto[lastfoto][nShape].n, cfoto[lastfoto][nShape].n]
                 var lly = [cfoto[lastfoto][nShape].p, cfoto[lastfoto][nShape].p]
                 cfoto[lastfoto][nShape].select = true
@@ -831,9 +809,9 @@ table {
             var title = "simply gradient V rect to down black";
             var l = min(width, height);
             shape2 = createGraphics(l, l);
-            if(floor(d)%2==0){
+            if (floor(d) % 2 == 0) {
                 shape2.strokeWeight(4)
-            }else{
+            } else {
                 shape2.strokeWeight(1)
             }
             var modi = l / n
@@ -846,9 +824,9 @@ table {
 
             for (let a = 0; a < n; a++) {
                 geti = lerpColor(geto, geta, cmod);
-                if(floor(d)%2==0){
+                if (floor(d) % 2 == 0) {
                     shape2.stroke(0)
-                }else{
+                } else {
                     shape2.stroke(geti)
                 }
                 shape2.fill(geti)
@@ -861,9 +839,9 @@ table {
             var title = "simply gradient V rect to colorA to colorB";
             var l = min(width, height);
             shape2 = createGraphics(l, l);
-             if(floor(d)%2==0){
+            if (floor(d) % 2 == 0) {
                 shape2.strokeWeight(4)
-            }else{
+            } else {
                 shape2.strokeWeight(1)
             }
             var modi = l / n
@@ -878,9 +856,9 @@ table {
 
             for (let a = 0; a < n; a++) {
                 geti = lerpColor(geto, geta, cmod);
-                 if(floor(d)%2==0){
+                if (floor(d) % 2 == 0) {
                     shape2.stroke(0)
-                }else{
+                } else {
                     shape2.stroke(geti)
                 }
                 shape2.fill(geti)
@@ -893,18 +871,18 @@ table {
             var title = "simply V color list";
             var l = min(width, height);
             shape2 = createGraphics(l, l);
-            if(floor(d)%2==0){
+            if (floor(d) % 2 == 0) {
                 shape2.strokeWeight(4)
-            }else{
+            } else {
                 shape2.strokeWeight(1)
             }
             var mod = l / n
             var geti
             for (let a = 0; a < n; a++) {
                 geti = img[org].get(x, y + 1 * a)
-                  if(floor(d)%2==0){
+                if (floor(d) % 2 == 0) {
                     shape2.stroke(0)
-                }else{
+                } else {
                     shape2.stroke(geti)
                 }
                 shape2.fill(geti)
@@ -921,9 +899,9 @@ table {
             for (let b = 0; b < n; b++) {
                 for (let a = 0; a < n; a++) {
                     geti = img[org].get(x + 4 * a, y + 4 * b)
-                    if(floor(d)%2==0){
+                    if (floor(d) % 2 == 0) {
                         shape2.stroke(0)
-                    }else{
+                    } else {
                         shape2.stroke(geti)
                     }
                     shape2.fill(geti)
@@ -932,28 +910,28 @@ table {
             }
 
         });
-         shapes.set(-0.141, (n, d, tr, an, x, y) => {
+        shapes.set(-0.141, (n, d, tr, an, x, y) => {
             var title = "palette random color table in square";
             var l = min(width, height);
             shape2 = createGraphics(l, l);
-            var geta= img[org].get(x , y)
-            var gete= img[org].get(x + 12 , y + 12 )
+            var geta = img[org].get(x, y)
+            var gete = img[org].get(x + 12, y + 12)
             shape2.strokeWeight(4)
             var mod = l / n
-            var npar=0
+            var npar = 0
             for (let b = 0; b < n; b++) {
-                if(b%2==0){npar=0}else{npar=1}
+                if (b % 2 == 0) { npar = 0 } else { npar = 1 }
                 for (let a = 0; a < n; a++) {
-                  
-                    
-                    if(a%2==npar){
+
+
+                    if (a % 2 == npar) {
                         shape2.fill(geta)
                         shape2.stroke(geta)
-                    }else{
+                    } else {
                         shape2.stroke(gete)
                         shape2.fill(gete)
                     }
-                    
+
                     shape2.rect(a * mod, b * mod, mod, mod)
                 }
             }
@@ -963,9 +941,9 @@ table {
             var title = "simply gradient H rect to colorA to colorB";
             var l = min(width, height);
             shape2 = createGraphics(l, l);
-            if(floor(d)%2==0){
+            if (floor(d) % 2 == 0) {
                 shape2.strokeWeight(4)
-            }else{
+            } else {
                 shape2.strokeWeight(1)
             }
             var modi = l / n
@@ -978,11 +956,11 @@ table {
             var mod = 1 / n
             for (let a = 0; a < n; a++) {
                 geti = lerpColor(geto, geta, cmod);
-                if(floor(d)%2==0){
-                        shape2.stroke(0)
-                    }else{
-                        shape2.stroke(geti)
-                    }
+                if (floor(d) % 2 == 0) {
+                    shape2.stroke(0)
+                } else {
+                    shape2.stroke(geti)
+                }
                 shape2.fill(geti)
                 shape2.rect(a * modi, 0, modi, l)
                 cmod += mod
@@ -992,9 +970,9 @@ table {
             var title = "simply gradient H rect to colorA to black";
             var l = min(width, height);
             shape2 = createGraphics(l, l);
-           if(floor(d)%2==0){
+            if (floor(d) % 2 == 0) {
                 shape2.strokeWeight(4)
-            }else{
+            } else {
                 shape2.strokeWeight(1)
             }
             var modi = l / n
@@ -1006,9 +984,9 @@ table {
             var mod = 1 / n
             for (let a = 0; a < n; a++) {
                 getu = lerpColor(geta, gete, cmod);
-                 if(floor(d)%2==0){
+                if (floor(d) % 2 == 0) {
                     shape2.stroke(0)
-                }else{
+                } else {
                     shape2.stroke(getu)
                 }
                 shape2.fill(getu)
@@ -1020,9 +998,9 @@ table {
             var title = "simply gradient H rect black to colorA to white";
             var l = min(width, height);
             shape2 = createGraphics(l, l);
-             if(floor(d)%2==0){
+            if (floor(d) % 2 == 0) {
                 shape2.strokeWeight(4)
-            }else{
+            } else {
                 shape2.strokeWeight(1)
             }
             var gt1 = img[org].get(x, y)
@@ -1035,9 +1013,9 @@ table {
             var mod = 1 / n
             for (let a = 0; a < n; a++) {
 
-                if(floor(d)%2==0){
+                if (floor(d) % 2 == 0) {
                     shape2.stroke(0)
-                }else{
+                } else {
                     shape2.stroke(getu)
                 }
                 shape2.fill(getu)
@@ -1046,24 +1024,96 @@ table {
                 getu = lerpColor(geta, gete, cmod);
             }
             a = n
-             if(floor(d)%2==0){
-                    shape2.stroke(0)
-                }else{
-                    shape2.stroke(getu)
-                }
+            if (floor(d) % 2 == 0) {
+                shape2.stroke(0)
+            } else {
+                shape2.stroke(getu)
+            }
             shape2.fill(gete)
             shape2.rect(a * modi, 0, modi, l)
             cmod = mod
             a += 1
             for (let b = a; b < (n * 2 + 1); b++) {
                 getu = lerpColor(gete, geti, cmod);
-                 if(floor(d)%2==0){
+                if (floor(d) % 2 == 0) {
                     shape2.stroke(0)
-                }else{
+                } else {
                     shape2.stroke(getu)
                 }
                 shape2.fill(getu)
                 shape2.rect(b * modi, 0, modi, l)
+                cmod += mod
+            }
+
+        });
+
+
+        shapes.set(-0.18, (n, d, tr, an, x, y) => {
+            var title = "Cone gradient";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l);
+            if (floor(d) % 2 == 0) {
+                shape2.strokeWeight(4)
+            } else {
+                shape2.strokeWeight(1)
+            }
+            var gt1 = img[org].get(x, y)
+            var cmod = 0
+            var geta = color(0, 0, 0)
+            var gete = color(red(gt1), green(gt1), blue(gt1))
+            var geti = color(255, 255, 255)
+            var getu = lerpColor(geta, gete, cmod);
+            var vx1=(l/2)+l*2*cos(PI/2+(an))
+            var vy1=(0)+l*2*sin(PI/2+(an))
+            var vx2=(l/2)+l*2*cos(PI/2-(an))
+            var vy2=(0)+l*2*sin(PI/2-(an))
+            var d2=dist(vx1,vy1,vx2,vy2)
+            var inip=l/2-d2/2
+            var modi = d2 / (n * 2 + 1)
+            var mod = 1 / n
+            for (let a = 0; a < n; a++) {
+
+                if (floor(d) % 2 == 0) {
+                    shape2.stroke(0)
+                } else {
+                    shape2.stroke(getu)
+                }
+                shape2.fill(getu)
+                shape2.beginShape()
+                shape2.vertex(l/2,0)
+                shape2.vertex(inip+a * modi,vy1)
+                shape2.vertex(inip+a * modi+modi,vy1)
+                shape2.endShape(CLOSE)
+                cmod += mod
+                getu = lerpColor(geta, gete, cmod);
+            }
+            a = n
+            if (floor(d) % 2 == 0) {
+                shape2.stroke(0)
+            } else {
+                shape2.stroke(getu)
+            }
+            shape2.fill(gete)
+            shape2.beginShape()
+                shape2.vertex(l/2,0)
+                shape2.vertex(inip+a * modi,vy1)
+                shape2.vertex(inip+a * modi+modi,vy1)
+                shape2.endShape(CLOSE)
+            cmod = mod
+            a += 1
+            for (let b = a; b < (n * 2 + 1); b++) {
+                getu = lerpColor(gete, geti, cmod);
+                if (floor(d) % 2 == 0) {
+                    shape2.stroke(0)
+                } else {
+                    shape2.stroke(getu)
+                }
+                shape2.fill(getu)
+                shape2.beginShape()
+                shape2.vertex(l/2,0)
+                shape2.vertex(inip+b * modi,vy1)
+                shape2.vertex(inip+b * modi+modi,vy1)
+                shape2.endShape(CLOSE)
                 cmod += mod
             }
 
@@ -1252,14 +1302,14 @@ table {
             shape2.pop();
         });
 
-    shapes.set(0.101, (n, d, tr, an, x, y) => {
+        shapes.set(0.101, (n, d, tr, an, x, y) => {
             var title = "mask circle image life flower";
             var l = min(width, height);
             //shape2.background(200, 50, 100);
-              shapes.get(3.24).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
-             let geta= shape2.get(0,0,l,l)
-             shape2.clear()
-              shape2 = createGraphics(width, height, WEBGL);
+            shapes.get(3.24).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            let geta = shape2.get(0, 0, l, l)
+            shape2.clear()
+            shape2 = createGraphics(width, height, WEBGL);
             shape2.push();
             shape2.smooth();
             shape2.clip(() => {
@@ -1267,11 +1317,287 @@ table {
                 shape2.ellipse(0, 0, l, l)
                 shape2.pop();
             });
-          shape2.image(geta,-l/2,-l/2)
+            shape2.image(geta, -l / 2, -l / 2)
             shape2.pop()
             //shape2
         });
+        shapes.set(0.102, (n, d, tr, an, x, y) => {
+            var title = "Isometric box";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            shape2.noStroke()
+            if (n > 22) { n = 2 }
+            var r = l / 2;
+            var r3 = r * 3;
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false; }
+            var flower = new Flower(0, 0, x, y, d, r, n, petal);
+            var coa = [...flower.aco[1]]
+            var inp = { x: 0, y: 0 }
+            if (petal) {
+                flower.flowbox(1, inp, 0, r, coa);
+                flower.flowbox(2, inp, 0, r, coa);
+                flower.flowbox(3, inp, 0, r, coa);
+            } else {
+                flower.flowbox(4, inp, 0, r, coa);
+                flower.flowbox(5, inp, 0, r, coa);
+                flower.flowbox(6, inp, 0, r, coa);
+            }
+        });
+        shapes.set(0.103, (n, d, tr, an, x, y) => {
+            var title = "Isometric vertex";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            if (n > 22) { n = 2 }
+            var r = l / 4;
+            var r3 = r * 3;
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false; }
+            var flower = new Flower(0, 0, x, y, d, r, n, petal);
+            var coa = [...flower.aco[1]]
+            var inp = { x: 0, y: 0 }
+            flower.flowbox(7, inp, 0, r, coa);
+            flower.flowbox(8, inp, 0, r, coa);
+            flower.flowbox(9, inp, 0, r, coa);
+            flower.flowbox(10, inp, 0, r, coa);
+            flower.flowbox(11, inp, 0, r, coa);
+            flower.flowbox(12, inp, 0, r, coa);
+        });
+        shapes.set(0.104, (n, d, tr, an, x, y) => {
+            var title = "3 Isometric box";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            if (n > 22) { n = 2 }
+            var r = l / 4;
+            var r3 = r * 3;
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false; }
+            var flower = new Flower(0, 0, x, y, d, r, n, petal);
+            var coa = [...flower.aco[1]]
+            var inp = { x: 0, y: 0 }
+            shape2.push();
+            shape2.scale(tr.scl * 2, tr.scl * 2);
+            shape2.rotate(tr.rtt);
+            shape2.translate(tr.trx, tr.try);
+            flower.flowbox(4, inp, 2, r, coa);
+            flower.flowbox(5, inp, 4, r, coa);
+            flower.flowbox(6, inp, 6, r, coa);
+            flower.flowbox(7, inp, 0, r, coa);
+            flower.flowbox(8, inp, 0, r, coa);
+            flower.flowbox(9, inp, 0, r, coa);
+            flower.flowbox(10, inp, 0, r, coa);
+            flower.flowbox(11, inp, 0, r, coa);
+            flower.flowbox(12, inp, 0, r, coa);
+            shape2.pop()
+        });
+        shapes.set(0.105, (n, d, tr, an, x, y) => {
+            var title = "3 Isometric box grid";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            shape2.noStroke()
+            if (n > 22) { n = 2 }
+            var r = l / 10;
+            var r3 = r * 3;
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false; }
+            var flower = new Flower(0, 0, x, y, d, r, n, petal);
+            var coa = [...flower.aco[1]]
+            var sia = [PI / 2, PI - PI / 6, PI + PI / 6, -PI / 2, -PI / 6, PI / 6]
+            var sir = [r3, r3, r3, r3, r3, r3]
+            var inp = { x: 0, y: 0 }
+            // flower.init()
+            shape2.push();
+            shape2.scale(tr.scl * 2, tr.scl * 2);
+            shape2.rotate(tr.rtt);
+            shape2.translate(tr.trx, tr.try);
 
+            flower.flowbox(4, inp, 2, r, coa);
+            flower.flowbox(5, inp, 4, r, coa);
+            flower.flowbox(6, inp, 6, r, coa);
+            flower.flowbox(7, inp, 0, r, coa);
+            flower.flowbox(8, inp, 0, r, coa);
+            flower.flowbox(9, inp, 0, r, coa);
+            flower.flowbox(10, inp, 0, r, coa);
+            flower.flowbox(11, inp, 0, r, coa);
+            flower.flowbox(12, inp, 0, r, coa);
+            for (var a = 0; a < 6; a++) {
+                inp = { x: sir[a] * cos(sia[a]), y: sir[a] * sin(sia[a]) }
+                // console.log('rad: ',inp) 
+                flower.flowbox(4, inp, 2, r, coa);
+                flower.flowbox(5, inp, 4, r, coa);
+                flower.flowbox(6, inp, 6, r, coa);
+                flower.flowbox(7, inp, 0, r, coa);
+                flower.flowbox(8, inp, 0, r, coa);
+                flower.flowbox(9, inp, 0, r, coa);
+                flower.flowbox(10, inp, 0, r, coa);
+                flower.flowbox(11, inp, 0, r, coa);
+                flower.flowbox(12, inp, 0, r, coa);
+            }
+            shape2.pop()
+        });
+        shapes.set(0.106, (n, d, tr, an, x, y) => {
+            var title = "Isometric elipse";
+            var l = min(width, height);
+            shapes.get(0.102).apply(null, [n, d, { scl: 1, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false; }
+            var r = (l/2);
+            var r3 = r * 3;
+            //var r32 = 282.84;//sqrt(r*r + r*r);
+            var  r32 = sqrt(r*r + r*r)-r/10;
+            var r322= r32/2
+            /*shape2.scale(tr.scl , tr.scl);
+            shape2.rotate(tr.rtt);
+            shape2.translate(tr.trx, tr.try);
+            */
+            shape2.push();
+            var nd=64
+            var co
+            if(petal){
+                //polis[4, 6, 8, 10, 12, 16, 18, 20, 32, 64]
+                if(n==4 || n==6 || n==8 || n==64){
+                co=img[org].get(x,y)
+                shape2.fill(co)
+                shape2.ellipse(0,-l/4,r32,r322,nd)
+                }
+                if(n==10 || n==12 || n==16 || n==64){
+                shape2.push()
+                    co=img[org].get(x+d/2,y)
+                    shape2.fill(co)
+                    shape2.translate(r*0.5*cos(PI/6),r*0.5*sin(PI/6))
+                    shape2.rotate(PI-PI/3)
+                    shape2.ellipse(0,0,r32,r322,nd)
+                shape2.pop()
+                 }
+                 if(n==18 || n==20 || n==32 || n==64){
+                shape2.push()
+                    co=img[org].get(x+d/2,d/2)
+                    shape2.fill(co)
+                    shape2.translate(r*0.5*cos(PI-PI/6),r*0.5*sin(PI-PI/6))
+                    shape2.rotate(PI+PI/3)
+                    shape2.ellipse(0,0,r32,r322,nd)
+                shape2.pop()
+                }
+            }else{
+                if(n==4 || n==6 || n==8 || n==64){
+                    co=img[org].get(x,y)
+                    shape2.fill(co)
+                    shape2.ellipse(0,l/4,r32,r322,nd)
+                }
+                if(n==10 || n==12 || n==16 || n==64){
+                shape2.push()
+                    co=img[org].get(x+d/2,y)
+                    shape2.fill(co)
+                    shape2.translate(r*0.5*cos(-PI/6),r*0.5*sin(-PI/6))
+                    shape2.rotate(PI+PI/3)
+                    shape2.ellipse(0,0,r32,r322,nd)
+                shape2.pop()
+                }
+                if(n==18 || n==20 || n==32 || n==64){                
+                shape2.push()
+                    co=img[org].get(x+d/2,d/2)
+                    shape2.fill(co)
+                    shape2.translate(r*0.5*cos(PI+PI/6),r*0.5*sin(PI+PI/6))
+                    shape2.rotate(PI-PI/3)
+                    shape2.ellipse(0,0,r32,r322,nd)
+                shape2.pop()
+                }
+            }
+
+
+                            /*shape2.stroke(1   88)
+            shape2.beginSha pe()
+                shape2.v    ertex(0,0)
+                shape2.vertex(200*cos(PI/6),200*sin(PI/6))
+            shape2.endShape()*/
+            shape2.pop()
+        });
+        shapes.set(0.107, (n, d, tr, an, x, y) => {
+            var title = "Isometric cylinder";
+            var l = min(width, height);
+            //shapes.get(0.102).apply(null, [n, d, { scl: 1, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            shapes.get(-0.17).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            var sh1=shape2.get(0,0,l,l)
+            shape2.clear()
+            shape2 = createGraphics(l, l, WEBGL);
+            
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false; }
+            var r = (l/2);
+            var r3 = r * 3;
+            //var r32 = 282.84;//sqrt(r*r + r*r);
+            //var  r32 = sqrt(r*r + r*r)-r/10;
+
+            var r32=l
+            var r322= r32/2
+            /*shape2.scale(tr.scl , tr.scl);
+            shape2.rotate(tr.rtt);
+            shape2.translate(tr.trx, tr.try);
+            */
+            shape2.push();
+            var co
+            shape2.beginClip()
+                //co=img[org].get(x,y)
+                //shape2.fill(co)
+                shape2.rect(-l/2,-l/4,l,l-l/2)
+                shape2.ellipse(0,l/4,r32,r322,64)
+            shape2.endClip()
+           shape2.image(sh1,-l/2,-l/4) 
+           shape2.pop()
+           co=img[org].get(x,y)
+            if (floor(d) % 2 == 0) {
+                shape2.strokeWeight(4)
+                shape2.stroke(0)
+            } else {
+                shape2.strokeWeight(4)
+                shape2.stroke(co)
+            }
+             shape2.fill(co)
+             shape2.ellipse(0,-l/4,r32,r322,n*4)
+           
+        });
+////
+ shapes.set(0.108, (n, d, tr, an, x, y) => {
+     var title = "ortogonal cone";
+     var l = min(width, height);
+     shape2 = createGraphics(l, l, WEBGL);
+    shapes.get(-0.18).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+            var sh1=shape2.get(0,0,l,l)
+            shape2.clear()
+            shape2 = createGraphics(l, l, WEBGL);
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false; }
+            shape2.push();
+            var circone= new Circone(0,-l/2,0,l/2,an)
+            shape2.beginClip()
+                circone.init(an*2)
+            shape2.endClip()
+           shape2.image(sh1,-l/2,-l/2) 
+           shape2.pop()   
+});
+
+ shapes.set(0.109, (n, d, tr, an, x, y) => {
+     var title = "clip with water drop / ortogonal cone";
+     var l = min(width, height);
+     shape2 = createGraphics(l, l, WEBGL);
+     const wh = { w: img[org].width, h: img[org].height };
+    const t = rectToSquare(wh, x, y, d)
+    var sh1 = img[org].get(t.tl.x, t.tl.y, t.w, t.w)
+   //var sh1=img[org].get(x,y,x+l,y+l)
+    shape2.clear()
+    shape2 = createGraphics(l, l, WEBGL);
+    var petal = true;
+    if (floor(d) % 2 == 0) { petal = false; }
+    shape2.push();
+    var circone= new Circone(0,-l/2,0,l/2,an*2)
+    shape2.beginClip()
+        circone.init(an*2)
+    shape2.endClip()
+   shape2.image(sh1,-l/2,-l/2,l,l) 
+   shape2.pop()   
+});
+
+/////
         shapes.set(1.1, (n, d, tr, an, x, y) => {
             var title = "spiral points";
             var l = min(width, height);
@@ -1413,7 +1739,6 @@ table {
             //if(nnn==2){nn=32}
 
             const t = rectToSquare(wh, x, y, d)
-            //console.log(t)
             var rade = l / nn;
             var pade = t.w / nn;
             shape2 = createGraphics(l, l);
@@ -1428,7 +1753,6 @@ table {
                 for (var a = 0; a < l; a += rade) {
                     var col = geti.get(cx, cy)
                     var light = lightness(col);
-                    //console.log('light',light)
                     var radius = map(light, 0, 255, 3, pade * 1);
                     //shape2.fill(0);
                     //shape2.ellipse(a, b, 40);
@@ -1477,7 +1801,6 @@ table {
                     shape2.rect(0, 0, l, l)
                     //shape2.image(img2,0,0)
                     shape2.pop()
-                    //console.log(i)
                 }
                 pr.x = pt.x;
                 pr.y = pt.y;
@@ -1490,40 +1813,115 @@ table {
             shapes.get(3.24).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             let img2 = shape2.get(0, 0, l, l)
             pr = { x: 0, y: 0 }
-            let v1=l/n
-            let v2=v1/2
+            let v1 = l / n
+            let v2 = v1 / 2
             shape2.clear()
-            img2.resize(v1,v1)
+            img2.resize(v1, v1)
             shape2.push()
-            shape2.translate(0,-v2)
-            shape2.image(img2,0,0)
-            for(var a=0;a<n/2;a++){
-            shape2.translate(-v1,0)
-            shape2.image(img2,0,0)
+            shape2.translate(0, -v2)
+            shape2.image(img2, 0, 0)
+            for (var a = 0; a < n / 2; a++) {
+                shape2.translate(-v1, 0)
+                shape2.image(img2, 0, 0)
             }
             shape2.pop()
-            
             shape2.push()
-            shape2.translate(v1,-v2)
-            shape2.image(img2,0,0)
-           for(a=0;a<(n/2)-1;a++){
-                shape2.translate(v1,0)
-                shape2.image(img2,0,0)
+            shape2.translate(v1, -v2)
+            shape2.image(img2, 0, 0)
+            for (a = 0; a < (n / 2) - 1; a++) {
+                shape2.translate(v1, 0)
+                shape2.image(img2, 0, 0)
             }
             shape2.pop()
-
         });
         shapes.set(1.8, (n, d, tr, an, x, y) => {
-            var title = "Flower object";
+            var title = "Flower mandala object";
             var l = min(width, height);
-            shape2 = createGraphics(l, l,WEBGL);
-            if(n>22){n=2}
+            shape2 = createGraphics(l, l, WEBGL);
+            if (n > 22) { n = 2 }
             var r = l / 6;
-            var petal=true;
-            if(floor(d)%2==0){petal=false}
-            var flower=new Flower(0, 0, x, y, d, r, n, petal);
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false }
+            var flower = new Flower(0, 0, x, y, d, r, n, petal);
             flower.init();
         });
+        shapes.set(1.9, (n, d, tr, an, x, y) => {
+            var title = "Flower object";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            if (n > 22) { n = 2 }
+            var r = l / 2;
+            var petal = true;
+            var na = [3, 4, 5, 6, 7, 8, 7, 10, 11, 12]
+            var np = na[floor(d) % 10]
+            if (floor(d) % 2 == 0) { petal = false }
+            shape2.noStroke()
+            var flower = new Flower(0, 0, x, y, d, r, n, petal);
+            flower.polen(0, 0, np, r, n, petal, 0);
+        });
+        shapes.set(1.11, (n, d, tr, an, x, y) => {
+            var title = "Flower object";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            if (n > 22) { n = 2 }
+            var r = l * 0.8;
+            var difi = (l - r) / 2
+            var roti = PI / 6
+            if (floor(an * 1000) % 2 == 0) { roti += PI }
+            var petal = true;
+            if (floor(d) % 2 == 0) {
+                petal = false;
+                roti = -PI / 6;
+            }
+            shape2.noStroke()
+            var imad = PI / 6;
+            var flower = new Flower(0, 0, x, y, d, r, n, petal);
+            var x0 = -width / 2 + difi;
+            var y0 = 0;
+            var x1 = x0 + r * cos(-imad);
+            var y1 = y0 + r * sin(-imad);
+            var x2 = x0 + r * cos(imad);
+            var y2 = y0 + r * sin(imad);
+            shape2.push()
+            shape2.rotate(roti)
+            flower.trilen(x0, y0, x1, y1, x2, y2, n, petal, 0)
+            shape2.pop()
+        });
+        shapes.set(1.12, (n, d, tr, an, x, y) => {
+            var title = "Flower box";
+            var l = min(width, height);
+            shape2 = createGraphics(l, l, WEBGL);
+            if (n > 22) { n = 2 }
+            var r = l / 6;
+            var r3 = r * 3;
+            var petal = true;
+            if (floor(d) % 2 == 0) { petal = false; }
+            var flower = new Flower(0, 0, x, y, d, r, n, petal);
+            var coa = [...flower.aco[1]]
+            var inp = { x: 0, y: 0 }
+            flower.flowbox(1, inp, 0, r3, coa);
+            flower.flowbox(2, inp, 0, r3, coa);
+            flower.flowbox(3, inp, 0, r3, coa);
+            //flower.flowbox(4, 0, 0, r3);
+            //flower.init();
+            flower.flowbox(1, inp, 0, r, coa);
+            flower.flowbox(1, inp, 1, r, coa);
+            flower.flowbox(1, inp, 2, r, coa);
+            flower.flowbox(1, inp, 3, r, coa);
+            flower.flowbox(10, inp, 3, r, coa);
+            flower.flowbox(7, inp, 4, r, coa);
+            flower.flowbox(7, inp, 5, r, coa);
+            flower.flowbox(10, inp, 4, r, coa);
+            flower.flowbox(12, inp, 5, r, coa);
+            flower.flowbox(9, inp, 6, r, coa);
+            flower.flowbox(12, inp, 6, r, coa);
+            flower.flowbox(9, inp, 1, r, coa);
+            flower.flowbox(4, inp, 2, r, coa);
+
+        });
+
+
+
         shapes.set(2.1, (n, d, tr, an, x, y) => {
             var title = "Sun and floor";
             var l = min(width, height);
@@ -1746,26 +2144,26 @@ table {
             }
         });
 
-    shapes.set(3.23, (n, d, tr, an, x, y) => {
+        shapes.set(3.23, (n, d, tr, an, x, y) => {
             var title = "vertical symmetry from triangle pattern";
             var l = min(width, height);
             var ax = 0
             var ay = 0
             var sidet = (((l / 4) * 3) * 2 / sqrt(3)) / 2
             shapes.get(3.22).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
-            
+
             var geta = shape2.get(0, 0, l, l)
             shape2.clear()
             shape2.push()
-           
-             if(floor(d)%2==0){
-                shape2.image(geta, -l / 2, -l/2)
-            }else{
-                shape2.image(geta, -l / 2, -l/2, l, l)
+
+            if (floor(d) % 2 == 0) {
+                shape2.image(geta, -l / 2, -l / 2)
+            } else {
+                shape2.image(geta, -l / 2, -l / 2, l, l)
             }
             shape2.pop()
         });
-      shapes.set(3.24, (n, d, tr, an, x, y) => {
+        shapes.set(3.24, (n, d, tr, an, x, y) => {
             var title = "rotated triangle pattern";
             var l = min(width, height);
             var ax = 0
@@ -1774,74 +2172,74 @@ table {
             //var sideh = sidet * sqrt(3) /2
             var sideh = (l / 2.5)
             //shape2.imageMode(CENTER); 
-            var dd=0
-            if(floor(d)%2==0){dd=d+1}else{dd=d}
+            var dd = 0
+            if (floor(d) % 2 == 0) { dd = d + 1 } else { dd = d }
             shapes.get(3.2).apply(null, [n, dd, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
-            var si1=(sqrt(3)/2)
-            var si2=(l/4)*si1
-            var pro1=(2/sqrt(3))*1
-            var pro2=(l/4)*pro1
-            var pro3=pro2*0.5
+            var si1 = (sqrt(3) / 2)
+            var si2 = (l / 4) * si1
+            var pro1 = (2 / sqrt(3)) * 1
+            var pro2 = (l / 4) * pro1
+            var pro3 = pro2 * 0.5
             var geta = shape2.get(0, 0, l, l)
             shape2.clear()
-            geta.resize(l/3,l/3)
+            geta.resize(l / 3, l / 3)
 
-          shape2.push()
+            shape2.push()
 
-             shape2.rotate(PI/6)  
-            for(var a=0;a<6;a++){
-            shape2.rotate(PI/3)  
-            shape2.push() 
-             shape2.translate((-l/6),0)
-             shape2.image(geta, 0,0) 
-             shape2.pop() 
-         }
-            shape2.pop() 
-
-             var gete = shape2.get(0, 0, l, l)
-            shape2.clear()
-            shape2.push() 
-            for(var a=0;a<6;a++){ 
-                shape2.push() 
-                if(a%2==0){
-                    shape2.translate(0,pro2)
-                }
-                if(a%2==1){
-                    shape2.translate(0,pro2*2)
-                }  
-                if(a%3==2){
-                    //shape2.translate(0,pro2*4)
-                }   
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-            shape2.rotate(TWO_PI/6)
+            shape2.rotate(PI / 6)
+            for (var a = 0; a < 6; a++) {
+                shape2.rotate(PI / 3)
+                shape2.push()
+                shape2.translate((-l / 6), 0)
+                shape2.image(geta, 0, 0)
+                shape2.pop()
             }
-            shape2.pop() 
+            shape2.pop()
 
-        
-           shape2.push() 
-           shape2.translate((l/6)*1.5,pro2*2.5)
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-             shape2.push() 
-            shape2.translate(-(l/6)*1.5,pro2*2.5)
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-             shape2.push() 
-            shape2.translate(-(l/6)*3,-pro2*2)
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-            shape2.push() 
-            shape2.translate((l/6)*3,-pro2*2)
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-            
-           
-    //shape2.ellipse(0,0,9,9) 
+            var gete = shape2.get(0, 0, l, l)
+            shape2.clear()
+            shape2.push()
+            for (var a = 0; a < 6; a++) {
+                shape2.push()
+                if (a % 2 == 0) {
+                    shape2.translate(0, pro2)
+                }
+                if (a % 2 == 1) {
+                    shape2.translate(0, pro2 * 2)
+                }
+                if (a % 3 == 2) {
+                    //shape2.translate(0,pro2*4)
+                }
+                shape2.image(gete, -l / 2, -l / 2)
+                shape2.pop()
+                shape2.rotate(TWO_PI / 6)
+            }
+            shape2.pop()
+
+
+            shape2.push()
+            shape2.translate((l / 6) * 1.5, pro2 * 2.5)
+            shape2.image(gete, -l / 2, -l / 2)
+            shape2.pop()
+            shape2.push()
+            shape2.translate(-(l / 6) * 1.5, pro2 * 2.5)
+            shape2.image(gete, -l / 2, -l / 2)
+            shape2.pop()
+            shape2.push()
+            shape2.translate(-(l / 6) * 3, -pro2 * 2)
+            shape2.image(gete, -l / 2, -l / 2)
+            shape2.pop()
+            shape2.push()
+            shape2.translate((l / 6) * 3, -pro2 * 2)
+            shape2.image(gete, -l / 2, -l / 2)
+            shape2.pop()
+
+
+            //shape2.ellipse(0,0,9,9) 
 
         });
 
-shapes.set(3.241, (n, d, tr, an, x, y) => {
+        shapes.set(3.241, (n, d, tr, an, x, y) => {
             var title = "rotated triangle pattern";
             var l = min(width, height);
             var ax = 0
@@ -1850,122 +2248,122 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             //var sideh = sidet * sqrt(3) /2
             var sideh = (l / 2.5)
             //shape2.imageMode(CENTER); 
-            var dd=0
-            if(floor(d)%2==0){dd=d+1}else{dd=d}
-            shapes.get(3.2).apply(null, [n, dd, { scl: 0.5, rtt: PI/n, trx: 0, try: 0 }, an, x, y]);
-            var si1=(sqrt(3)/2)
-            var si2=(l/4)*si1
-            var pro1=(2/sqrt(3))*1
-            var pro2=(l/4)*pro1
-            var pro3=pro2*0.5
+            var dd = 0
+            if (floor(d) % 2 == 0) { dd = d + 1 } else { dd = d }
+            shapes.get(3.2).apply(null, [n, dd, { scl: 0.5, rtt: PI / n, trx: 0, try: 0 }, an, x, y]);
+            var si1 = (sqrt(3) / 2)
+            var si2 = (l / 4) * si1
+            var pro1 = (2 / sqrt(3)) * 1
+            var pro2 = (l / 4) * pro1
+            var pro3 = pro2 * 0.5
             var geta = shape2.get(0, 0, l, l)
             shape2.clear()
-            geta.resize(l/3,l/3)
+            geta.resize(l / 3, l / 3)
 
-          shape2.push()
+            shape2.push()
 
-             shape2.rotate(PI/6)  
-            for(var a=0;a<6;a++){
-            shape2.rotate(PI/3)  
-            shape2.push() 
-             shape2.translate((-l/6),0)
-             shape2.image(geta, 0,0) 
-             shape2.pop() 
-         }
-            shape2.pop() 
-
-             var gete = shape2.get(0, 0, l, l)
-            shape2.clear()
-            shape2.push() 
-            for(var a=0;a<6;a++){ 
-                shape2.push() 
-                if(a%2==0){
-                    shape2.translate(0,pro2)
-                }
-                if(a%2==1){
-                    shape2.translate(0,pro2*2)
-                }  
-                if(a%3==2){
-                    //shape2.translate(0,pro2*4)
-                }   
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-            shape2.rotate(TWO_PI/6)
+            shape2.rotate(PI / 6)
+            for (var a = 0; a < 6; a++) {
+                shape2.rotate(PI / 3)
+                shape2.push()
+                shape2.translate((-l / 6), 0)
+                shape2.image(geta, 0, 0)
+                shape2.pop()
             }
-            shape2.pop() 
+            shape2.pop()
 
-        
-           shape2.push() 
-           shape2.translate((l/6)*1.5,pro2*2.5)
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-             shape2.push() 
-            shape2.translate(-(l/6)*1.5,pro2*2.5)
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-             shape2.push() 
-            shape2.translate(-(l/6)*3,-pro2*2)
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-            shape2.push() 
-            shape2.translate((l/6)*3,-pro2*2)
-            shape2.image(gete, -l/2,-l/2) 
-            shape2.pop() 
-            
-           
-    //shape2.ellipse(0,0,9,9) 
+            var gete = shape2.get(0, 0, l, l)
+            shape2.clear()
+            shape2.push()
+            for (var a = 0; a < 6; a++) {
+                shape2.push()
+                if (a % 2 == 0) {
+                    shape2.translate(0, pro2)
+                }
+                if (a % 2 == 1) {
+                    shape2.translate(0, pro2 * 2)
+                }
+                if (a % 3 == 2) {
+                    //shape2.translate(0,pro2*4)
+                }
+                shape2.image(gete, -l / 2, -l / 2)
+                shape2.pop()
+                shape2.rotate(TWO_PI / 6)
+            }
+            shape2.pop()
+
+
+            shape2.push()
+            shape2.translate((l / 6) * 1.5, pro2 * 2.5)
+            shape2.image(gete, -l / 2, -l / 2)
+            shape2.pop()
+            shape2.push()
+            shape2.translate(-(l / 6) * 1.5, pro2 * 2.5)
+            shape2.image(gete, -l / 2, -l / 2)
+            shape2.pop()
+            shape2.push()
+            shape2.translate(-(l / 6) * 3, -pro2 * 2)
+            shape2.image(gete, -l / 2, -l / 2)
+            shape2.pop()
+            shape2.push()
+            shape2.translate((l / 6) * 3, -pro2 * 2)
+            shape2.image(gete, -l / 2, -l / 2)
+            shape2.pop()
+
+
+            //shape2.ellipse(0,0,9,9) 
 
         });
 
- shapes.set(3.25, (n, d, tr, an, x, y) => {
+        shapes.set(3.25, (n, d, tr, an, x, y) => {
             var title = "H triangle pattern";
             var l = min(width, height);
             shapes.get(3.24).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
             let img2 = shape2.get(0, 0, l, l)
             pr = { x: 0, y: 0 }
-            n=2
-            let v1=l/n
-            let v2=v1/2
+            n = 2
+            let v1 = l / n
+            let v2 = v1 / 2
             shape2.clear()
-            img2.resize(v1,v1)
+            img2.resize(v1, v1)
             shape2.push()
-            shape2.translate(0,-v2)
-            shape2.image(img2,0,0)
-            for(var a=0;a<n/2;a++){
-            shape2.translate(-v1,0)
-            shape2.image(img2,0,0)
-            }
-            shape2.pop()
-            
-            shape2.push()
-            shape2.translate(v1,-v2)
-            shape2.image(img2,0,0)
-           for(a=0;a<(n/2)-1;a++){
-                shape2.translate(v1,0)
-                shape2.image(img2,0,0)
+            shape2.translate(0, -v2)
+            shape2.image(img2, 0, 0)
+            for (var a = 0; a < n / 2; a++) {
+                shape2.translate(-v1, 0)
+                shape2.image(img2, 0, 0)
             }
             shape2.pop()
 
+            shape2.push()
+            shape2.translate(v1, -v2)
+            shape2.image(img2, 0, 0)
+            for (a = 0; a < (n / 2) - 1; a++) {
+                shape2.translate(v1, 0)
+                shape2.image(img2, 0, 0)
+            }
+            shape2.pop()
+
 
             shape2.push()
-            shape2.translate(-v1/4,-v1-v2)
-            shape2.image(img2,0,0)
-            shape2.translate(-v1,0)
-            shape2.image(img2,0,0)
-             shape2.translate(v1*2,0)
-            shape2.image(img2,0,0)
+            shape2.translate(-v1 / 4, -v1 - v2)
+            shape2.image(img2, 0, 0)
+            shape2.translate(-v1, 0)
+            shape2.image(img2, 0, 0)
+            shape2.translate(v1 * 2, 0)
+            shape2.image(img2, 0, 0)
             shape2.pop()
 
             shape2.push()
-            shape2.translate(-v1/4,v2)
-            shape2.image(img2,0,0)
-            shape2.translate(-v1,0)
-            shape2.image(img2,0,0)
-             shape2.translate(v1*2,0)
-            shape2.image(img2,0,0)
+            shape2.translate(-v1 / 4, v2)
+            shape2.image(img2, 0, 0)
+            shape2.translate(-v1, 0)
+            shape2.image(img2, 0, 0)
+            shape2.translate(v1 * 2, 0)
+            shape2.image(img2, 0, 0)
             shape2.pop()
 
-            
+
         });
 
         shapes.set(3.3, (n, d, tr, an, x, y) => {
@@ -2246,7 +2644,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             cy = 0
             for (var b = 0; b < sz; b++) {
                 for (var a = 0; a < sz; a++) {
-                    //console.log('ab:', xy, a, b)
                     shape2.push()
                     shape2.translate(cx, cy)
                     shape2.image(geti, 0, 0)
@@ -2398,7 +2795,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             cy = 0
             for (var b = 0; b < sz; b++) {
                 for (var a = 0; a < sz; a++) {
-                    //console.log('ab:', xy, a, b)
                     shape2.push()
                     shape2.translate(cx, cy)
                     shape2.image(geti, 0, 0)
@@ -2434,7 +2830,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             cy = 0
             for (var b = 0; b < sz; b++) {
                 for (var a = 0; a < sz; a++) {
-                    //console.log('ab:', xy, a, b)
                     shape2.push()
                     shape2.translate(cx, cy)
                     shape2.image(geti, 0, 0)
@@ -2483,7 +2878,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
                     //shape2.ellipse(0,0, l,l)
                     //shape2.image(img2,0,0)
                     shape2.pop()
-                    //console.log(i)
                 }
                 shape2.pop()
             }
@@ -2504,7 +2898,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             var xd = x + d * 0.5 * cos(0)
             var yd = x + d * 0.5 * cos(0)
             let t = rectToSquare(wh, xd, yd, dd)
-            //console.log(JSON.stringify(t))
             if (int(d) % 2 == 0) {
                 vert.sort(compareZ);
             }
@@ -2543,8 +2936,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
                 //shape2.ellipse(0,0, l,l)
                 //shape2.image(img2,0,0)
                 shape2.pop()
-                //console.log(i)
-
 
                 if (i < vert.length - 1) {
                     shape2.strokeWeight(wei)
@@ -2587,40 +2978,40 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             var xd = x + d * 0.5 * cos(0)
             var yd = x + d * 0.5 * cos(0)
             let t = rectToSquare(wh, xd, yd, dd)
-            let anr=0
+            let anr = 0
             var wei = l * 4 / n / 6
-            let vert = getBoxVert(l*1.2-wei*0, l * 4)
+            let vert = getBoxVert(l * 1.2 - wei * 0, l * 4)
             for (var j = 0; j < vert.length; j++) {
                 imgs[j] = sh.get(t.tl.x, t.tl.y, t.w, t.w)
                 xd = x + d * 0.5 * cos(an * (j + 1))
                 yd = y + d * 0.5 * sin(an * (j + 1))
                 t = rectToSquare(wh, xd, yd, dd)
             }
-           
+
             let coln = img[org].get(x, y)
             shape2.push()
             shape2.translate(0, 0, -l * 1)
             var colx = 1; //x+d*cos(an*i)
             var coly = 1; //y+d*sin(an*i)
-             var edgi=vert[0]
-            cut3D(imgs[0], x, y, 1, 100, d, an, [vert[edgi.edge[1]],vert[edgi.face],vert[0],vert[edgi.edge[0]] ])
-            edgi=vert[1]
-            cut3D(imgs[1], x, y, 1, 100, d, an, [vert[1],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
-             edgi=vert[3]
-            cut3D(imgs[3], x, y, 1, 100, d, an, [vert[3],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
-             edgi=vert[2]
-            cut3D(imgs[2], x, y, 1, 100, d, an, [vert[2],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
-            cut3D(imgs[4], x, y, 1, 100, d, an, [vert[7],vert[6],vert[4],vert[5]])
-             if(floor(d)%2==0){
+            var edgi = vert[0]
+            cut3D(imgs[0], x, y, 1, 100, d, an, [vert[edgi.edge[1]], vert[edgi.face], vert[0], vert[edgi.edge[0]]])
+            edgi = vert[1]
+            cut3D(imgs[1], x, y, 1, 100, d, an, [vert[1], vert[edgi.edge[0]], vert[edgi.edge[1]], vert[edgi.face]])
+            edgi = vert[3]
+            cut3D(imgs[3], x, y, 1, 100, d, an, [vert[3], vert[edgi.edge[0]], vert[edgi.edge[1]], vert[edgi.face]])
+            edgi = vert[2]
+            cut3D(imgs[2], x, y, 1, 100, d, an, [vert[2], vert[edgi.edge[0]], vert[edgi.edge[1]], vert[edgi.face]])
+            cut3D(imgs[4], x, y, 1, 100, d, an, [vert[7], vert[6], vert[4], vert[5]])
+            if (floor(d) % 2 == 0) {
                 var colni = imgs[0].get(colx, coly)
                 for (let i = 0; i < vert.length; i++) {
                     coln = imgs[i].get(colx, coly)
-                    for(var a=0;a<vert[i].edge.length;a++){
+                    for (var a = 0; a < vert[i].edge.length; a++) {
                         shape2.strokeWeight(wei)
                         shape2.stroke(colni)
                         shape2.beginShape();
                         shape2.vertex(vert[i].x, vert[i].y, vert[i].z);
-                        edgi=vert[i].edge[a]
+                        edgi = vert[i].edge[a]
                         shape2.vertex(vert[edgi].x, vert[edgi].y, vert[edgi].z);
                         //shape2.vertex(vert[i + 1].x, vert[i + 1].y, vert[i + 1].z);
                         shape2.endShape();
@@ -2633,11 +3024,11 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
         shapes.set(5.21, (n, d, tr, an, x, y) => {
             var title = 'Box photo interior floor pattern'
             var l = min(width, height);
-            var suelo=[0,-0.14,3.51,4.51,-0.141]
-            var soli=floor(d)%5;
-            if(soli>0){
-            shapes.get(suelo[soli]).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
-            var geta=shape2.get(0,0,l,l) 
+            var suelo = [0, -0.14, 3.51, 4.51, -0.141]
+            var soli = floor(d) % 5;
+            if (soli > 0) {
+                shapes.get(suelo[soli]).apply(null, [n, d, { scl: 0.5, rtt: 0, trx: 0, try: 0 }, an, x, y]);
+                var geta = shape2.get(0, 0, l, l)
             }
             shape2.clear()
             shape2 = createGraphics(l, l, WEBGL);
@@ -2648,49 +3039,49 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             var xd = x + d * 0.5 * cos(0)
             var yd = x + d * 0.5 * cos(0)
             let t = rectToSquare(wh, xd, yd, dd)
-            let anr=0
+            let anr = 0
             var wei = l * 4 / n / 6
-            let vert = getBoxVert(l*1.2-wei*0, l * 4)
+            let vert = getBoxVert(l * 1.2 - wei * 0, l * 4)
             for (var j = 0; j < vert.length; j++) {
                 imgs[j] = sh.get(t.tl.x, t.tl.y, t.w, t.w)
                 xd = x + d * 0.5 * cos(an * (j + 1))
                 yd = y + d * 0.5 * sin(an * (j + 1))
                 t = rectToSquare(wh, xd, yd, dd)
             }
-           
+
             let coln = img[org].get(x, y)
             shape2.push()
             shape2.translate(0, 0, -l * 1)
             var colx = 1; //x+d*cos(an*i)
             var coly = 1; //y+d*sin(an*i)
-             var edgi=vert[0]
+            var edgi = vert[0]
             //cut3D(imgs[0], x, y, 1, 100, d, an, [vert[0],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
-             if(soli==0){
-                cut3D(imgs[0], x, y, 1, 100, d, an,[vert[edgi.edge[1]],vert[edgi.face],vert[0],vert[edgi.edge[0]] ])
-            }else{
-                cut3D(geta, x, y, 1, 100, d, an,[vert[edgi.edge[1]],vert[edgi.face],vert[0],vert[edgi.edge[0]] ])
+            if (soli == 0) {
+                cut3D(imgs[0], x, y, 1, 100, d, an, [vert[edgi.edge[1]], vert[edgi.face], vert[0], vert[edgi.edge[0]]])
+            } else {
+                cut3D(geta, x, y, 1, 100, d, an, [vert[edgi.edge[1]], vert[edgi.face], vert[0], vert[edgi.edge[0]]])
             }
-            edgi=vert[1]
-            cut3D(imgs[1], x, y, 1, 100, d, an, [vert[1],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
-             edgi=vert[3]
-            cut3D(imgs[3], x, y, 1, 100, d, an, [vert[3],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
-             edgi=vert[2]
-            cut3D(imgs[2], x, y, 1, 100, d, an, [vert[2],vert[edgi.edge[0]],vert[edgi.edge[1]],vert[edgi.face]])
+            edgi = vert[1]
+            cut3D(imgs[1], x, y, 1, 100, d, an, [vert[1], vert[edgi.edge[0]], vert[edgi.edge[1]], vert[edgi.face]])
+            edgi = vert[3]
+            cut3D(imgs[3], x, y, 1, 100, d, an, [vert[3], vert[edgi.edge[0]], vert[edgi.edge[1]], vert[edgi.face]])
+            edgi = vert[2]
+            cut3D(imgs[2], x, y, 1, 100, d, an, [vert[2], vert[edgi.edge[0]], vert[edgi.edge[1]], vert[edgi.face]])
             //if(soli<2){
-                cut3D(imgs[4], x, y, 1, 100, d, an, [vert[7],vert[6],vert[4],vert[5]])
+            cut3D(imgs[4], x, y, 1, 100, d, an, [vert[7], vert[6], vert[4], vert[5]])
             //}else{
-               //cut3D(geta, x, y, 1, 100, d, an, [vert[7],vert[6],vert[4],vert[5]]) 
+            //cut3D(geta, x, y, 1, 100, d, an, [vert[7],vert[6],vert[4],vert[5]]) 
             //}
-             if(floor(d)%2==0){
+            if (floor(d) % 2 == 0) {
                 var colni = imgs[0].get(colx, coly)
                 for (let i = 0; i < vert.length; i++) {
                     coln = imgs[i].get(colx, coly)
-                    for(var a=0;a<vert[i].edge.length;a++){
+                    for (var a = 0; a < vert[i].edge.length; a++) {
                         shape2.strokeWeight(wei)
                         shape2.stroke(colni)
                         shape2.beginShape();
                         shape2.vertex(vert[i].x, vert[i].y, vert[i].z);
-                        edgi=vert[i].edge[a]
+                        edgi = vert[i].edge[a]
                         shape2.vertex(vert[edgi].x, vert[edgi].y, vert[edgi].z);
                         //shape2.vertex(vert[i + 1].x, vert[i + 1].y, vert[i + 1].z);
                         shape2.endShape();
@@ -2717,9 +3108,9 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             var yd = x + d * 0.5 * cos(0)
             let t = rectToSquare(wh, xd, yd, dd)
             //var wei = l * 4 / n / 6
-            var wei=(l/30)
+            var wei = (l / 30)
             //let vert = getBoxData(l*1.2-wei*0, l * 4)
-            let vert = getBoxData(l*1.2, l * 0.5)
+            let vert = getBoxData(l * 1.2, l * 0.5)
             //for (var j = 0; j < vert.length; j++) {
             for (var j = 0; j < 4; j++) {
                 imgs[j] = sh.get(t.tl.x, t.tl.y, t.w, t.w)
@@ -2731,9 +3122,9 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             shape2.push()
 
             shape2.translate(0, 0, -l * 1)
-            if(floor(d)%2==0){
-            //shape2.rotateY(an)
-            }else{
+            if (floor(d) % 2 == 0) {
+                //shape2.rotateY(an)
+            } else {
                 //shape2.rotateY(0)
             }
             //shape2.rotate(anr)            
@@ -2741,211 +3132,207 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             var coly = 1; //y+d*sin(an*i)
             var colni = imgs[0].get(colx, coly)
             //for (let i = 0; i < vert.length; i++) {
-                //-->coln = imgs[i].get(colx, coly)
-                //-->shape2.push()
-                //-->shape2.translate(vert[i].x, vert[i].y, vert[i].z + wei)
-                //shape2.texture(imgs[i])
-                //-->shape2.fill(coln)
-                //-->shape2.ellipse(0, 0, wei,  wei)
-                //shape2.ellipse(0, 0, wei*2,  wei*2)
-                //rect(0,0,30,30)
-                //shape2.image(geta,-l/4,-l*4)
-                //-->shape2.pop()
-                //for(var a=0;a<vert[i].edge.length;a++){
-                let edga=0
-                let edge=0 
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                edga=facel[0][0][0]
-                edge=facel[0][0][1]
-                facel[0][0][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                edga=facel[0][1][0]
-                edge=facel[0][1][1]
-                facel[0][1][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                //line31(vert,facel[0][0][2],facel[0][1][2])
-                 edga=facel[0][2][0]
-                edge=facel[0][2][1]
-                facel[0][2][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                 edga=facel[0][3][0]
-                edge=facel[0][3][1]
-                facel[0][3][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
+            //-->coln = imgs[i].get(colx, coly)
+            //-->shape2.push()
+            //-->shape2.translate(vert[i].x, vert[i].y, vert[i].z + wei)
+            //shape2.texture(imgs[i])
+            //-->shape2.fill(coln)
+            //-->shape2.ellipse(0, 0, wei,  wei)
+            //shape2.ellipse(0, 0, wei*2,  wei*2)
+            //rect(0,0,30,30)
+            //shape2.image(geta,-l/4,-l*4)
+            //-->shape2.pop()
+            //for(var a=0;a<vert[i].edge.length;a++){
+            let edga = 0
+            let edge = 0
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            edga = facel[0][0][0]
+            edge = facel[0][0][1]
+            facel[0][0][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            edga = facel[0][1][0]
+            edge = facel[0][1][1]
+            facel[0][1][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            //line31(vert,facel[0][0][2],facel[0][1][2])
+            edga = facel[0][2][0]
+            edge = facel[0][2][1]
+            facel[0][2][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            edga = facel[0][3][0]
+            edge = facel[0][3][1]
+            facel[0][3][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
 
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                edga=facel[5][0][0]
-                edge=facel[5][0][1]
-                facel[5][0][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                edga=facel[5][1][0]
-                edge=facel[5][1][1]
-                facel[5][1][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                edga=facel[5][2][0]
-                edge=facel[5][2][1]
-                facel[5][2][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                edga=facel[5][3][0]
-                edge=facel[5][3][1]
-                facel[5][3][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                edga=facel[6][0][0]
-                edge=facel[6][0][1]
-                facel[6][0][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                edga=facel[6][1][0]
-                edge=facel[6][1][1]
-                facel[6][1][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                edga=facel[6][2][0]
-                edge=facel[6][2][1]
-                facel[6][2][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                edga=facel[6][3][0]
-                edge=facel[6][3][1]
-                facel[6][3][2]=mpoint2(vert,edga,edge)
-                shape2.strokeWeight(wei)
-                shape2.stroke(colni)
-                //line3(vert,edga,edge)
-                let k=5
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            edga = facel[5][0][0]
+            edge = facel[5][0][1]
+            facel[5][0][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            edga = facel[5][1][0]
+            edge = facel[5][1][1]
+            facel[5][1][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            edga = facel[5][2][0]
+            edge = facel[5][2][1]
+            facel[5][2][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            edga = facel[5][3][0]
+            edge = facel[5][3][1]
+            facel[5][3][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            edga = facel[6][0][0]
+            edge = facel[6][0][1]
+            facel[6][0][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            edga = facel[6][1][0]
+            edge = facel[6][1][1]
+            facel[6][1][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            edga = facel[6][2][0]
+            edge = facel[6][2][1]
+            facel[6][2][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            edga = facel[6][3][0]
+            edge = facel[6][3][1]
+            facel[6][3][2] = mpoint2(vert, edga, edge)
+            shape2.strokeWeight(wei)
+            shape2.stroke(colni)
+            //line3(vert,edga,edge)
+            let k = 5
 
-                line31(vert,facel[k][0][2],facel[k][1][2])
-                line31(vert,facel[k][1][2],facel[k][2][2])
-                line31(vert,facel[k][2][2],facel[k][3][2])
-                line31(vert,facel[k][3][2],facel[k][0][2]) 
-                cut3D(imgs[2], x, y, 3, 100, d, an, [facel[5][0][2],facel[5][1][2],facel[6][1][2]])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [facel[5][1][2],facel[5][2][2],facel[6][2][2]])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [facel[5][2][2],facel[5][3][2],facel[6][3][2]])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [facel[5][3][2],facel[5][0][2],facel[6][0][2]])
-                k=6
-                line31(vert,facel[0][0][2],facel[k][0][2])
-                line31(vert,facel[k][0][2],facel[5][0][2])
-                line31(vert,facel[5][0][2],facel[k][1][2])
-                line31(vert,facel[k][1][2],facel[0][0][2])
-                j=1
-                line31(vert,facel[0][j][2],facel[k][j][2])
-                line31(vert,facel[k][j][2],facel[5][j][2])
-                line31(vert,facel[5][j][2],facel[k][j+1][2])
-                line31(vert,facel[k][j+1][2],facel[0][j][2])
+            line31(vert, facel[k][0][2], facel[k][1][2])
+            line31(vert, facel[k][1][2], facel[k][2][2])
+            line31(vert, facel[k][2][2], facel[k][3][2])
+            line31(vert, facel[k][3][2], facel[k][0][2])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [facel[5][0][2], facel[5][1][2], facel[6][1][2]])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [facel[5][1][2], facel[5][2][2], facel[6][2][2]])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [facel[5][2][2], facel[5][3][2], facel[6][3][2]])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [facel[5][3][2], facel[5][0][2], facel[6][0][2]])
+            k = 6
+            line31(vert, facel[0][0][2], facel[k][0][2])
+            line31(vert, facel[k][0][2], facel[5][0][2])
+            line31(vert, facel[5][0][2], facel[k][1][2])
+            line31(vert, facel[k][1][2], facel[0][0][2])
+            j = 1
+            line31(vert, facel[0][j][2], facel[k][j][2])
+            line31(vert, facel[k][j][2], facel[5][j][2])
+            line31(vert, facel[5][j][2], facel[k][j + 1][2])
+            line31(vert, facel[k][j + 1][2], facel[0][j][2])
 
-                j=2
-                line31(vert,facel[0][j][2],facel[k][j][2])
-                line31(vert,facel[k][j][2],facel[5][j][2])
-                line31(vert,facel[5][j][2],facel[k][j+1][2])
-                line31(vert,facel[k][j+1][2],facel[0][j][2])
+            j = 2
+            line31(vert, facel[0][j][2], facel[k][j][2])
+            line31(vert, facel[k][j][2], facel[5][j][2])
+            line31(vert, facel[5][j][2], facel[k][j + 1][2])
+            line31(vert, facel[k][j + 1][2], facel[0][j][2])
 
-                j=3
-                line31(vert,facel[0][j][2],facel[k][j][2])
-                line31(vert,facel[k][j][2],facel[5][j][2])
-                line31(vert,facel[5][j][2],facel[k][0][2])
-                line31(vert,facel[k][0][2],facel[0][j][2])
+            j = 3
+            line31(vert, facel[0][j][2], facel[k][j][2])
+            line31(vert, facel[k][j][2], facel[5][j][2])
+            line31(vert, facel[5][j][2], facel[k][0][2])
+            line31(vert, facel[k][0][2], facel[0][j][2])
 
-               
-               
-                line32(vert,facel[0][0][0],facel[0][0][2])
-                line32(vert,facel[0][0][0],facel[6][0][2])
-                line32(vert,facel[0][0][0],facel[0][3][2])
-               cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][0][0]],facel[6][0][2],facel[0][3][2]])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][0][0]],facel[6][0][2],facel[0][0][2]])
-                line32(vert,facel[0][1][0],facel[0][0][2])
-                line32(vert,facel[0][1][0],facel[6][1][2])
-                line32(vert,facel[0][1][0],facel[0][1][2])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][1][0]],facel[6][1][2],facel[0][0][2]])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][1][0]],facel[6][1][2],facel[0][1][2]])
-                line32(vert,facel[0][2][0],facel[0][1][2])
-                line32(vert,facel[0][2][0],facel[6][2][2])
-                line32(vert,facel[0][2][0],facel[0][2][2])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][2][0]],facel[6][2][2],facel[0][2][2]])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][2][0]],facel[6][2][2],facel[0][1][2]])
-                line32(vert,facel[0][3][0],facel[0][2][2])
-                line32(vert,facel[0][3][0],facel[6][3][2])
-                line32(vert,facel[0][3][0],facel[0][3][2])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][3][0]],facel[6][3][2],facel[0][2][2]])
-                cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][3][0]],facel[6][3][2],facel[0][3][2]])
-                // const wh = { w: img[org].width, h: img[org].height };
+
+
+            line32(vert, facel[0][0][0], facel[0][0][2])
+            line32(vert, facel[0][0][0], facel[6][0][2])
+            line32(vert, facel[0][0][0], facel[0][3][2])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][0][0]], facel[6][0][2], facel[0][3][2]])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][0][0]], facel[6][0][2], facel[0][0][2]])
+            line32(vert, facel[0][1][0], facel[0][0][2])
+            line32(vert, facel[0][1][0], facel[6][1][2])
+            line32(vert, facel[0][1][0], facel[0][1][2])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][1][0]], facel[6][1][2], facel[0][0][2]])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][1][0]], facel[6][1][2], facel[0][1][2]])
+            line32(vert, facel[0][2][0], facel[0][1][2])
+            line32(vert, facel[0][2][0], facel[6][2][2])
+            line32(vert, facel[0][2][0], facel[0][2][2])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][2][0]], facel[6][2][2], facel[0][2][2]])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][2][0]], facel[6][2][2], facel[0][1][2]])
+            line32(vert, facel[0][3][0], facel[0][2][2])
+            line32(vert, facel[0][3][0], facel[6][3][2])
+            line32(vert, facel[0][3][0], facel[0][3][2])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][3][0]], facel[6][3][2], facel[0][2][2]])
+            cut3D(imgs[2], x, y, 3, 100, d, an, [vert[facel[0][3][0]], facel[6][3][2], facel[0][3][2]])
+            // const wh = { w: img[org].width, h: img[org].height };
             //const t = rectToSquare(wh, x, y, d)
             var geti = img[org].get(t.tl.x, t.tl.y, t.w, t.w)
 
-                k=5
-                cut3D(imgs[0], x, y, 1, 100, d, an, [facel[k][0][2],facel[k][1][2],facel[k][3][2],facel[k][2][2]])
-                 k=6
-                cut3D(imgs[0], x, y, 1, 100, d, an, [facel[5][0][2],facel[k][1][2],facel[k][0][2],facel[0][0][2]])
-                cut3D(imgs[0], x, y, 1, 100, d, an, [facel[5][1][2],facel[k][2][2],facel[k][1][2],facel[0][1][2]])
-                 cut3D(imgs[0], x, y, 1, 100, d, an, [facel[5][2][2],facel[k][3][2],facel[k][2][2],facel[0][2][2]])
-                  cut3D(imgs[0], x, y, 1, 100, d, an, [facel[5][3][2],facel[k][0][2],facel[k][3][2],facel[0][3][2]])
-                var gete=shape2.get(0,0,l,l)
-                shape2.push()
-                shape2.translate(0, 0,-l)
-                shape2.image(gete,0,0,l*1,l*1)
+            k = 5
+            cut3D(imgs[0], x, y, 1, 100, d, an, [facel[k][0][2], facel[k][1][2], facel[k][3][2], facel[k][2][2]])
+            k = 6
+            cut3D(imgs[0], x, y, 1, 100, d, an, [facel[5][0][2], facel[k][1][2], facel[k][0][2], facel[0][0][2]])
+            cut3D(imgs[0], x, y, 1, 100, d, an, [facel[5][1][2], facel[k][2][2], facel[k][1][2], facel[0][1][2]])
+            cut3D(imgs[0], x, y, 1, 100, d, an, [facel[5][2][2], facel[k][3][2], facel[k][2][2], facel[0][2][2]])
+            cut3D(imgs[0], x, y, 1, 100, d, an, [facel[5][3][2], facel[k][0][2], facel[k][3][2], facel[0][3][2]])
+            var gete = shape2.get(0, 0, l, l)
+            shape2.push()
+            shape2.translate(0, 0, -l)
+            shape2.image(gete, 0, 0, l * 1, l * 1)
 
 
-                //}
-                //if(i<4) {
-                    /* 
-                    shape2.beginShape()
-                    shape2.vertex(vert[i].x, vert[i].y, vert[i].z);
-                    edgi=vert[i].face
-                    shape2.vertex(vert[edgi].x, vert[edgi].y, vert[edgi].z);
-                    shape2.endShape();
-                    shape2.fill(255)
-                    shape2.noStroke()
-                    shape2.push()
-                    shape2.translate(vert[i].mid.x,vert[i].mid.y,vert[i].mid.z)
-                    shape2.ellipse(0,0,40,40)
-                    shape2.pop()
-                    //if(i>3){
-                       shape2.push()
-                        shape2.stroke(255)
-                        shape2.noFill()
-                        shape2.translate(vert[i].midef.x,vert[i].midef.y,vert[i].midef.z)
-                         if(i>4){
-
-                            shape2.ellipse(0,0,40,40)
-                        }
-                        if(i==4|| i==6){
-                            shape2.rotateX(HALF_PI)
-                            shape2.ellipse(0,0,280,280)
-                        }
-                        if(i==5|| i==7){
-                            shape2.rotateY(HALF_PI)
-                            shape2.ellipse(0,0,280,280)
-                        }
-                       
-                        
-                        shape2.pop()
-                        */
-                    //}
-                    //console.log('mid',vert[i].mid.x,vert[i].mid.y,vert[i].mid.z)
-                //}
-                
             //}
+            //if(i<4) {
+            /* 
+            shape2.beginShape()
+            shape2.vertex(vert[i].x, vert[i].y, vert[i].z);
+            edgi=vert[i].face
+            shape2.vertex(vert[edgi].x, vert[edgi].y, vert[edgi].z);
+            shape2.endShape();
+            shape2.fill(255)
+            shape2.noStroke()
+            shape2.push()
+            shape2.translate(vert[i].mid.x,vert[i].mid.y,vert[i].mid.z)
+            shape2.ellipse(0,0,40,40)
+            shape2.pop()
+            //if(i>3){
+               shape2.push()
+                shape2.stroke(255)
+                shape2.noFill()
+                shape2.translate(vert[i].midef.x,vert[i].midef.y,vert[i].midef.z)
+                 if(i>4){
+
+                    shape2.ellipse(0,0,40,40)
+                }
+                if(i==4|| i==6){
+                    shape2.rotateX(HALF_PI)
+                    shape2.ellipse(0,0,280,280)
+                }
+                if(i==5|| i==7){
+                    shape2.rotateY(HALF_PI)
+                    shape2.ellipse(0,0,280,280)
+                }
+               
+                
+                shape2.pop()
+                */
+
             shape2.pop()
         });
 
@@ -2991,7 +3378,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             var l = min(width, height);
             let vert = getStarN(n, l * 0.5, -4, -4)
             shape2 = createGraphics(l, l, WEBGL);
-            //let sh=shape2.get(0,0,l,l)
             let sh = img[org]
             let wh = { w: img[org].width, h: img[org].height }
             let imgs = []
@@ -2999,10 +3385,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             var xd = x + d * 0.5 * cos(0)
             var yd = x + d * 0.5 * cos(0)
             let t = rectToSquare(wh, xd, yd, dd)
-            //console.log(JSON.stringify(t))
-            //if(int(d)%2==0){
-            //vert.sort(compareZ);
-            //}
             for (var j = 0; j < vert.length; j++) {
                 imgs[j] = sh.get(t.tl.x, t.tl.y, t.w, t.w)
                 xd = x + d * 0.5 * cos(an * (j + 1))
@@ -3349,42 +3731,9 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
         }
         if (n == 0.1) {
             const wh = { w: img[org].width, h: img[org].height };
-            //const t = rectToSquare(wh, x, y, d)
-            //const t= rectToSquare(wh,0,0,wh.w)
-            //var u=getSemisides(r, wh.w, wh.h)
-            ////console.log('getSemisides(',r,wh.w,wh.h,')',JSON.stringify(u))
-
-            /*
-            var w=(d);
-            const r1=(r)
-            var ratio=1 
-            let ls=wh.w;let ss=wh.h
-            if(abs(an-HALF_PI/2) > 0.0000001){
-                const w=d*sin(an)
-        
-                 if(an>HALF_PI/2){
-                    ls = d; // Longer side
-                    ss = d* Math.cos(an); // Shorter side
-                    ratio = ls / ss; // ratio long to short
-
-                }else{
-                    ls = d* Math.cos(an); // Longer side
-                    ss = d; // 
-                    ratio = ss / ls; //ratio shorth to long
-                }
-            
-            
-            //w= 2 * ls * Math.cos(an);
-           }
-           */
-
-            //const t=squareToRect(wh, x, y, ls, ss)
             var sd = calcRectSides(an, d)
             const t = { tl: { x: x - sd.w, y: y - sd.h }, br: { x: x + sd.w, y: y + sd.h }, w: sd.w * 2, h: sd.h * 2 }
             var u = getSemisides(r, sd.w, sd.h)
-            //console.log('w,h:', JSON.stringify(wh))
-            //console.log('lados:', JSON.stringify(sd))
-            //console.log('vertices:', JSON.stringify(t))
             shape2.beginShape(TRIANGLE_STRIP);
             shape2.texture(img[org]);
             shape2.noStroke();
@@ -3401,9 +3750,7 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             let r1 = r
             let r2 = r * 2
             let r4 = r * 4
-            //const t= rectToSquare(wh,0,0,wh.w)
             let pa = createGraphics(r2, r2, WEBGL);
-            //let geri=img[org].get(t.tl.x,t.tl.y,t.w,t.h)
             let geri = img[org].get(x, y, d, d)
             pa.push();
             pa.image(geri, 0, 0, r, r);
@@ -3505,7 +3852,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             p[2] = { x: r2 * cos(an), y: r2 * sin(an) }
             p[3] = { x: rr2, y: 0 }
             p[4] = { x: r3 * cos(an), y: r3 * sin(an) }
-            // console.log('AN:'+JSON.stringify(p))
             const s = []
             s[0] = { x: x + d1 * cos(an), y: y + d1 * sin(an) }
             s[1] = { x: x + dd2, y: y }
@@ -3574,7 +3920,6 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
             p[2] = { x: r2 * cos(an), y: r2 * sin(an) }
             p[3] = { x: rr2, y: 0 }
             p[4] = { x: r3 * cos(an), y: r3 * sin(an) }
-            // console.log('AN:'+JSON.stringify(p))
             const s = []
             s[0] = { x: x + d1 * cos(an), y: y + d1 * sin(an) }
             s[1] = { x: x + dd2, y: y }
@@ -3621,7 +3966,20 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
 
     }
     ///////////////////////////////////
-
+    
+function interlines(x1, y1, x2, y2, x3, y3, x4, y4) {
+    //1.108
+    //if (x1 === x2 || x3 === x4) {return "No";}
+    var m1 = (y2 - y1) / (x2 - x1);
+    var m2 = (y4 - y3) / (x4 - x3);
+    if (m1 === m2) {
+        return "No";
+    }
+    var xInt = (m1 * x1 - m2 * x3 + y3 - y1) / (m1 - m2);
+    var yInt = m1 * (xInt - x1) + y1;
+    if (isNaN(xInt) || isNaN(yInt)) {return "No"; }
+    return {x:xInt, y:yInt};
+}
 
     function compareZ(a, b) {
         return b.z - a.z;
@@ -3669,18 +4027,18 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
         });
     }
 
- function getBoxVert(scalingFactor, prof) {
+    function getBoxVert(scalingFactor, prof) {
         const type = 'box_centered'
         const center = [0, 0, 0];
         const vert = [
-            [-0.5, 0.5, 0.5,[1,4],5], // Vér 0
-            [0.5, 0.5, 0.5,[2,5],6], // Vert 1
-            [0.5, -0.5, 0.5,[3,6],7], // Vert 2
-            [-0.5, -0.5, 0.5,[0,7],4], // Vert 3
-            [-0.5, 0.5, -0.5,[5],1], // Vert 4
-            [0.5, 0.5, -0.5,[6],2], // Vert 5
-            [0.5, -0.5, -0.5,[7],3], // Vert 6
-            [-0.5, -0.5, -0.5,[4],0], // Vert 7
+            [-0.5, 0.5, 0.5, [1, 4], 5], // Vér 0
+            [0.5, 0.5, 0.5, [2, 5], 6], // Vert 1
+            [0.5, -0.5, 0.5, [3, 6], 7], // Vert 2
+            [-0.5, -0.5, 0.5, [0, 7], 4], // Vert 3
+            [-0.5, 0.5, -0.5, [5], 1], // Vert 4
+            [0.5, 0.5, -0.5, [6], 2], // Vert 5
+            [0.5, -0.5, -0.5, [7], 3], // Vert 6
+            [-0.5, -0.5, -0.5, [4], 0], // Vert 7
         ];
         for (let i = 0; i < vert.length; i++) {
             for (let j = 0; j < 3; j++) {
@@ -3690,161 +4048,166 @@ shapes.set(3.241, (n, d, tr, an, x, y) => {
                 }
 
             }
-        }  
-         return vert.map((p) => {
+        }
+        return vert.map((p) => {
             return {
                 x: p[0],
                 y: p[1],
                 z: p[2],
-                edge:p[3],
-                face:p[4],
+                edge: p[3],
+                face: p[4],
             };
 
         });
-    } 
-
- function ivertex(scaling, p) {
-  let v = [
-    [-0.5, 0.5, 0.5], // Vértice 0
-    [0.5, 0.5, 0.5], // Vértice 1
-    [0.5, -0.5, 0.5], // Vértice 2
-    [-0.5, -0.5, 0.5], // Vértice 3
-    [-0.5, 0.5, -0.5], // Vértice 4
-    [0.5, 0.5, -0.5], // Vértice 5
-    [0.5, -0.5, -0.5], // Vértice 6
-    [-0.5, -0.5, -0.5], // Vértice 7
-  ];
-
-  for (let i = 0; i < v.length; i++) {
-    for (let j = 0; j < 3; j++) {
-      v[i][j] *= scaling;
-
-      if (i > 3 && j == 2) {
-        v[i][j] -= p;
-      }
     }
-  }
-  return v;
-}
 
-function evertex(sx, sy, sz) {
-  let v = [
-    [0, 0, 0], // Vértice 0
-    [1, 0, 0], // Vértice 1
-    [1, -1, 0], // Vértice 2
-    [0, -1, 0], // Vértice 3
-    [0, 0, -1], // Vértice 4
-    [1, 0, -1], // Vértice 5
-    [1, -1, -1], // Vértice 6
-    [0, -1, -1], // Vértice 7
-  ];
-  for (let i = 0; i < v.length; i++) {
-    v[i][0] *= sx;
-    v[i][1] *= sy;
-    v[i][2] *= sz;
-  }
-  return v;
-}
-const facel = [
-  // Cara delantera 0
-  [
-    [0, 1],
-    [1, 2],
-    [2, 3],
-    [3, 0],
-  ],
+    function ivertex(scaling, p) {
+        let v = [
+            [-0.5, 0.5, 0.5], // Vértice 0
+            [0.5, 0.5, 0.5], // Vértice 1
+            [0.5, -0.5, 0.5], // Vértice 2
+            [-0.5, -0.5, 0.5], // Vértice 3
+            [-0.5, 0.5, -0.5], // Vértice 4
+            [0.5, 0.5, -0.5], // Vértice 5
+            [0.5, -0.5, -0.5], // Vértice 6
+            [-0.5, -0.5, -0.5], // Vértice 7
+        ];
 
-  //cara lateral 1
-  [
-    [0, 1],
-    [1, 5],
-    [5, 4],
-    [4, 0],
-  ],
-  //cara lateral 2
-  [
-    [1, 2],
-    [2, 6],
-    [6, 5],
-    [5, 1],
-  ],
-  //cara lateral 3
-  [
-    [2, 3],
-    [3, 7],
-    [7, 6],
-    [6, 2],
-  ],
-  //cara lateral 4
-  [
-    [3, 0],
-    [0, 4],
-    [4, 7],
-    [7, 3],
-  ],
-  // Caras posterior 5
-  [
-    [4, 5],
-    [5, 6],
-    [6, 7],
-    [7, 4],
-  ],
-    // aristas laterales
-  [
-    [0, 4],
-    [1, 5],
-    [2, 6],
-    [3, 7],
-  ],
-];
+        for (let i = 0; i < v.length; i++) {
+            for (let j = 0; j < 3; j++) {
+                v[i][j] *= scaling;
+
+                if (i > 3 && j == 2) {
+                    v[i][j] -= p;
+                }
+            }
+        }
+        return v;
+    }
+
+    function evertex(sx, sy, sz) {
+        let v = [
+            [0, 0, 0], // Vértice 0
+            [1, 0, 0], // Vértice 1
+            [1, -1, 0], // Vértice 2
+            [0, -1, 0], // Vértice 3
+            [0, 0, -1], // Vértice 4
+            [1, 0, -1], // Vértice 5
+            [1, -1, -1], // Vértice 6
+            [0, -1, -1], // Vértice 7
+        ];
+        for (let i = 0; i < v.length; i++) {
+            v[i][0] *= sx;
+            v[i][1] *= sy;
+            v[i][2] *= sz;
+        }
+        return v;
+    }
+    const facel = [
+        // Cara delantera 0
+        [
+            [0, 1],
+            [1, 2],
+            [2, 3],
+            [3, 0],
+        ],
+
+        //cara lateral 1
+        [
+            [0, 1],
+            [1, 5],
+            [5, 4],
+            [4, 0],
+        ],
+        //cara lateral 2
+        [
+            [1, 2],
+            [2, 6],
+            [6, 5],
+            [5, 1],
+        ],
+        //cara lateral 3
+        [
+            [2, 3],
+            [3, 7],
+            [7, 6],
+            [6, 2],
+        ],
+        //cara lateral 4
+        [
+            [3, 0],
+            [0, 4],
+            [4, 7],
+            [7, 3],
+        ],
+        // Caras posterior 5
+        [
+            [4, 5],
+            [5, 6],
+            [6, 7],
+            [7, 4],
+        ],
+        // aristas laterales
+        [
+            [0, 4],
+            [1, 5],
+            [2, 6],
+            [3, 7],
+        ],
+    ];
 
 
-function mpoint(vert,f) {
+    function mpoint(vert, f) {
 
-  var v1 = f[0];
-  var v2 = f[1];
-  var v5 = createVector(vert[v1][0], vert[v1][1], vert[v1][2]);
-  var v6 = createVector(vert[v2][0], vert[v2][1], vert[v2][2]);
-  return p5.Vector.lerp(v5, v6, 0.5);
-  
-}
-function mpoint2(vert,a,e) {
-  var v5 = createVector(vert[a].x, vert[a].y, vert[a].z);
-  var v6 = createVector(vert[e].x, vert[e].y, vert[e].z);
-  var a= p5.Vector.lerp(v5, v6, 0.5); 
-  return {x:a.x, y:a.y, z:a.z}
-}
-function line3(vert,a,e){
-    shape2.beginShape();
-    shape2.vertex(vert[a].x, vert[a].y, vert[a].z);
-    shape2.vertex(vert[e].x, vert[e].y, vert[e].z);
-    shape2.endShape(); 
-}
-function line31(vert,a,e){
-    shape2.beginShape();
-    shape2.vertex(a.x, a.y, a.z);
-    shape2.vertex(e.x, e.y, e.z);
-    shape2.endShape();
-}
-function line32(vert,a,e){
-    shape2.beginShape();
-    shape2.vertex(vert[a].x, vert[a].y, vert[a].z);
-    shape2.vertex(e.x, e.y, e.z);
-    shape2.endShape();
-}
- function getBoxData(scalingFactor, prof) {
-    /*
-          7 -------- 6
-         /|         /|
-        3 -------- 2 |
-        | |        | |
-        | |   i    | |
-        | 4 -------| 5
-        |/         |/
-        0e ------- 1
-      */
-   
-   let vert=ivertex(scalingFactor,prof)     
+        var v1 = f[0];
+        var v2 = f[1];
+        var v5 = createVector(vert[v1][0], vert[v1][1], vert[v1][2]);
+        var v6 = createVector(vert[v2][0], vert[v2][1], vert[v2][2]);
+        return p5.Vector.lerp(v5, v6, 0.5);
+
+    }
+
+    function mpoint2(vert, a, e) {
+        var v5 = createVector(vert[a].x, vert[a].y, vert[a].z);
+        var v6 = createVector(vert[e].x, vert[e].y, vert[e].z);
+        var a = p5.Vector.lerp(v5, v6, 0.5);
+        return { x: a.x, y: a.y, z: a.z }
+    }
+
+    function line3(vert, a, e) {
+        shape2.beginShape();
+        shape2.vertex(vert[a].x, vert[a].y, vert[a].z);
+        shape2.vertex(vert[e].x, vert[e].y, vert[e].z);
+        shape2.endShape();
+    }
+
+    function line31(vert, a, e) {
+        shape2.beginShape();
+        shape2.vertex(a.x, a.y, a.z);
+        shape2.vertex(e.x, e.y, e.z);
+        shape2.endShape();
+    }
+
+    function line32(vert, a, e) {
+        shape2.beginShape();
+        shape2.vertex(vert[a].x, vert[a].y, vert[a].z);
+        shape2.vertex(e.x, e.y, e.z);
+        shape2.endShape();
+    }
+
+    function getBoxData(scalingFactor, prof) {
+        /*
+              7 -------- 6
+             /|         /|
+            3 -------- 2 |
+            | |        | |
+            | |   i    | |
+            | 4 -------| 5
+            |/         |/
+            0e ------- 1
+          */
+
+        let vert = ivertex(scalingFactor, prof)
         return vert.map((p) => {
             return {
                 x: p[0],
@@ -3854,9 +4217,9 @@ function line32(vert,a,e){
 
         });
 
-   }
+    }
 
-function getHelixBoxVert(scalingFactor, prof) {
+    function getHelixBoxVert(scalingFactor, prof) {
         const type = 'tetrahedron_regular_centered'
         const center = [0, 0, 0];
         const vert = [
@@ -3950,7 +4313,6 @@ function getHelixBoxVert(scalingFactor, prof) {
             shape2.vertex(vert[2].x, vert[2].y, vert[2].z, 0, h);
             shape2.vertex(vert[3].x, vert[3].y, vert[3].z, w, h);
             shape2.endShape();
-            //console.log(vert)
         }
         if (n == 2) {
             //Tetrahedrom faces
@@ -3996,10 +4358,9 @@ function getHelixBoxVert(scalingFactor, prof) {
             shape2.noStroke();
             shape2.imageMode(CENTER);
             shape2.vertex(vert[0].x, vert[0].y, vert[0].z, 0, 0);
-            shape2.vertex(vert[1].x, vert[1].y, vert[1].z, w, h/2);
+            shape2.vertex(vert[1].x, vert[1].y, vert[1].z, w, h / 2);
             shape2.vertex(vert[2].x, vert[2].y, vert[2].z, 0, h);
             shape2.endShape();
-            //console.log(vert)
         }
     }
 
@@ -4009,198 +4370,460 @@ function getHelixBoxVert(scalingFactor, prof) {
             y: (1 - t) ** 3 * a.y + 3 * (1 - t) ** 2 * t * b.y + 3 * (1 - t) * t ** 2 * c.y + t ** 3 * d.y
         }
     }
-//////////////////////
- class Flower {
-    //1.8
-  constructor(cx, cy, x, y, d, r, nn, petal) {
-    this.n = 6;
-    this.r = r;
-    this.nn = nn;
-    this.cx = cx;
-    this.cy = cy;
-    this.aco = this.loadColor(x,y,d);
-    this.petal = petal;
-    //console.log(JSON.stringify(this.aco))
-  }
-  init() {
-    shape2.noStroke()
-    var r=this.r, nn=this.nn, petal=this.petal
-    var colorLayer=0
-    this.polen(this.cx, this.cy, this.n, r, nn, petal,colorLayer);
-    var mod = r * (sqrt(3) / 2);
-    var mad = PI / 3;
-    var imad = PI / 6;
-    var x, y;
-    colorLayer=1
-    for (var a = 0; a < 6; a++) {
-      x = r * 2 * cos(imad + mad * a);
-      y = r * 2 * sin(imad + mad * a);
-      var cola=a%2
-      this.polen(x, y, this.n, r, nn, petal,cola);
+    //////////////////////
+    class Flower {
+        //1.8
+        constructor(cx, cy, x, y, d, r, nn, petal) {
+            this.n = 6;
+            this.r = r;
+            this.nn = nn;
+            this.cx = cx;
+            this.cy = cy;
+            this.aco = this.loadColor(x, y, d);
+            this.petal = petal;
+        }
+        init() {
+            shape2.noStroke()
+            var r = this.r,
+                nn = this.nn,
+                petal = this.petal
+            var colorLayer = 0
+            this.polen(this.cx, this.cy, this.n, r, nn, petal, colorLayer);
+            var mod = r * (sqrt(3) / 2);
+            var mad = PI / 3;
+            var imad = PI / 6;
+            var x, y;
+            colorLayer = 1
+            for (var a = 0; a < 6; a++) {
+                x = r * 2 * cos(imad + mad * a);
+                y = r * 2 * sin(imad + mad * a);
+                var cola = a % 2
+                this.polen(x, y, this.n, r, nn, petal, cola);
+            }
+
+            var x0, y0, x1, y1, x2, y2;
+            colorLayer = 2
+            for (a = 0; a < 6; a++) {
+                x1 = r * cos(a * mad - imad);
+                y1 = r * sin(a * mad - imad);
+                x2 = mod * 2 * cos(a * mad);
+                y2 = mod * 2 * sin(a * mad);
+                x0 = r * cos(a * mad + imad);
+                y0 = r * sin(a * mad + imad);
+                this.trilen(x0, y0, x1, y1, x2, y2, nn, petal, colorLayer);
+            }
+            colorLayer = 3
+            for (a = 0; a < 8; a++) {
+                x0 = mod * 2 * cos(a * mad);
+                y0 = mod * 2 * sin(a * mad);
+                x1 = x0 + r * cos(a * mad - imad);
+                y1 = y0 + r * sin(a * mad - imad);
+                x2 = x0 + r * cos(a * mad + imad);
+                y2 = y0 + r * sin(a * mad + imad);
+                this.trilen(x0, y0, x1, y1, x2, y2, nn, petal, colorLayer);
+            }
+        }
+
+        polen(x0, y0, n, r, vert = 2, mode = false, colorLayer = 0) {
+            var xi = x0;
+            var yi = y0;
+            var verti = vert;
+            var mod = TWO_PI / n;
+            var an = -HALF_PI;
+            var x1, y1, x2, y2;
+
+            for (var v = 0; v < n; v++) {
+                x1 = x0 + r * cos(an);
+                y1 = y0 + r * sin(an);
+                an += mod;
+                x2 = x0 + r * cos(an);
+                y2 = y0 + r * sin(an);
+                var cola = v % 3
+                this.trilen(x0, y0, x1, y1, x2, y2, verti, mode, colorLayer);
+            }
+        }
+        trilen(x0, y0, x1, y1, x2, y2, nn, extra = false, colorLayer = 0) {
+            var bo1 = [];
+            var bo2 = [];
+            var bo3 = [];
+            var bo = [];
+            shape2.fill(this.aco[0][0]);
+            //shape2.texture(img[org])
+            shape2.beginShape();
+            shape2.vertex(x0, y0);
+            shape2.vertex(x1, y1);
+            shape2.vertex(x2, y2);
+            shape2.endShape();
+            shape2.fill(this.aco[colorLayer][1]);
+            if (extra) {
+                this.equilen(x0, y0, x1, y1, 1, nn);
+            }
+            shape2.fill(this.aco[colorLayer][2]);
+            bo1 = this.equilen(x0, y0, x1, y1, -1, nn);
+            if (extra) {
+                this.equilen(x1, y1, x2, y2, 1, nn);
+            }
+            shape2.fill(this.aco[colorLayer][1]);
+            bo2 = this.equilen(x1, y1, x2, y2, -1, nn);
+            shape2.fill(this.aco[colorLayer][1]);
+            if (extra) {
+                shape2.fill(this.aco[colorLayer][2]);
+                this.equilen(x2, y2, x0, y0, 1, nn);
+            }
+            shape2.fill(this.aco[colorLayer][1]);
+            bo3 = this.equilen(x2, y2, x0, y0, -1, nn);
+            bo = bo1.concat(bo2, bo3);
+            if (nn < 5) {
+                shape2.fill(this.aco[colorLayer][3]);
+                shape2.beginShape();
+                shape2.vertex(bo1[bo1.length - 1].x, bo1[bo1.length - 1].y);
+                shape2.vertex(bo1[bo1.length - 2].x, bo1[bo1.length - 2].y);
+                shape2.vertex(bo3[1].x, bo3[1].y);
+                shape2.endShape(CLOSE);
+                shape2.fill(this.aco[colorLayer][4]);
+                shape2.beginShape();
+                shape2.vertex(bo2[bo2.length - 1].x, bo2[bo2.length - 1].y);
+                shape2.vertex(bo2[bo1.length - 2].x, bo2[bo2.length - 2].y);
+                shape2.vertex(bo1[1].x, bo1[1].y);
+                shape2.endShape(CLOSE);
+                shape2.fill(this.aco[colorLayer][4]);
+                shape2.beginShape();
+                shape2.vertex(bo3[bo3.length - 1].x, bo3[bo3.length - 1].y);
+                shape2.vertex(bo3[bo3.length - 2].x, bo3[bo3.length - 2].y);
+                shape2.vertex(bo2[1].x, bo2[1].y);
+                shape2.endShape(CLOSE);
+            }
+        }
+        equilen(x0, y0, x1, y1, emi = 1, n = 12) {
+            let ca = 0;
+            let ce = 0;
+            let x2 = 0;
+            let y2 = 0;
+            var an = atan2(y1 - y0, x1 - x0);
+            var r = dist(x0, y0, x1, y1);
+            ca = an + (PI - PI / 3);
+            ce = an + (PI + PI / 3);
+            let se = 0;
+            if (emi == 1) {
+                x2 = x1 + r * cos(ca);
+                y2 = y1 + r * sin(ca);
+                se = ce;
+            }
+            if (emi == -1) {
+                x2 = x1 + r * cos(ce);
+                y2 = y1 + r * sin(ce);
+                se = ca;
+            }
+            var ani = atan2(y1 - y2, x1 - x2);
+            var mod = PI / 3 / n;
+            var can = ani;
+            var m = [];
+
+            shape2.beginShape();
+            var x, y;
+            for (var a = 0; a < n + 1; a++) {
+                x = x2 + r * cos(can);
+                y = y2 + r * sin(can);
+                shape2.vertex(x, y);
+                //if(a>0 && a<n){
+                m.push({ x: x, y: y });
+                //}
+                if (emi == 1) {
+                    can -= mod;
+                }
+                if (emi == -1) {
+                    can += mod;
+                }
+            }
+            shape2.endShape(CLOSE);
+            return m;
+        }
+        flowbox(face, pos, ny, r, coa) {
+            //0.102
+            var ain = 0;
+            var rr = r;
+            if (ny == 0) {
+                ain = -PI / 6;
+                rr = 0;
+            }
+            if (ny == 1) {
+                ain = PI + PI / 6;
+                rr = r * 2;
+            }
+            if (ny == 2) {
+                ain = -PI / 2;
+                rr = r * 2;
+            }
+            if (ny == 3) {
+                ain = -PI / 6;
+                rr = r * 2;
+            }
+            if (ny == 4) {
+                ain = PI / 6;
+                rr = r * 2;
+            }
+            if (ny == 5) {
+                ain = PI / 2;
+                rr = r * 2;
+            }
+            if (ny == 6) {
+                ain = PI - PI / 6;
+                rr = r * 2;
+            }
+
+            var x0 = pos.x + rr * cos(ain);
+            var y0 = pos.y + rr * sin(ain);
+            var x1, y1, x2, y2, x3, y3;
+            var mod = PI / 3;
+            var an = PI + PI / 6;
+            var r2 = r;
+            if (face == 1) {
+                an = PI + PI / 6;
+                //var co1 = [...this.aco[0][1]];
+                //co1[3] = 140;
+               shape2.fill(coa[1]);
+            }
+            if (face == 2) {
+                an = -PI / 6;
+                //shape2.fill(this.aco[0][2]);
+                shape2.fill(coa[2]);
+            }
+            if (face == 3) {
+                an = HALF_PI;
+                //shape2.fill(this.aco[0][3]);
+                shape2.fill(coa[3]);
+            }
+            if (face == 4) {
+                an = HALF_PI / 3;
+                shape2.fill(coa[4]);
+            }
+            if (face == 5) {
+                an = PI - PI / 6;
+                shape2.fill(coa[5]);
+            }
+
+            if (face == 6) {
+                an = -PI / 2;
+                shape2.fill(coa[6]);
+            }
+            if (face == 7) {
+                an = -PI / 2;
+                mod = PI / 6;
+                shape2.fill(coa[7]);
+                r2 = r * 2 * (sqrt(3) / 2);
+            }
+            if (face == 8) {
+                an = -PI / 6;
+                mod = PI / 6;
+                shape2.fill(coa[8]);
+                r2 = r * 2 * (sqrt(3) / 2);
+            }
+            if (face == 9) {
+                an = PI / 6;
+                mod = PI / 6;
+                shape2.fill(coa[9]);
+                r2 = r * 2 * (sqrt(3) / 2);
+            }
+            if (face == 10) {
+                an = PI / 2;
+                mod = PI / 6;
+                shape2.fill(coa[10]);
+                r2 = r * 2 * (sqrt(3) / 2);
+            }
+            if (face == 11) {
+                an = PI - PI / 6;
+                mod = PI / 6;
+                shape2.fill(coa[11]);
+                r2 = r * 2 * (sqrt(3) / 2);
+            }
+
+            if (face == 12) {
+                an = PI + PI / 6;
+                mod = PI / 6;
+                shape2.fill(coa[12]);
+                r2 = r * 2 * (sqrt(3) / 2);
+            }
+
+            x1 = x0 + r * cos(an);
+            y1 = y0 + r * sin(an);
+            an += mod;
+            x2 = x0 + r2 * cos(an);
+            y2 = y0 + r2 * sin(an);
+            an += mod;
+            x3 = x0 + r * cos(an);
+            y3 = y0 + r * sin(an);
+
+            shape2.beginShape();
+            shape2.vertex(x0, y0);
+            shape2.vertex(x1, y1);
+            shape2.vertex(x2, y2);
+            shape2.vertex(x3, y3);
+            shape2.endShape(CLOSE);
+
+        }
+        loadColor(x, y, d) {
+            var aco = [
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+            ];
+            if (floor(d) % 2 == 0) {
+                aco[0][0] = [0, 0, 0, 0];
+            }
+            var col = [];
+            var mod = floor(d / 6)
+            for (var j = 0; j < 13; j++) {
+                col = img[org].get(x + mod * j, y)
+                aco[0].push(col);
+                col = img[org].get(x, y + mod * j)
+                aco[1].push(col);
+                col = img[org].get(x + mod * 3 + j, y + j)
+                aco[2].push(col);
+                col = img[org].get(x + j, y + mod * 3 + j)
+                aco[3].push(col);
+                col = img[org].get(x, y + d / 2 + j)
+                aco[4].push(col);
+                col = img[org].get(x + d / 2 + j, y + d / 2 + j)
+                aco[5].push(col)
+                col = img[org].get(x + mod * 1, y + mod * 1)
+                aco[6].push(col)
+                col = img[org].get(x + mod * 2, y + mod * 1)
+                aco[7].push(col)
+                col = img[org].get(x + mod * 3, y + mod * 2)
+                aco[8].push(col)
+                col = img[org].get(x + mod * 4, y + mod * 2)
+                aco[9].push(col)
+                col = img[org].get(x + mod * 5, y + mod * 3)
+                aco[10].push(col)
+                col = img[org].get(x + mod * 6, y + mod * 4)
+                aco[11].push(col)
+                col = img[org].get(x + mod * 1, y + mod * 4)
+                aco[12].push(col)
+
+            }
+            return aco;
+        }
     }
 
-    var x0, y0, x1, y1, x2, y2;
-    colorLayer=2
-    for (a = 0; a < 6; a++) {
-      x1 = r * cos(a * mad - imad);
-      y1 = r * sin(a * mad - imad);
-      x2 = mod * 2 * cos(a * mad);
-      y2 = mod * 2 * sin(a * mad);
-      x0 = r * cos(a * mad + imad);
-      y0 = r * sin(a * mad + imad);
-      this.trilen(x0, y0, x1, y1, x2, y2, nn, petal,colorLayer);
+class Circone {
+    //0.108 use
+  constructor(x1=0,y1=-200, x2=0,y2=200,iangle=PI/2) {
+    this.iangle = iangle;
+    this.x1=x1;
+    this.y1=y1;
+    this.x2=x2;
+    this.y2=y2;
     }
-    colorLayer=3
-    for (a = 0; a < 8; a++) {
-      x0 = mod * 2 * cos(a * mad);
-      y0 = mod * 2 * sin(a * mad);
-      x1 = x0 + r * cos(a * mad - imad);
-      y1 = y0 + r * sin(a * mad - imad);
-      x2 = x0 + r * cos(a * mad + imad);
-      y2 = y0 + r * sin(a * mad + imad);
-      this.trilen(x0, y0, x1, y1, x2, y2, nn, petal,colorLayer);
-    }
-  }
+  init(cont) {
+  var alphi = cont;
+  //var alphi =this.iangle;
+  var halphi = alphi / 2;
+  var V = createVector(this.x1 * cos(cont), this.y1);
+  //var V = createVector(this.x1, this.y1);
+  var D = createVector(this.x2, this.y2);
+  var alphi0 = atan2(D.y - V.y, D.x - V.x);
+  var dds = dist(V.x, V.y, D.x, D.y);
+  var dc = this.p2c(V, dds, alphi0);
+  var lea = alphi0 + halphi;
+  var ria = alphi0 - halphi;
+  var sel = this.p2c(V, 1300, lea);
+  var ser = this.p2c(V, 1300, ria);
+  var tl = this.perpendPL(V, sel, D);
+  var r = dist(D.x, D.y, tl.x, tl.y);
+  var np =this.p2c(D, r, alphi0 - PI);
+  var np0 = np;
+  var nd = this.p2c(D, r, alphi0);
+  var cp = this.c2pt(nd, tl, D);
+  var T1 = this.findIntersection(D, cp, V, sel);
+  var cq = this.c2pt(tl, D, T1);
+  var C = this.findIntersection(T1, cq, D, V);
+  var dd = dist(C.x, C.y, T1.x, T1.y);
+  var pt2 = this.perpendPL(D, V, T1);
+  var T2 = this.findIntersection(T1, pt2, V, ser);
+  shape2.fill(20);
+  shape2.noStroke();
+  shape2.ellipse(C.x, C.y, dd * 2, dd * 2, 60);
+  shape2.beginShape();
+  shape2.vertex(V.x, V.y);
+  shape2.vertex(T2.x, T2.y);
+  shape2.vertex(T1.x, T1.y);
+  shape2.endShape(CLOSE);
 
-  polen(x0, y0, n, r, vert = 2, mode = false,colorLayer=0) {
-    var xi = x0;
-    var yi = y0;
-    var verti = vert;
-    var mod = TWO_PI / n;
-    var an = -HALF_PI;
-    var x1, y1, x2, y2;
-    
-    for (var v = 0; v < n; v++) {
-      x1 = x0 + r * cos(an);
-      y1 = y0 + r * sin(an);
-      an += mod;
-      x2 = x0 + r * cos(an);
-      y2 = y0 + r * sin(an);
-     var cola=v%3
-      this.trilen(x0, y0, x1, y1, x2, y2, verti, mode,colorLayer);
-    }
+ 
+}
+   p2c(p, r, an) {
+  // Polar to cartesians
+  const x = p.x + r * cos(an);
+  const y = p.y + r * sin(an);
+  return { x, y };
+}
+ c2p(p1, p2) {
+  // Cartesians to Polar
+  var dx = p2.x - p1.x;
+  var dy = p2.y - p1.y;
+  var r = sqrt(dx * dx + dy * dy);
+  var a = atan2(dy, dy);
+  if (a < 0) {
+    a += 2 * PI;
   }
-  trilen(x0, y0, x1, y1, x2, y2, nn, extra = false,colorLayer=0) {
-    var bo1 = [];
-    var bo2 = [];
-    var bo3 = [];
-    var bo = [];
-    shape2.fill(this.aco[0][0]);
-    //shape2.texture(img[org])
-    shape2.beginShape();
-    shape2.vertex(x0, y0);
-    shape2.vertex(x1, y1);
-    shape2.vertex(x2, y2);
-    shape2.endShape();
-    shape2.fill(this.aco[colorLayer][1]);
-    if (extra) {
-      this.equilen(x0, y0, x1, y1, 1, nn);
-    }
-    shape2.fill(this.aco[colorLayer][2]);
-    bo1 = this.equilen(x0, y0, x1, y1, -1, nn);
-    if (extra) {
-      this.equilen(x1, y1, x2, y2, 1, nn);
-    }
-    shape2.fill(this.aco[colorLayer][1]);
-    bo2 = this.equilen(x1, y1, x2, y2, -1, nn);
-    shape2.fill(this.aco[colorLayer][1]);
-    if (extra) {
-      shape2.fill(this.aco[colorLayer][2]);
-      this.equilen(x2, y2, x0, y0, 1, nn);
-    }
-    shape2.fill(this.aco[colorLayer][1]);
-    bo3 = this.equilen(x2, y2, x0, y0, -1, nn);
-    bo = bo1.concat(bo2, bo3);
-    shape2.fill(this.aco[colorLayer][3]);
-    shape2.beginShape();
-    shape2.vertex(bo1[bo1.length - 1].x, bo1[bo1.length - 1].y);
-    shape2.vertex(bo1[bo1.length - 2].x, bo1[bo1.length - 2].y);
-    shape2.vertex(bo3[1].x, bo3[1].y);
-    shape2.endShape(CLOSE);
-    shape2.fill(this.aco[colorLayer][4]);
-    shape2.beginShape();
-    shape2.vertex(bo2[bo2.length - 1].x, bo2[bo2.length - 1].y);
-    shape2.vertex(bo2[bo1.length - 2].x, bo2[bo2.length - 2].y);
-    shape2.vertex(bo1[1].x, bo1[1].y);
-    shape2.endShape(CLOSE);
-    shape2.fill(this.aco[colorLayer][4]);
-    shape2.beginShape();
-    shape2.vertex(bo3[bo3.length - 1].x, bo3[bo3.length - 1].y);
-    shape2.vertex(bo3[bo3.length - 2].x, bo3[bo3.length - 2].y);
-    shape2.vertex(bo2[1].x, bo2[1].y);
-    shape2.endShape(CLOSE);
-  }
-  equilen(x0, y0, x1, y1, emi = 1, n = 12) {
-    let ca = 0;
-    let ce = 0;
-    let x2 = 0;
-    let y2 = 0;
-    var an = atan2(y1 - y0, x1 - x0);
-    var r = dist(x0, y0, x1, y1);
-    ca = an + (PI - PI / 3);
-    ce = an + (PI + PI / 3);
-    let se = 0;
-    if (emi == 1) {
-      x2 = x1 + r * cos(ca);
-      y2 = y1 + r * sin(ca);
-      se = ce;
-    }
-    if (emi == -1) {
-      x2 = x1 + r * cos(ce);
-      y2 = y1 + r * sin(ce);
-      se = ca;
-    }
-    var ani = atan2(y1 - y2, x1 - x2);
-    var mod = PI / 3 / n;
-    var can = ani;
-    var m = [];
+  return { r: r, a: a };
+}
+ c2pt(p1, p2, p3) {
+  p1 = createVector(p1.x, p1.y);
+  p2 = createVector(p2.x, p2.y);
+  p3 = createVector(p3.x, p3.y);
+  let r = dist(p1.x, p1.y, p2.x, p2.y);
+  let theta = atan2(p2.y - p1.y, p2.x - p1.x);
+  var p4 = createVector();
+  p4.x = p3.x + r * 2 * cos(theta);
+  p4.y = p3.y + r * 2 * sin(theta);
 
-    shape2.beginShape();
-    var x, y;
-    for (var a = 0; a < n + 1; a++) {
-      x = x2 + r * cos(can);
-      y = y2 + r * sin(can);
-      shape2.vertex(x, y);
-      //if(a>0 && a<n){
-      m.push({ x: x, y: y });
-      //}
-      if (emi == 1) {
-        can -= mod;
-      }
-      if (emi == -1) {
-        can += mod;
-      }
-    }
-    shape2.endShape(CLOSE);
-    return m;
+  return p4;
+}
+ perpendPL(A, B, P) {
+  // perpendicular from point to line
+  const m = (B.y - A.y) / (B.x - A.x);
+  const m_perp = -1 / m;
+  const Ix = (P.y - m_perp * P.x - A.y + m * A.x) / (m - m_perp);
+  const Iy = m * (Ix - A.x) + A.y;
+  if (isNaN(Ix) || isNaN(Iy)) {
+    return { x: P.x + 100, y: P.y };
   }
-  loadColor(x,y,d) {
-    var aco = [[],[],[],[],[],[],[]];
-    if(floor(d)%2==0){
-        aco[0][0] = [0, 0, 0, 0];
-    }
-    var col = [];
-    var mod=floor(d/6)
-    for (var j = 1; j < 7; j++) {
-      col=img[org].get(x+mod*j,y)
-      aco[0].push(col);
-      col=img[org].get(x,y+mod*j)
-      aco[1].push(col);
-      col=img[org].get(x+mod*3+j,y+j)
-      aco[2].push(col);
-      col=img[org].get(x+j,y+mod*3+j)
-      aco[3].push(col);
-      col=img[org].get(x,y+d/2+j)
-      aco[4].push(col);
-      col=img[org].get(x+d/2+j,y+d/2+j)
-      aco[5].push(col)
-      col=img[org].get(x+mod*4+j,y+mod*4)
-      aco[6].push(col)
-     
-    }
-    return aco;
+  return { x: Ix, y: Iy };
+}
+
+  findIntersection(p1, p2, q1, q2) {
+  let A1 = p2.y - p1.y;
+  let B1 = p1.x - p2.x;
+  let C1 = A1 * p1.x + B1 * p1.y;
+
+  let A2 = q2.y - q1.y;
+  let B2 = q1.x - q2.x;
+  let C2 = A2 * q1.x + B2 * q1.y;
+  let det = A1 * B2 - A2 * B1;
+  if (det === 0) {
+    console.log("are paralel");
+    return null;
+  } else {
+    let x = (B2 * C1 - B1 * C2) / det;
+    let y = (A1 * C2 - A2 * C1) / det;
+    return { x: x, y: y };
   }
 }
+
+}  
+
     </script>
 </body>
 
