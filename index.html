@@ -153,7 +153,7 @@ table {
                 <p style="text-align: right;"><button type="button" onclick="toggleMenu()" class="butty apply" style="">Apply</button></p>
                 <div style="text-align: left;">
                     <p><a class="saveCode" style="">Save code</a>
-                        <p class="nameapp"><i>Image2shapes 0.94</i></p>
+                        <p class="nameapp"><i>Image2shapes 0.95</i></p>
                 </div>
             </div>
         </div>
@@ -4715,60 +4715,38 @@ function interlines(x1, y1, x2, y2, x3, y3, x4, y4) {
             return aco;
         }
     }
+//////////////////////
+// GEOMETRIC FUNTIONS
+//////////////////////
 
-class Circone {
-    //0.108 use
-  constructor(x1=0,y1=-200, x2=0,y2=200,iangle=PI/2) {
-    this.iangle = iangle;
-    this.x1=x1;
-    this.y1=y1;
-    this.x2=x2;
-    this.y2=y2;
-    }
-  init(cont) {
-  var alphi = cont;
-  //var alphi =this.iangle;
-  var halphi = alphi / 2;
-  var V = createVector(this.x1 * cos(cont), this.y1);
-  //var V = createVector(this.x1, this.y1);
-  var D = createVector(this.x2, this.y2);
-  var alphi0 = atan2(D.y - V.y, D.x - V.x);
-  var dds = dist(V.x, V.y, D.x, D.y);
-  var dc = this.p2c(V, dds, alphi0);
-  var lea = alphi0 + halphi;
-  var ria = alphi0 - halphi;
-  var sel = this.p2c(V, 1300, lea);
-  var ser = this.p2c(V, 1300, ria);
-  var tl = this.perpendPL(V, sel, D);
-  var r = dist(D.x, D.y, tl.x, tl.y);
-  var np =this.p2c(D, r, alphi0 - PI);
-  var np0 = np;
-  var nd = this.p2c(D, r, alphi0);
-  var cp = this.c2pt(nd, tl, D);
-  var T1 = this.findIntersection(D, cp, V, sel);
-  var cq = this.c2pt(tl, D, T1);
-  var C = this.findIntersection(T1, cq, D, V);
-  var dd = dist(C.x, C.y, T1.x, T1.y);
-  var pt2 = this.perpendPL(D, V, T1);
-  var T2 = this.findIntersection(T1, pt2, V, ser);
-  shape2.fill(20);
-  shape2.noStroke();
-  shape2.ellipse(C.x, C.y, dd * 2, dd * 2, 60);
-  shape2.beginShape();
-  shape2.vertex(V.x, V.y);
-  shape2.vertex(T2.x, T2.y);
-  shape2.vertex(T1.x, T1.y);
-  shape2.endShape(CLOSE);
+function dsegment(x1, y1, x2, y2, n) {
+  //divide segment in n parts
+  let dx = x2 - x1;
+  let dy = y2 - y1;
+  let sl = dist(x1, y1, x2, y2);
+  let ssl = sl / n;
+  var part = [{ x: x1, y: y1 }];
+  for (let i = 1; i < n; i++) {
+    let nx = x1 + (dx / sl) * ssl * i;
+    let ny = y1 + (dy / sl) * ssl * i;
+    part.push({ x: nx, y: ny });
+  }
+  part.push({ x: x2, y: y2 });
+  return part;
+}
 
- 
-}
-   p2c(p, r, an) {
-  // Polar to cartesians
-  const x = p.x + r * cos(an);
-  const y = p.y + r * sin(an);
-  return { x, y };
-}
- c2p(p1, p2) {
+function midPoint(p1,p2){
+    return createVector(p1.x+p2.x, p1.y+p2.y).mult(0.5);
+  }
+
+function  p2c(p, r, an) {
+    // Polar to cartesians
+    const x = p.x + r * cos(an);
+    const y = p.y + r * sin(an);
+    return { x, y };
+  }
+
+function  c2p(p1, p2) {
   // Cartesians to Polar
   var dx = p2.x - p1.x;
   var dy = p2.y - p1.y;
@@ -4779,19 +4757,21 @@ class Circone {
   }
   return { r: r, a: a };
 }
- c2pt(p1, p2, p3) {
+
+ function c2pt(p1, p2, p3,  scl=1) {
+  //translate vector
   p1 = createVector(p1.x, p1.y);
   p2 = createVector(p2.x, p2.y);
   p3 = createVector(p3.x, p3.y);
   let r = dist(p1.x, p1.y, p2.x, p2.y);
   let theta = atan2(p2.y - p1.y, p2.x - p1.x);
   var p4 = createVector();
-  p4.x = p3.x + r * 2 * cos(theta);
-  p4.y = p3.y + r * 2 * sin(theta);
-
+  p4.x = p3.x + r * scl * cos(theta);
+  p4.y = p3.y + r * scl * sin(theta);
   return p4;
 }
- perpendPL(A, B, P) {
+
+function perpendPL(A, B, P) {
   // perpendicular from point to line
   const m = (B.y - A.y) / (B.x - A.x);
   const m_perp = -1 / m;
@@ -4803,7 +4783,8 @@ class Circone {
   return { x: Ix, y: Iy };
 }
 
-  findIntersection(p1, p2, q1, q2) {
+function findIntersection(p1, p2, q1, q2) {
+  // point intesection two lines
   let A1 = p2.y - p1.y;
   let B1 = p1.x - p2.x;
   let C1 = A1 * p1.x + B1 * p1.y;
@@ -4821,6 +4802,53 @@ class Circone {
     return { x: x, y: y };
   }
 }
+
+///////////////////
+class Circone {
+    //0.108 use
+  constructor(x1=0,y1=-200, x2=0,y2=200,iangle=PI/2) {
+    this.iangle = iangle;
+    this.x1=x1;
+    this.y1=y1;
+    this.x2=x2;
+    this.y2=y2;
+    }
+  init(cont) {
+  var alphi = cont;
+  //var alphi =this.iangle;
+  var halphi = alphi / 2;
+  //var V = createVector(this.x1 * cos(cont), this.y1);
+  var V = createVector(this.x1, this.y1);
+  var D = createVector(this.x2, this.y2);
+  var alphi0 = atan2(D.y - V.y, D.x - V.x);
+  var dds = dist(V.x, V.y, D.x, D.y);
+  var dc = p2c(V, dds, alphi0);
+  var lea = alphi0 + halphi;
+  var ria = alphi0 - halphi;
+  var sel = p2c(V, 1300, lea);
+  var ser = p2c(V, 1300, ria);
+  var tl = perpendPL(V, sel, D);
+  var r = dist(D.x, D.y, tl.x, tl.y);
+  var np =p2c(D, r, alphi0 - PI);
+  var np0 = np;
+  var nd = p2c(D, r, alphi0);
+  var cp = c2pt(nd, tl, D);
+  var T1 = findIntersection(D, cp, V, sel);
+  var cq = c2pt(tl, D, T1);
+  var C = findIntersection(T1, cq, D, V);
+  var dd = dist(C.x, C.y, T1.x, T1.y);
+  var pt2 = perpendPL(D, V, T1);
+  var T2 = findIntersection(T1, pt2, V, ser);
+  shape2.fill(20);
+  shape2.noStroke();
+  shape2.ellipse(C.x, C.y, dd * 2, dd * 2, 60);
+  shape2.beginShape();
+  shape2.vertex(V.x, V.y);
+  shape2.vertex(T2.x, T2.y);
+  shape2.vertex(T1.x, T1.y);
+  shape2.endShape(CLOSE); 
+}
+
 
 }  
 
